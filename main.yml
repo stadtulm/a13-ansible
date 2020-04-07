@@ -5,3 +5,12 @@
     - vars.yml
   roles:
     - base
+
+- name: Monitored host
+  hosts: all
+  vars:
+    _node_exporter_binary_install_dir: '/opt/node_exporter'
+    _node_exporter_system_group: 'prometheus'
+    _node_exporter_system_user: 'prometheus'
+  roles:
+    - cloudalchemy.node-exporter
