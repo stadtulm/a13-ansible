@@ -82,3 +82,22 @@
       line: '#includedir /etc/sudoers.d'
       state: present
       validate: '/usr/sbin/visudo -cf %s'
+
+  - name: Ensure clean motd
+    file:
+      path: '/etc/update-motd.d/{{item}}'
+      state: absent
+    with_items:
+      - 50-motd-news
+      - 80-esm
+      - 80-livepatch
+
+  - name: Ensure notice about configuration managment in motd
+    copy:
+      content: |
+        #!/bin/sh
+        printf "\n"
+        printf "This system is managed with ansible, see following repository for details\n"
+        printf "https://github.com/stadtulm/a13-ansible\n"
+        printf "\n"
+      dest: /etc/update-motd.d/10-help-text
