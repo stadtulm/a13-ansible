@@ -97,5 +97,6 @@
       printf "This system is managed with ansible, see following repository for details\n"
       printf "https://github.com/stadtulm/a13-ansible\n"
       printf "\n"
+    mode: 0755
     dest: /etc/update-motd.d/11-help-text
 
