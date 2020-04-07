@@ -1,0 +1,5 @@
+---
+users:
+  - { name: 'robbi5', sshkeys: 'https://github.com/robbi5.keys' }
+  - { name: 'stk', sshkeys: 'https://github.com/stkdiretto.keys' }
+  - { name: 'ubahnverleih', sshkeys: 'https://github.com/ubahnverleih.keys' }

@@ -1,0 +1,12 @@
+[all]
+nbg01.a13.datenhilfswerk.de
+fsn01.a13.datenhilfswerk.de
+
+[bbbnode]
+nbg01.a13.datenhilfswerk.de
+
+[loadbalancer]
+fsn01.a13.datenhilfswerk.de
+
+[monitoring]
+fsn01.a13.datenhilfswerk.de
