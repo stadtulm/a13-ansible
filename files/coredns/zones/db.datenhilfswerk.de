@@ -1,0 +1,24 @@
+$ORIGIN datenhilfswerk.de.
+@	3600 IN	SOA ns.datenhilfswerk.de. noc.datenhilfswerk.de. (
+				2020040802 ; serial
+				1800       ; refresh (30 min)
+				1800       ; retry (30 min)
+				86400      ; expire (1 day)
+				3600       ; minimum (1 hour)
+				)
+
+@	3600 IN NS ns.datenhilfswerk.de.
+@	3600 IN NS hydrogen.ns.hetzner.com.
+@	3600 IN NS oxygen.ns.hetzner.com.
+@	3600 IN NS helium.ns.hetzner.de.
+
+ns 		IN A	195.201.237.77
+ns 		IN AAAA	2a01:4f8:c17:af72::1
+
+fsn01	3600	IN	A	195.201.237.77
+fsn01	3600	IN	AAAA	2a01:4f8:c17:af72::1
+nbg01	3600	IN	A	88.198.33.197
+nbg01	3600	IN	AAAA	2a01:4f8:a0:22e1::2
+
+lb		3600	IN	CNAME	fsn01.datenhilfswerk.de.
+mon		3600	IN	CNAME	fsn01.datenhilfswerk.de.

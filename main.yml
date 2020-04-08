@@ -14,3 +14,10 @@
     _node_exporter_system_user: 'prometheus'
   roles:
     - cloudalchemy.node-exporter
+
+- name: DNS Server
+  hosts: dns
+  vars:
+    coredns_config_file: files/coredns/Corefile.j2
+  roles:
+    - cloudalchemy.coredns

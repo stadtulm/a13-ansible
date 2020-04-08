@@ -1,0 +1,11 @@
+datenhilfswerk.de {
+    bind {{ ansible_default_ipv4.address }}
+    bind {{ ansible_default_ipv6.address }}
+    prometheus {{ ansible_default_ipv4.address }}:9153
+
+    root /etc/coredns/zones
+    file db.datenhilfswerk.de {
+        # hetzner secondary ns
+        transfer to 78.46.255.56
+    }
+}
