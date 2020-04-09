@@ -1,15 +1,15 @@
 [all]
-nbg01.a13.datenhilfswerk.de
-fsn01.a13.datenhilfswerk.de
+nbg01.ulmlernt.org ansible_host=88.198.33.197
+fsn01.ulmlernt.org ansible_host=195.201.237.77
 
 [dns]
-fsn01.a13.datenhilfswerk.de
+fsn01.ulmlernt.org
 
 [bbbnode]
-nbg01.a13.datenhilfswerk.de
+nbg01.ulmlernt.org
 
 [loadbalancer]
-fsn01.a13.datenhilfswerk.de
+fsn01.ulmlernt.org
 
 [monitoring]
-fsn01.a13.datenhilfswerk.de
+fsn01.ulmlernt.org
