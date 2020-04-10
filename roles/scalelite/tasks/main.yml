@@ -1,0 +1,59 @@
+---
+- name: Ensure group "scalelite" exists
+  group:
+    name: scalelite
+    state: present
+
+- name: Ensure user scalelite exists
+  user:
+    name: scalelite
+    shell: /bin/bash
+    password: '!'
+    update_password: on_create
+    groups: scalelite
+    state: present
+
+- name: Checkout scalelite repository
+  git:
+    repo: https://github.com/blindsidenetworks/scalelite.git
+    dest: /var/www/scalelite
+
+- name: Ensure scalelite is owner of /var/www/scalelite
+  file:
+    path: /var/www/scalelite
+    recurse: yes
+    owner: scalelite
+    group: scalelite
+
+- name: Ensure Bundler 2 is installed
+  gem:
+    name: bundler
+    state: latest
+    user_install: no
+
+- name: Ensure sqlite is installed
+  apt:
+    name:
+      - sqlite3
+      - libsqlite3-dev
+    state: present
+
+# bundler: deployment mode by cli argument is deprecated, so we're going to run this:
+- name: Ensure bundle in is deployment mode
+  command:
+    cmd: bundle config set deployment 'true'
+    chdir: /var/www/scalelite
+    creates: /var/www/scalelite/.bundle/config
+  become: yes
+  become_user: scalelite
+
+- name: Ensure gems for scalelite are installed
+  bundler:
+    state: present
+    chdir: /var/www/scalelite
+  become: yes
+  become_user: scalelite
+
+# FIXME: systemd units(s!)
+# FIXME: envfile template
+# FIXME: nginx

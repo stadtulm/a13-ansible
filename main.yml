@@ -44,3 +44,21 @@
     - nginx
     - geerlingguy.nodejs
     - bbb-easy-join
+
+- name: Loadbalancer
+  hosts: loadbalancer
+  vars:
+    redis_port: 6379
+    redis_bind_interface: 127.0.0.1
+    ruby_install_from_source: yes
+    ruby_version: 2.6.6
+    ruby_download_url: https://cache.ruby-lang.org/pub/ruby/2.6/ruby-2.6.6.tar.gz
+    ruby_install_bundler: yes
+    # FIXME: postgres only local?
+  roles:
+    - nginx
+    - geerlingguy.redis
+    - role: geerlingguy.postgresql
+      become: yes
+    - geerlingguy.ruby
+    - scalelite

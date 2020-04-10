@@ -10,3 +10,9 @@ roles:
     version: 5.1.1
   - name: geerlingguy.docker
     version: 2.7.0
+  - name: geerlingguy.redis
+    version: 1.6.0
+  - name: geerlingguy.postgresql
+    version: 2.2.0
+  - name: geerlingguy.ruby
+    version: 2.6.0
