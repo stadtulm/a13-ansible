@@ -1,0 +1,55 @@
+---
+- name: Ensure git is available
+  apt:
+    name:
+    - git
+    state: present
+
+- name: Create user
+  user:
+    name: bigbluebutton
+    shell: /bin/bash
+    password: '!'
+    update_password: on_create
+    groups: nogroup
+    state: present
+
+- name: Checkout bbb-easy-join
+  git:
+    repo: https://github.com/stadtulm/bbb-easy-join.git
+    dest: /var/www/bbb-easy-join
+
+- name: Ensure bigbluebutton is owner of /var/www/bbb-easy-join
+  file:
+    path: /var/www/bbb-easy-join
+    recurse: yes
+    owner: bigbluebutton
+    group: bigbluebutton
+
+- name: Ensure required npm packages are installed
+  npm:
+    path: /var/www/bbb-easy-join
+    state: present
+  become: yes
+  become_user: bigbluebutton
+
+- name: Copy env file
+  template:
+    src: "env.j2"
+    dest: /var/www/bbb-easy-join/.env
+    owner: bigbluebutton
+
+- name: Copy unit
+  copy:
+    src: /var/www/bbb-easy-join/bbb-easy-join.service
+    remote_src: yes
+    dest: /etc/systemd/system/bbb-easy-join.service
+
+# TODO: something something nginx
+
+- name: Enable bbb-easy-join
+  systemd:
+    daemon_reload: yes
+    name: bbb-easy-join
+    enabled: yes
+    state: started

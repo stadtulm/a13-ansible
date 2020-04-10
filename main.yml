@@ -35,3 +35,12 @@
     - nginx
     - n0emis.bigbluebutton
     - bbb-ulmlernt
+
+- name: Easy Join
+  hosts: loadbalancer
+  vars:
+    nodejs_version: "12.x"
+  roles:
+    - nginx
+    - geerlingguy.nodejs
+    - bbb-easy-join
