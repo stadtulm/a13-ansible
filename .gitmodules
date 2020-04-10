@@ -1,0 +1,3 @@
+[submodule "roles/n0emis.bigbluebutton"]
+	path = roles/n0emis.bigbluebutton
+	url = https://github.com/stadtulm/ansible-role-bigbluebutton

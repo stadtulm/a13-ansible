@@ -1,7 +1,9 @@
 # a13-ansible
 
 ### Prepare
+
 ```
+git submodule update --init
 ansible-galaxy install -r requirements.yml
 ```
 

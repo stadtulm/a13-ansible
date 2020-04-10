@@ -21,3 +21,17 @@
     coredns_config_file: files/coredns/Corefile.j2
   roles:
     - cloudalchemy.coredns
+
+- name: BigBlueButton
+  hosts: bbb
+  vars:
+    bbb_letsencrypt_enable: yes
+    bbb_letsencrypt_email: admin@ulmlernt.de
+    bbb_coturn_enable: no
+    bbb_turn_enable: no
+    bbb_greenlight_enable: no
+    bbb_api_demos_enable: no
+  roles:
+    - nginx
+    - n0emis.bigbluebutton
+    - bbb-ulmlernt

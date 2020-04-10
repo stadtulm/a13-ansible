@@ -5,7 +5,7 @@ fsn01.ulmlernt.org ansible_host=195.201.237.77
 [dns]
 fsn01.ulmlernt.org
 
-[bbbnode]
+[bbb]
 nbg01.ulmlernt.org
 
 [loadbalancer]

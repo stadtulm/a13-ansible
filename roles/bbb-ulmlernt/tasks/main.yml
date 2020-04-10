@@ -1,0 +1,31 @@
+---
+- name: ensure default recording is disabled
+  lineinfile:
+    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
+    regexp: '^disableRecordingDefault'
+    line: 'disableRecordingDefault=true'
+  notify: restart bigbluebutton
+
+- name: ensure recording auto start is disabled
+  lineinfile:
+    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
+    regexp: '^autoStartRecording'
+    line: 'autoStartRecording=false'
+  notify: restart bigbluebutton
+
+- name: ensure users are not allowed to start recording
+  lineinfile:
+    path: /usr/share/bbb-web/WEB-INF/classes/bigbluebutton.properties
+    regexp: '^allowStartStopRecording'
+    line: 'allowStartStopRecording=false'
+  notify: restart bigbluebutton
+
+- name: ensure http call to root is redirected
+  copy:
+    content: |
+      location = / {
+        return 301 https://ulmlernt.de;
+      }
+    mode: 0755
+    dest: /etc/bigbluebutton/nginx/redirectroot.nginx
+  notify: reload nginx
