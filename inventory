@@ -1,12 +1,14 @@
 [all]
 nbg01.ulmlernt.org ansible_host=88.198.33.197
 fsn01.ulmlernt.org ansible_host=195.201.237.77
+fsn02.ulmlernt.org ansible_host=144.76.96.80
 
 [dns]
 fsn01.ulmlernt.org
 
 [bbb]
 nbg01.ulmlernt.org
+fsn02.ulmlernt.org
 
 [loadbalancer]
 fsn01.ulmlernt.org
