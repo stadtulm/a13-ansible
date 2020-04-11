@@ -1,0 +1,18 @@
+[Unit]
+Description=Scalelite API
+After=network-online.target
+Wants=network-online.target
+Before=scalelite.target
+PartOf=scalelite.target
+
+[Service]
+Type=simple
+EnvironmentFile=/var/www/scalelite/.env
+WorkingDirectory=/var/www/scalelite
+Restart=always
+RestartSec=60
+ExecStart=/usr/local/bin/bundle exec puma -C config/puma.rb
+User=scalelite
+
+[Install]
+WantedBy=scalelite.target

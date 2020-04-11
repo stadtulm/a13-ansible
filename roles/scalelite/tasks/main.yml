@@ -54,6 +54,44 @@
   become: yes
   become_user: scalelite
 
-# FIXME: systemd units(s!)
-# FIXME: envfile template
+- name: Generate scalelite secret key base
+  command: openssl rand -hex 64
+  register: scalelite_secret_key_base
+
+- name: Ensure environment file for scalelite
+  template:
+    src: env.j2
+    dest: /var/www/scalelite/.env
+  become: yes
+  become_user: scalelite
+
+- name: Ensure systemd unit for scalelite api
+  template:
+    src: scalelite-api.service
+    dest: /etc/systemd/system/scalelite-api.service
+
+- name: Ensure systemd unit for scalelite poller
+  template:
+    src: scalelite-poller.service
+    dest: /etc/systemd/system/scalelite-poller.service
+
+- name: Ensure systemd target for scalelite
+  template:
+    src: scalelite.target
+    dest: /etc/systemd/system/scalelite.target
+
+- name: Enable scalelite units
+  systemd:
+    daemon_reload: yes
+    name: "{{ item }}"
+    enabled: yes
+  with_items:
+    - scalelite-api
+    - scalelite-poller
+
+- name: Ensure scalelite is started
+  systemd:
+    name: scalelite
+    state: started
+
 # FIXME: nginx
