@@ -1,6 +1,8 @@
 ---
 - name: Basic Setup
   hosts: all
+  tags:
+    - always
   vars_files:
     - vars.yml
   roles:
@@ -8,6 +10,8 @@
 
 - name: Monitored host
   hosts: all
+  tags:
+    - always
   vars:
     _node_exporter_binary_install_dir: '/opt/node_exporter'
     _node_exporter_system_group: 'prometheus'
@@ -17,6 +21,8 @@
 
 - name: DNS Server
   hosts: dns
+  tags:
+    - dns
   vars:
     coredns_config_file: files/coredns/Corefile.j2
   roles:
@@ -24,6 +30,8 @@
 
 - name: BigBlueButton
   hosts: bbb
+  tags:
+    - bbb
   vars:
     bbb_letsencrypt_enable: yes
     bbb_letsencrypt_email: admin@ulmlernt.de
@@ -40,6 +48,8 @@
   hosts: loadbalancer
   vars:
     nodejs_version: "12.x"
+  tags:
+    - loadbalancer
   roles:
     - nginx
     - geerlingguy.nodejs
@@ -47,6 +57,8 @@
 
 - name: Loadbalancer
   hosts: loadbalancer
+  tags:
+    - loadbalancer
   vars:
     redis_port: 6379
     redis_bind_interface: 127.0.0.1
