@@ -2,8 +2,6 @@
 - name: Basic Setup
   hosts: all
   become: yes
-  tags:
-    - always
   vars_files:
     - vars.yml
   roles:
@@ -12,8 +10,6 @@
 - name: Monitored host
   hosts: all
   become: yes
-  tags:
-    - always
   vars:
     _node_exporter_binary_install_dir: '/opt/node_exporter'
     _node_exporter_system_group: 'prometheus'
