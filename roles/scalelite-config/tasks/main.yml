@@ -1,0 +1,24 @@
+---
+#- name: Build a list of bbb instances with their secrets
+#  debug:
+#    msg: "{{ hostvars[item]['bbb_url'] }} : {{ hostvars[item]['bbb_secret'] }}"
+#  with_items: "{{ groups['bbb'] }}"
+
+- name: Ensure all servers are registered at the loadbalancer
+  shell:
+    chdir: /var/www/scalelite
+    executable: /bin/bash
+    cmd: "set -o allexport; source .env; set +o allexport; bundle exec ./bin/rake servers:add[{{ (hostvars[item]['bbb_url'] + 'api') | quote }},{{ hostvars[item]['bbb_secret'] | quote }}]"
+  with_items: "{{ groups['bbb'] }}"
+  become: yes
+  become_user: scalelite
+
+- name: Ensure new servers are instantly polled
+  shell:
+    chdir: /var/www/scalelite
+    executable: /bin/bash
+    cmd: "set -o allexport; source .env; set +o allexport; bundle exec ./bin/rake poll:all"
+  become: yes
+  become_user: scalelite
+
+# FIXME: aquire scalelite secret

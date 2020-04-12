@@ -1,0 +1,17 @@
+---
+- name: Register bbb conf
+  command: bbb-conf --secret
+  register: bbb_conf_result
+
+- name: Extract bbb url
+  set_fact:
+    bbb_url: "{{ bbb_conf_result.stdout | regex_search('URL: (.+)', multiline=True) |  regex_replace('URL: ') }}"
+    cacheable: yes
+
+- name: Extract bbb secret
+  set_fact:
+    ## regex_replace with multiline only works when following PR is released:
+    ## https://github.com/ansible/ansible/pull/65051
+    # bbb_secret: "{{ bbb_conf_result.stdout | regex_replace('Secret: ([a-zA-Z0-9]+)', '\\1', multiline=True) }}"
+    bbb_secret: "{{ bbb_conf_result.stdout | regex_search('Secret: ([a-zA-Z0-9]*)', multiline=True) |  regex_replace('Secret: ') }}"
+    cacheable: yes

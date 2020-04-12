@@ -48,17 +48,14 @@
     - n0emis.bigbluebutton
     - bbb-ulmlernt
 
-- name: Easy Join
-  hosts: loadbalancer
+- name: Collect BBB secrets
+  hosts: bbb
   become: yes
-  vars:
-    nodejs_version: "12.x"
   tags:
-    - loadbalancer
+    - bbb
+    - config
   roles:
-    - nginx
-    - geerlingguy.nodejs
-    - bbb-easy-join
+    - bbb-collect
 
 - name: Loadbalancer
   hosts: loadbalancer
@@ -91,3 +88,25 @@
       become: yes
     - geerlingguy.ruby
     - scalelite
+
+- name: Register BBBs at Loadbalancer
+  hosts: loadbalancer
+  become: yes
+  tags:
+    - loadbalancer
+    - config
+  roles:
+    - scalelite-config
+
+- name: Easy Join
+  hosts: loadbalancer
+  become: yes
+  vars:
+    nodejs_version: "12.x"
+    bbb_secret: "{{ scalelite_loadbalancer_secret }}"
+  tags:
+    - loadbalancer
+  roles:
+    - nginx
+    - geerlingguy.nodejs
+    - bbb-easy-join
