@@ -1,6 +1,7 @@
 ---
 - name: Basic Setup
   hosts: all
+  become: yes
   tags:
     - always
   vars_files:
@@ -10,6 +11,7 @@
 
 - name: Monitored host
   hosts: all
+  become: yes
   tags:
     - always
   vars:
@@ -21,6 +23,7 @@
 
 - name: DNS Server
   hosts: dns
+  become: yes
   tags:
     - dns
   vars:
@@ -30,6 +33,7 @@
 
 - name: BigBlueButton
   hosts: bbb
+  become: yes
   tags:
     - bbb
   vars:
@@ -46,6 +50,7 @@
 
 - name: Easy Join
   hosts: loadbalancer
+  become: yes
   vars:
     nodejs_version: "12.x"
   tags:
@@ -57,6 +62,7 @@
 
 - name: Loadbalancer
   hosts: loadbalancer
+  become: yes
   tags:
     - loadbalancer
   vars:
