@@ -33,13 +33,13 @@
   become: yes
   become_user: bigbluebutton
 
-- name: Copy env file
+- name: Ensure environment for bbb-easy-join
   template:
-    src: "env.j2"
+    src: env.j2
     dest: /var/www/bbb-easy-join/.env
     owner: bigbluebutton
 
-- name: Copy unit
+- name: Ensure systemd unit for bbb-easy-join
   copy:
     src: /var/www/bbb-easy-join/bbb-easy-join.service
     remote_src: yes
