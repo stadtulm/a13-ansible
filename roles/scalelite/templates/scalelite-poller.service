@@ -11,7 +11,7 @@ EnvironmentFile=/var/www/scalelite/.env
 WorkingDirectory=/var/www/scalelite
 Restart=always
 RestartSec=60
-ExecStart=/usr/local/bin/bundle exec rake poll["$POLL_INTERVAL"]
+ExecStart=/usr/local/bin/bundle exec rake poll
 User=scalelite
 
 [Install]
