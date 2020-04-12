@@ -50,13 +50,20 @@
 - name: Ensure gems for scalelite are installed
   bundler:
     state: present
+    exclude_groups:
+      - development
+      - test
     chdir: /var/www/scalelite
   become: yes
   become_user: scalelite
 
 - name: Generate scalelite secret key base
   command: openssl rand -hex 64
-  register: scalelite_secret_key_base
+  register: openssl_rand
+
+- name: Register secret key base
+  set_fact:
+    scalelite_loadbalancer_secret: "{{ openssl_rand.stdout }}"
 
 - name: Ensure environment file for scalelite
   template:
@@ -89,9 +96,14 @@
     - scalelite-api
     - scalelite-poller
 
-- name: Ensure scalelite is started
+- name: Ensure scalelite-api is started
   systemd:
-    name: scalelite
+    name: scalelite-api
+    state: started
+
+- name: Ensure scalelite-poller is started
+  systemd:
+    name: scalelite-poller
     state: started
 
 # FIXME: nginx
