@@ -59,11 +59,19 @@
 
 - name: Generate scalelite secret key base
   command: openssl rand -hex 64
-  register: openssl_rand
+  register: openssl_rand64
 
 - name: Register secret key base
   set_fact:
-    scalelite_loadbalancer_secret: "{{ openssl_rand.stdout }}"
+    scalelite_secret_key_base: "{{ openssl_rand64.stdout }}"
+
+- name: Generate scalelite loadbalancer secret
+  command: openssl rand -hex 32
+  register: openssl_rand32
+
+- name: Register loadbalancer secret
+  set_fact:
+    scalelite_loadbalancer_secret: "{{ openssl_rand32.stdout }}"
 
 - name: Ensure environment file for scalelite
   template:
