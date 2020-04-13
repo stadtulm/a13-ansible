@@ -10,6 +10,7 @@
   git:
     repo: https://github.com/greenstatic/bigbluebutton-exporter.git
     dest: /var/www/bbb-exporter
+    version: v0.2.0
 
 - name: Ensure bigbluebutton is owner of /var/www/bbb-exporter
   file:

@@ -17,6 +17,7 @@
   git:
     repo: https://github.com/blindsidenetworks/scalelite.git
     dest: /var/www/scalelite
+    version: 8baebede0546935b5227514e37dd9b5d0d7f438d
 
 - name: Ensure scalelite is owner of /var/www/scalelite
   file:
