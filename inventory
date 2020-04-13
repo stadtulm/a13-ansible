@@ -11,7 +11,7 @@ nbg01.ulmlernt.org
 fsn02.ulmlernt.org
 
 [loadbalancer]
-fsn01.ulmlernt.org
+fsn01.ulmlernt.org nginx_domain_name="lb.ulmlernt.org"
 
 [monitoring]
 fsn01.ulmlernt.org

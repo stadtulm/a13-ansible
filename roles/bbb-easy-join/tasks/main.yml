@@ -45,11 +45,15 @@
     remote_src: yes
     dest: /etc/systemd/system/bbb-easy-join.service
 
-# TODO: something something nginx
-
 - name: Enable bbb-easy-join
   systemd:
     daemon_reload: yes
     name: bbb-easy-join
     enabled: yes
     state: started
+
+- name: Ensure bbb-easy-join nginx config exists
+  template:
+    src: nginx-bbb-easy-join.conf
+    dest: /etc/nginx/a13.d/bbb-easy-join.conf
+  notify: reload nginx

@@ -114,4 +114,8 @@
     name: scalelite-poller
     state: started
 
-# FIXME: nginx
+- name: Ensure scalelite nginx config exists
+  template:
+    src: nginx-scalelite.conf
+    dest: /etc/nginx/a13.d/scalelite.conf
+  notify: reload nginx

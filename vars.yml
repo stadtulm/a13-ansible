@@ -4,3 +4,5 @@ users:
   - { name: 'stk', sshkeys: 'https://github.com/stkdiretto.keys' }
   - { name: 'ubahnverleih', sshkeys: 'https://github.com/ubahnverleih.keys' }
   - { name: 'srf', sshkeys: 'https://github.com/sebastianfischer.keys' }
+
+letsencrypt_email: admin@ulmlernt.de
