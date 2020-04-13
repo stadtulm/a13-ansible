@@ -1,9 +1,9 @@
 ---
 - name: Ensure wrong hostname is not in hosts file
   lineinfile:
-    dest: /etc/hosts 
-    regexp: '{{ ansible_hostname }}$' 
-    state: absent 
+    dest: /etc/hosts
+    regexp: '{{ ansible_hostname }}$'
+    state: absent
     backup: yes
   when: ansible_hostname != inventory_hostname_short
 
@@ -14,10 +14,10 @@
 
 - name: Ensure Hostname in hosts file
   lineinfile:
-    dest: /etc/hosts 
-    regexp: '{{ inventory_hostname_short }}$' 
-    line: '{{ ansible_default_ipv4.address }} {{ inventory_hostname }} {{ inventory_hostname_short }}' 
-    state: present 
+    dest: /etc/hosts
+    regexp: '{{ inventory_hostname_short }}$'
+    line: '{{ ansible_default_ipv4.address }} {{ inventory_hostname }} {{ inventory_hostname_short }}'
+    state: present
   when: ansible_default_ipv4.address is defined
 
 - name: Update apt
