@@ -1,0 +1,15 @@
+[Unit]
+Description=BBB Exporter
+Requires=network.target
+
+[Service]
+Type=simple
+EnvironmentFile=/var/www/bbb-exporter/.env
+WorkingDirectory=/var/www/bbb-exporter/bbb-exporter
+Restart=always
+RestartSec=60
+ExecStart=/usr/bin/python3 /var/www/bbb-exporter/bbb-exporter/server.py
+User=bigbluebutton
+
+[Install]
+WantedBy=multi-user.target

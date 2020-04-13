@@ -53,6 +53,14 @@
   roles:
     - bbb-collect
 
+- name: BBB Exporter
+  hosts: bbb
+  become: yes
+  tags:
+    - bbb
+  roles:
+    - bbb-exporter
+
 - name: Loadbalancer
   hosts: loadbalancer
   become: yes

@@ -1,0 +1,44 @@
+---
+- name: Ensure git and pip are available
+  apt:
+    name:
+    - git
+    - python3-pip
+    state: present
+
+- name: Checkout bbb-exporter
+  git:
+    repo: https://github.com/greenstatic/bigbluebutton-exporter.git
+    dest: /var/www/bbb-exporter
+
+- name: Ensure bigbluebutton is owner of /var/www/bbb-exporter
+  file:
+    path: /var/www/bbb-exporter
+    recurse: yes
+    owner: bigbluebutton
+    group: bigbluebutton
+
+- name: Ensure required pip packages are installed
+  pip:
+    requirements: /var/www/bbb-exporter/requirements.txt
+    state: present
+  become: yes
+  become_user: bigbluebutton
+
+- name: Ensure environment for bbb-exporter
+  template:
+    src: env.j2
+    dest: /var/www/bbb-exporter/.env
+    owner: bigbluebutton
+
+- name: Ensure systemd unit for bbb-exporter
+  template:
+    src: bbb-exporter.service
+    dest: /etc/systemd/system/bbb-exporter.service
+
+- name: Enable bbb-exporter
+  systemd:
+    daemon_reload: yes
+    name: bbb-exporter
+    enabled: yes
+    state: started
