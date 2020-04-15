@@ -18,3 +18,5 @@ roles:
     version: 2.6.0
   - name: cloudalchemy.prometheus
     version: 2.15.0
+  - name: cloudalchemy.grafana
+    version: 0.17.0

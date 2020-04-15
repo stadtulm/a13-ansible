@@ -6,3 +6,8 @@ users:
   - { name: 'srf', sshkeys: 'https://github.com/sebastianfischer.keys' }
 
 letsencrypt_email: admin@ulmlernt.de
+
+# FIXME vault!
+monitoring_grafana_admin_password: "FIXME"
+monitoring_github_client_id: "FIXME"
+monitoring_github_client_secret: "FIXME"

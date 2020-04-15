@@ -85,9 +85,14 @@
     postgresql_users:
       - name: scalelite
         state: present
+      - name: grafana
+        state: present
     postgresql_databases:
       - name: scalelite
         owner: scalelite
+        state: present
+      - name: grafana
+        owner: grafana
         state: present
   roles:
     - nginx
@@ -128,7 +133,10 @@
   become: yes
   tags:
     - monitoring
+  vars_files:
+    - vars.yml
   vars:
+    nginx_domain_name: mon.ulmlernt.org
     prometheus_targets:
       node:
       - targets:
@@ -150,6 +158,49 @@
         file_sd_configs:
         - files:
           - "/etc/prometheus/file_sd/bbb.yml"
+    grafana_port: 3001
+    grafana_url: "https://mon.ulmlernt.org"
+    grafana_domain: "mon.ulmlernt.org"
+    grafana_database:
+      type: postgres
+      host: 127.0.0.1:5432
+      name: grafana
+      user: grafana
+      password: trust
+    grafana_datasources:
+    - name: prometheus
+      type: prometheus
+      access: proxy
+      url: 'http://localhost:9090'
+      basicAuth: false
+    grafana_dashboards_dir: files/grafana/dashboards
+    grafana_security:
+      admin_user: admin
+      admin_password: "{{ monitoring_grafana_admin_password }}"
+    grafana_users:
+      allow_sign_up: false
+      default_theme: dark
+      auto_assign_org: true
+      editors_can_admin: true
+      auto_assign_org_role: Editor
+    grafana_auth:
+      disable_login_form: true
+      anonymous:
+        enabled: true
+        org_name: ulmlernt
+        org_role: Viewer
+      github:
+        enabled: true
+        allow_sign_up: true
+        client_id: "{{ monitoring_github_client_id }}"
+        client_secret: "{{ monitoring_github_client_secret }}"
+        scopes: user:email,read:org
+        auth_url: https://github.com/login/oauth/authorize
+        token_url: https://github.com/login/oauth/access_token
+        api_url: https://api.github.com/user
+        team_ids: ""
+        allowed_organizations: stadtulm
   roles:
     - cloudalchemy.prometheus
-    # - cloudalchemy.grafana
+    - cloudalchemy.grafana
+    - nginx-tls-monitoring
