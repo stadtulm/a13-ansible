@@ -148,16 +148,28 @@
       - job_name: "prometheus"
         metrics_path: "/metrics"
         static_configs:
-        - targets:
-          - "127.0.0.1:9090"
+          - targets:
+            - "127.0.0.1:9090"
       - job_name: "node"
         file_sd_configs:
-        - files:
-          - "/etc/prometheus/file_sd/node.yml"
+          - files:
+            - "/etc/prometheus/file_sd/node.yml"
+        relabel_configs:
+          - source_labels: ['__address__']
+            separator:     ':'
+            regex:         '(.*):.*'
+            target_label:  'instance'
+            replacement:   '$1'
       - job_name: "bbb"
         file_sd_configs:
-        - files:
-          - "/etc/prometheus/file_sd/bbb.yml"
+          - files:
+            - "/etc/prometheus/file_sd/bbb.yml"
+        relabel_configs:
+          - source_labels: ['__address__']
+            separator:     ':'
+            regex:         '(.*):.*'
+            target_label:  'instance'
+            replacement:   '$1'
     grafana_port: 3001
     grafana_url: "https://mon.ulmlernt.org"
     grafana_domain: "mon.ulmlernt.org"
@@ -173,6 +185,7 @@
       access: proxy
       url: 'http://localhost:9090'
       basicAuth: false
+      isDefault: true
     grafana_dashboards_dir: files/grafana/dashboards
     grafana_security:
       admin_user: admin
