@@ -1,6 +1,6 @@
 $ORIGIN ulmlernt.org.
 @	3600 IN	SOA ns.ulmlernt.org. noc.ulmlernt.org. (
-				2020041101 ; serial
+				2020041501 ; serial
 				1800       ; refresh (30 min)
 				1800       ; retry (30 min)
 				86400      ; expire (1 day)
@@ -21,6 +21,8 @@ nbg01	3600	IN	A	88.198.33.197
 nbg01	3600	IN	AAAA	2a01:4f8:a0:22e1::2
 fsn02   3600    IN      A       144.76.96.80
 fsn02   3600    IN      AAAA    2a01:4f8:192:314f::2
+fsn03   3600    IN      A       78.47.162.149
+fsn03   3600    IN      AAAA    2a01:4f8:c17:9865::1
 
 lb		3600	IN	CNAME	fsn01.ulmlernt.org.
 mon		3600	IN	CNAME	fsn01.ulmlernt.org.
