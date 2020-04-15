@@ -16,3 +16,6 @@ fsn01.ulmlernt.org nginx_domain_name="lb.ulmlernt.org"
 
 [monitoring]
 fsn01.ulmlernt.org
+
+[frontend]
+fsn03.ulmlernt.org

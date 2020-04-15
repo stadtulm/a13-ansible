@@ -63,6 +63,17 @@
   roles:
     - bbb-exporter
 
+- name: Frontend
+  hosts: frontend
+  become: yes
+  vars_files:
+    - vars.yml
+  tags:
+    - frontend
+  roles:
+    - nginx
+    - docker
+
 - name: Loadbalancer
   hosts: loadbalancer
   become: yes
