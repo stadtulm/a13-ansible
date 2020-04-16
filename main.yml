@@ -139,23 +139,9 @@
     nginx_domain_name: "gl.ulmlernt.org"
     lb_url: "https://lb.ulmlernt.org/bigbluebutton"
     lb_secret: "{{ scalelite_loadbalancer_secret }}"
-    postgresql_hba_entries:
-      - {type: local, database: all, user: postgres, auth_method: peer}
-      - {type: local, database: all, user: all, auth_method: peer}
-      - {type: host, database: all, user: all, address: '127.0.0.1/32', auth_method: trust}
-      - {type: host, database: all, user: all, address: '::1/128', auth_method: trust}
-    postgresql_users:
-      - name: greenlight
-        state: present
-    postgresql_databases:
-      - name: greenlight
-        owner: greenlight
-        state: present
   roles:
     - nginx
     - nginx-tls
-    - role: geerlingguy.postgresql
-      become: yes
     - docker
     - greenlight
 
