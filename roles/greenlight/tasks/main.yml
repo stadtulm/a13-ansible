@@ -27,6 +27,7 @@
   git:
     repo: https://github.com/stadtulm/greenlight.git
     dest: /var/build/greenlight
+    force: yes
     version: 567690c5559fb418e7cb640d802f33dc308d88cc
 
 - name: Ensure greenlight is owner of /var/build/greenlight
@@ -43,7 +44,26 @@
     chdir: /var/build/greenlight
   become: yes
   become_user: greenlight
-    
+
+- name: Ensure greenlight is owner of /srv/greenlight
+  file:
+    path: /srv/greenlight
+    recurse: yes
+    owner: greenlight
+    group: greenlight
+
+- name: Ensure docker-compose.yml for greenlight
+  template:
+    src: docker-compose.j2
+    dest: /srv/greenlight/docker-compose.yml
+    owner: greenlight
+
+- name: Ensure .env for greenlight
+  template:
+    src: env.j2
+    dest: /srv/greenlight/.env
+    owner: greenlight
+
 # TODO
 # 
 # add custom index.html file in /var/www/greenlight

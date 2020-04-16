@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  app:
+    entrypoint: [bin/start]
+    image: ulmlerntgreenlight:release-v2
+#    image: bigbluebutton/greenlight:v2
+    container_name: ul-gl-frontend-prod
+    env_file: .env
+    restart: unless-stopped
+    ports:
+      - 3000:80
+# When using external logging
+#    logging:
+#      driver: $LOG_DRIVER
+#      options:
+#        syslog-address: $LOG_ADDRESS
+#        tag: $LOG_TAG
+    volumes:
+      - ./log:/usr/src/app/log
