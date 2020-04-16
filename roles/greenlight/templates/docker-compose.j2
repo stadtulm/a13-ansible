@@ -4,17 +4,24 @@ services:
   app:
     entrypoint: [bin/start]
     image: ulmlerntgreenlight:release-v2
-#    image: bigbluebutton/greenlight:v2
-    container_name: ul-gl-frontend-prod
+    container_name: ulmlernt-greenlight
     env_file: .env
     restart: unless-stopped
     ports:
-      - 3000:80
-# When using external logging
-#    logging:
-#      driver: $LOG_DRIVER
-#      options:
-#        syslog-address: $LOG_ADDRESS
-#        tag: $LOG_TAG
+      - 5000:80
     volumes:
       - ./log:/usr/src/app/log
+    links:
+      - db
+  db:
+    image: postgres:9.5
+    container_name: ulmlernt-greenlight-postgres
+    restart: unless-stopped
+    ports:
+      - 127.0.0.1:5432:5432
+    volumes:
+      - ./db/production:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=
