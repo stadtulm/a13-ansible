@@ -63,7 +63,6 @@
   roles:
     - bbb-exporter
 
-
 - name: Loadbalancer
   hosts: loadbalancer
   become: yes

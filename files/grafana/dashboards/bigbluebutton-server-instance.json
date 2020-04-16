@@ -1073,7 +1073,7 @@
       "type": "row"
     }
   ],
-  "refresh": "5s",
+  "refresh": "30s",
   "schemaVersion": 22,
   "style": "dark",
   "tags": [],
@@ -1120,8 +1120,7 @@
   },
   "timepicker": {
     "refresh_intervals": [
-      "5s",
-      "10s",
+      "15s",
       "30s",
       "1m",
       "5m",
@@ -1138,5 +1137,5 @@
   "variables": {
     "list": []
   },
-  "version": 13
+  "version": 14
 }
