@@ -68,6 +68,8 @@
   become: yes
   vars_files:
     - vars.yml
+  vars:
+    nginx_domain_name: gl.ulmlernt.org
   tags:
     - frontend
   vars:
