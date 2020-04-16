@@ -37,6 +37,7 @@
       - git
       - sudo
       - htop
+      - vim
     state: present
 
 - name: Ensure 'sudo' group exists
