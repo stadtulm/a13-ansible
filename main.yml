@@ -66,12 +66,15 @@
 - name: Frontend
   hosts: frontend
   become: yes
+  vars:
+    nginx_domain_name: gl.ulmlernt.org
   vars_files:
     - vars.yml
   tags:
     - frontend
   roles:
     - nginx
+    - nginx-tls
     - docker
     - greenlight
 

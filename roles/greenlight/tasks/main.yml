@@ -4,6 +4,7 @@
     name:
     - git
     - docker-compose
+    - docker
     state: present
 
 - name: Create user
@@ -13,6 +14,13 @@
     password: '!'
     update_password: on_create
     groups: nogroup
+    state: present
+
+- name: Ensure Greenlight is in Docker group
+  user:
+    name: greenlight
+    groups: docker
+    append: yes
     state: present
 
 - name: Checkout greenlight
@@ -28,6 +36,14 @@
     owner: greenlight
     group: greenlight
 
+ 
+- name: Build greenlight Image for Ulmlernt
+  shell:
+    cmd: ./scripts/image_build.sh ulmlerntgreenlight release-v2
+    chdir: /var/build/greenlight
+  become: yes
+  become_user: greenlight
+    
 # TODO
 # 
 # add custom index.html file in /var/www/greenlight
