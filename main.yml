@@ -73,6 +73,7 @@
   roles:
     - nginx
     - docker
+    - greenlight
 
 - name: Loadbalancer
   hosts: loadbalancer

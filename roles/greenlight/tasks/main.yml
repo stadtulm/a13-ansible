@@ -1,0 +1,35 @@
+---
+- name: Ensure git and docker-compose is available
+  apt:
+    name:
+    - git
+    - docker-compose
+    state: present
+
+- name: Create user
+  user:
+    name: greenlight
+    shell: /bin/bash
+    password: '!'
+    update_password: on_create
+    groups: nogroup
+    state: present
+
+- name: Checkout greenlight
+  git:
+    repo: https://github.com/stadtulm/greenlight.git
+    dest: /var/build/greenlight
+    version: 567690c5559fb418e7cb640d802f33dc308d88cc
+
+- name: Ensure greenlight is owner of /var/build/greenlight
+  file:
+    path: /var/build/greenlight
+    recurse: yes
+    owner: greenlight
+    group: greenlight
+
+# TODO
+# 
+# add custom index.html file in /var/www/greenlight
+# todo build docker ulmlernt greenlight
+#
