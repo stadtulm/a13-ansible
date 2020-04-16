@@ -33,7 +33,6 @@
   user:
     name: '{{ item.name }}'
     groups: docker
+    append: yes
     state: present
   with_items: '{{ users }}'
-#todo add users to docker group
-    
