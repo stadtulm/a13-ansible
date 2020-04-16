@@ -9,7 +9,7 @@ ansible-galaxy install -r requirements.yml
 
 Note: `cloudalchemy.node-exporter` requires the gnu variant of `tar` on macOS. (`brew install gnu-tar`)
 
-You have to fill `monitoring_grafana_admin_password`, `monitoring_github_client_id` and `monitoring_github_client_secret` in `vars.yml, until we get around to implement ansible vault.
+You need to create the file `vault_password` and put the ansible vault password in there.
 
 ### Run
 ```
