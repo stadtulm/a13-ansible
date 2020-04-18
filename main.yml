@@ -128,16 +128,16 @@
     - geerlingguy.nodejs
     - bbb-easy-join
 
-- name: Frontend
+- name: Frontend - Greenlight
   hosts: frontend
   become: yes
   vars_files:
     - vars.yml
   tags:
     - frontend
+    - greenlight
   vars:
     nginx_domain_name: "gl.ulmlernt.org"
-    rocket_root_url: "chat.ulmlernt.org"
     lb_url: "https://lb.ulmlernt.org/bigbluebutton"
     lb_secret: "FIXME"
   roles:
@@ -145,6 +145,21 @@
     - nginx-tls
     - docker
     - greenlight
+
+- name: Frontend - Rocketchat
+  hosts: frontend
+  become: yes
+  vars_files:
+    - vars.yml
+  tags:
+    - frontend
+    - rocketchat
+  vars:
+    nginx_domain_name: "chat.ulmlernt.org"
+  roles:
+    - nginx
+    - nginx-tls
+    - docker
     - rocketchat
 
 - name: Monitoring

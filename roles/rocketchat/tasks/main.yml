@@ -16,16 +16,21 @@
     groups: docker
     state: present
 
-- name: Ensure rocketchat dir exists
+- name: Ensure base / data directories for rocketchat exist
   file:
-    path: /srv/rocketchat
-    state: present
-    owner: rocketchat
+    path: "{{ item.path }}"
+    owner: "{{ item.owner }}"
+    state: directory
+  loop:
+    - { path: "/srv/rocketchat/data", owner: "rocketchat" }      
+    - { path: "/srv/rocketchat/data/db", owner: "999" }
+    - { path: "/srv/rocketchat/data/dump", owner: "999" }
+
 
 # Dont check permissions because ./db must be 999:root
-#  - name: Ensure greenlight is owner of /srv/rocketchat
+#  - name: Ensure greenlight is owner of "{{ basedir }}
 #  file:
-#    path: /srv/rocketchat
+#    path: "{{ basedir }}
 #    recurse: yes
 #    owner: rocketchat
 #    group: rocketchat
@@ -35,8 +40,7 @@
 - name: Ensure docker-compose.yml for rocketchat
   template:
     src: docker-compose.j2
-    dest: /srv/rocketchat/docker-compose.yml
-    owner: srf
+    dest: "/srv/rocketchat/docker-compose.yml"
 
     #- name: Ensure greenlight nginx conf is present
     # template:
