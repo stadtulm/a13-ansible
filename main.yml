@@ -158,7 +158,7 @@
     nginx_domain_name: "chat.ulmlernt.org"
   roles:
     - nginx
-    - nginx-tls
+    - nginx-tls-add
     - docker
     - rocketchat
 

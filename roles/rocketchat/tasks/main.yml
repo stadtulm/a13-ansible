@@ -26,39 +26,14 @@
     - { path: "/srv/rocketchat/data/db", owner: "999" }
     - { path: "/srv/rocketchat/data/dump", owner: "999" }
 
-
-# Dont check permissions because ./db must be 999:root
-#  - name: Ensure greenlight is owner of "{{ basedir }}
-#  file:
-#    path: "{{ basedir }}
-#    recurse: yes
-#    owner: rocketchat
-#    group: rocketchat
-
-# TODO BACKUP 
-
 - name: Ensure docker-compose.yml for rocketchat
   template:
     src: docker-compose.j2
     dest: "/srv/rocketchat/docker-compose.yml"
 
-    #- name: Ensure greenlight nginx conf is present
-    # template:
-    #src: greenlight.nginx
-    #dest: /etc/nginx/a13.d/greenlight.conf
-    #notify: reload nginx
-# disabled because hardcoded pw
-#- name: Ensure docker-compose.yml for greenlight
-#  template:
-#    src: docker-compose.j2
-#    dest: /srv/greenlight/docker-compose.yml
-#    owner: srf
-#    owner: greenlight
-
-# Disabled until scalelitesecret works without running whole script
-#- name: Ensure .env for greenlight
-#  template:
-#    src: env.j2
-#    dest: /srv/greenlight/.env
-#    owner: greenlight
+- name: Ensure rocketchat nginx conf is present
+  template:
+    src: rocketchat.nginx
+    dest: "/etc/nginx/{{ nginx_domain_name }}.d/rocketchat.conf"
+    #    notify: reload nginx
 
