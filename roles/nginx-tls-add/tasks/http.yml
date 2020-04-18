@@ -1,0 +1,22 @@
+---
+- name: Remove default nginx config
+  file:
+    name: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Ensure folder for letsencrypt exists
+  file:
+    name: /var/www/letsencrypt
+    state: directory
+
+- name: Ensure nginx site for letsencrypt requests
+  template:
+    src: http.conf.j2
+    dest: "/etc/nginx/sites-available/{{ nginx_domain_name}}.http.conf"
+
+- name: Ensure generic nginx config is applied
+  file:
+    state: link
+    src: "/etc/nginx/sites-available/{{ nginx_domain_name}}.http.conf"
+    dest: "/etc/nginx/sites-enabled/{{ nginx_domain_name}}.http.conf"
+  notify: reload nginx

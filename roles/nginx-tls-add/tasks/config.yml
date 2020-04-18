@@ -1,0 +1,28 @@
+---
+- name: Ensure nginx subconfig folder exists
+  file:
+    path: "/etc/nginx/{{ nginx_domain_name }}.d"
+    state: directory
+
+- name: Register certbot certificate file
+  stat:
+    path: "/etc/letsencrypt/live/{{ nginx_domain_name }}/fullchain.pem"
+  register: certbot_certificate_file_path
+
+- name: Ensure availability of generic nginx config
+  template:
+    src: a13.conf.j2
+    dest: "/etc/nginx/sites-available/{{ nginx_domain_name }}.https.conf"
+
+- name: Generate dhparams
+  shell: openssl dhparam -out /etc/nginx/dhparams.pem 2048
+  args:
+    creates: /etc/nginx/dhparams.pem
+
+- name: Ensure generic nginx config is applied
+  file:
+    state: link
+    src: "/etc/nginx/sites-available/{{ nginx_domain_name }}.https.conf"
+    dest: "/etc/nginx/sites-enabled/{{ nginx_domain_name }}.https.conf"
+  when: certbot_certificate_file_path.stat.exists
+  notify: reload nginx
