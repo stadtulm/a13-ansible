@@ -137,6 +137,7 @@
     - frontend
   vars:
     nginx_domain_name: "gl.ulmlernt.org"
+    rocket_root_url: "chat.ulmlernt.org"
     lb_url: "https://lb.ulmlernt.org/bigbluebutton"
     lb_secret: "FIXME"
   roles:
@@ -144,6 +145,7 @@
     - nginx-tls
     - docker
     - greenlight
+    - rocketchat
 
 - name: Monitoring
   hosts: loadbalancer
