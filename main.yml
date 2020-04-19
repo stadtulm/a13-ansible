@@ -137,7 +137,7 @@
     - frontend
     - greenlight
   vars:
-    nginx_domain_name: "gl.ulmlernt.org"
+    nginx_domain_name: "ulmlernt.de"
     lb_url: "https://lb.ulmlernt.org/bigbluebutton"
     lb_secret: "FIXME"
   roles:
@@ -155,7 +155,7 @@
     - frontend
     - rocketchat
   vars:
-    nginx_domain_name: "chat.ulmlernt.org"
+    nginx_domain_name: "chat.ulmlernt.de"
   roles:
     - nginx
     - nginx-tls-add
