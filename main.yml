@@ -219,12 +219,16 @@
       user: grafana
       password: trust
     grafana_datasources:
-    - name: prometheus
-      type: prometheus
-      access: proxy
-      url: 'http://localhost:9090'
-      basicAuth: false
-      isDefault: true
+      - name: prometheus
+        type: prometheus
+        access: proxy
+        url: 'http://localhost:9090'
+        basicAuth: false
+        isDefault: true
+    grafana_dashboards:
+      - dashboard_id: 1860
+        revision_id: 16
+        datasource: prometheus
     grafana_dashboards_dir: files/grafana/dashboards
     grafana_security:
       admin_user: admin
