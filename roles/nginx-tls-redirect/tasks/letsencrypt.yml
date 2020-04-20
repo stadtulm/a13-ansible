@@ -1,0 +1,14 @@
+---
+- name: Register certbot certificate file
+  stat:
+    path: "/etc/letsencrypt/live/{{ nginx_domain_name }}/fullchain.pem"
+  register: certbot_certificate_file_path
+
+- name: Generate Certificates
+  command: certbot certonly -d {{ item }} --agree-tos --email {{ letsencrypt_email }} -n --nginx
+  notify: reload nginx
+  when: not certbot_certificate_file_path.stat.exists
+  loop:
+    - nginx_redirect_aliases
+
+# FIXME: webroot
