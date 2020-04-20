@@ -1,6 +1,32 @@
 ---
+- name: Ensure nginx ppa is used for newer nginx versions
+  apt_repository:
+    repo: ppa:nginx/stable
+  register: nginx_repo
+
+- name: Ensure nginx from ppa is pinned
+  copy:
+    content: |
+      Package: *
+      Pin: release n=xenial,o=LP-PPA-nginx-stable
+      Pin-Priority: 1000
+    dest: /etc/apt/preferences.d/ppa-nginx
+    mode: 0755
+  register: nginx_ppa_pin
+
+
+- name: Ensure apt cache gets updated
+  apt:
+    update_cache: yes
+  when: nginx_repo.changed or nginx_ppa_pin.changed
+
 - name: Ensure nginx installed
   apt:
-    name:
-      - nginx
+    name: nginx
     state: present
+
+- name: Ensure nginx from ppa is really installed
+  apt:
+    name: nginx
+    state: latest
+  when: nginx_repo.changed or nginx_ppa_pin.changed
