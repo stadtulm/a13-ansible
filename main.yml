@@ -139,7 +139,7 @@
   vars:
     nginx_domain_name: "ulmlernt.de"
     lb_url: "https://lb.ulmlernt.org/bigbluebutton"
-    lb_secret: "FIXME"
+    lb_secret: "{{ scalelite_loadbalancer_secret }}"
   roles:
     - nginx
     - nginx-tls
