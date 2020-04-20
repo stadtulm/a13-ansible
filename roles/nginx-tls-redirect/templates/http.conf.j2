@@ -1,7 +1,7 @@
 server {
     listen 80;
     listen [::]:80;
-    server_name {% for alias in nginx_redirect_aliases %} {{ alias }} {% endfor %} ;
+    server_name {{ nginx_redirect_alias }};
 
     location /.well-known/acme-challenge {
         root /var/www/letsencrypt;

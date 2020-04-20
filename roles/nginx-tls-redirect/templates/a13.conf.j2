@@ -1,12 +1,12 @@
 server {
     listen 443 ssl http2;
     listen [::]:443 ssl http2;
-    server_name {% for alias in nginx_redirect_aliases %} {{ alias }} {% endfor %} ;
+    server_name {{ nginx_redirect_alias }};
 
     ssl on;
-    ssl_certificate         /etc/letsencrypt/live/{{ nginx_domain_name }}/fullchain.pem;
-    ssl_certificate_key     /etc/letsencrypt/live/{{ nginx_domain_name }}/privkey.pem;
-    ssl_trusted_certificate /etc/letsencrypt/live/{{ nginx_domain_name }}/fullchain.pem;
+    ssl_certificate         /etc/letsencrypt/live/{{ nginx_redirect_alias }}/fullchain.pem;
+    ssl_certificate_key     /etc/letsencrypt/live/{{ nginx_redirect_alias }}/privkey.pem;
+    ssl_trusted_certificate /etc/letsencrypt/live/{{ nginx_redirect_alias }}/fullchain.pem;
 
     ssl_session_cache shared:SSL:50m;
     ssl_session_timeout 5m;
