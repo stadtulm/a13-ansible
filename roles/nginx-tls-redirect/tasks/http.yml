@@ -1,0 +1,12 @@
+---
+- name: Ensure nginx site for letsencrypt requests
+  template:
+    src: http.conf.j2
+    dest: "/etc/nginx/sites-available/{{ nginx_redirect_alias }}.http.conf"
+
+- name: Ensure generic nginx config is applied
+  file:
+    state: link
+    src: "/etc/nginx/sites-available/{{ nginx_redirect_alias }}.http.conf"
+    dest: "/etc/nginx/sites-enabled/{{ nginx_redirect_alias }}.http.conf"
+  notify: reload nginx

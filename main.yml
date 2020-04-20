@@ -140,11 +140,13 @@
     - greenlight
   vars:
     nginx_domain_name: "ulmlernt.de"
+    nginx_redirect_alias: "gl.ulmlernt.org"
     lb_url: "https://lb.ulmlernt.org/bigbluebutton"
     lb_secret: "{{ scalelite_loadbalancer_secret }}"
   roles:
     - nginx
     - nginx-tls
+    - nginx-tls-redirect
     - docker
     - greenlight
 
@@ -158,9 +160,11 @@
     - rocketchat
   vars:
     nginx_domain_name: "chat.ulmlernt.de"
+    nginx_redirect_alias: "chat.ulmlernt.org"
   roles:
     - nginx
     - nginx-tls-add
+    - nginx-tls-redirect
     - docker
     - rocketchat
 

@@ -1,0 +1,13 @@
+---
+- name: Ensure availability of generic nginx config
+  template:
+    src: a13.conf.j2
+    dest: "/etc/nginx/sites-available/{{ nginx_redirect_alias }}.https.conf"
+
+- name: Ensure generic nginx config is applied
+  file:
+    state: link
+    src: "/etc/nginx/sites-available/{{ nginx_redirect_alias }}.https.conf"
+    dest: "/etc/nginx/sites-enabled/{{ nginx_redirect_alias }}.https.conf"
+  when: certbot_certificate_file_path.stat.exists
+  notify: reload nginx
