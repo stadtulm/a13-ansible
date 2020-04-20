@@ -1080,7 +1080,12 @@
   "templating": {
     "list": [
       {
-        "hide": 0,
+        "current": {
+          "selected": false,
+          "text": "prometheus",
+          "value": "prometheus"
+        },
+        "hide": 2,
         "label": "datasource",
         "name": "DS_PROMETHEUS",
         "options": [],
