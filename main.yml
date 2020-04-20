@@ -2,6 +2,8 @@
 - name: Basic Setup
   hosts: all
   become: yes
+  tags:
+    - base
   vars_files:
     - vars.yml
   roles:

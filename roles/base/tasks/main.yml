@@ -90,6 +90,12 @@
     - 80-esm
     - 80-livepatch
 
+- name: Ensure clean motd, news updater doesn't run
+  systemd:
+    name: motd-news
+    enabled: no
+    masked: yes
+
 - name: Ensure notice about configuration managment in motd
   copy:
     content: |
