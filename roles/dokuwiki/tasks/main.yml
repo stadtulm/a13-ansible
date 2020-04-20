@@ -1,0 +1,22 @@
+---
+- name: Ensure PHP nginx installed
+  apt:
+    name:
+      - nginx
+      - php7.2-fpm
+      - php7.2
+
+- name: Ensure current Dokuwiki
+  unarchive: 
+    src: https://download.dokuwiki.org/src/dokuwiki/dokuwiki-stable.tgz
+    dest: /tmp/dokuwiki
+    remote_src: yes
+ 
+# check requirements
+#
+#
+
+# Download Dokuwiki
+# check config -> files path
+# check filepermissions
+# copy ngix config

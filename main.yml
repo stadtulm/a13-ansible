@@ -168,6 +168,21 @@
     - docker
     - rocketchat
 
+- name: Frontend - Dokuwiki
+  hosts: frontend
+  become: yes
+  vars_files:
+    - vars.yml
+  tags:
+    - frontend
+    - dokuwiki
+  vars:
+    nginx_domain_name: "doku.ulmlernt.de"
+  roles:
+    - nginx
+    - nginx-tls-add
+    - dokuwiki
+
 - name: Monitoring
   hosts: loadbalancer
   become: yes
