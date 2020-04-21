@@ -19,7 +19,10 @@ server {
     ssl_dhparam /etc/nginx/dhparams.pem;
     ssl_prefer_server_ciphers on;
 
+{% if nginx_root is defined %}
+    root {{ nginx_root }};
+{% else %}
     root /var/www/html;
-
+{% endif %}
     include /etc/nginx/{{ nginx_domain_name }}.d/*.conf;
 }

@@ -178,6 +178,7 @@
     - dokuwiki
   vars:
     nginx_domain_name: "doku.ulmlernt.de"
+    nginx_root: "/var/www/dokuwiki"
   roles:
     - nginx
     - nginx-tls-add

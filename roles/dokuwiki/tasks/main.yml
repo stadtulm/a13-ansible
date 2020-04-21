@@ -9,8 +9,50 @@
 - name: Ensure current Dokuwiki
   unarchive: 
     src: https://download.dokuwiki.org/src/dokuwiki/dokuwiki-stable.tgz
-    dest: /tmp/dokuwiki
+    dest: /tmp
     remote_src: yes
+
+- name: Ensure Dokuwiki directory exists
+  file:
+    path: /var/www/dokuwiki
+    state: directory
+    owner: www-data
+    group: www-data
+
+- name: Ensure dokuwiki install.php not present
+  file:
+    path: /var/www/dokuwiki/install.php
+    state: absent
+
+- name: Ensure Nginx Dokuwiki conf
+  template:
+    src: dokuwiki.nginx
+    dest: "/etc/nginx/{{ nginx_domain_name }}.d/dokuwiki.conf"
+
+- name: Ensure Dokuwiki srv/log/backup directory for backup exists
+  file:
+    path: "{{ item }}"
+    state: directory
+    owner: srf
+  loop:
+    - "/var/backups/dokuwiki"
+    - "/srv/dokuwiki"
+
+- name: Ensure Backup script file
+  template:
+    src: dokuwiki-backup.sh
+    dest: "/srv/dokuwiki/dokuwiki-backup.sh"
+    owner: srf
+    mode: u=rwx,g=r,o=r
+
+
+- name: Ensure Backupskript dokuwiki runs in cron
+  cron:
+    name: "Backup Dokuwiki to remote dest"
+    minute: "0"
+    hour: "22"
+    job: "/srv/dokuwiki/dokuwiki-backup.sh"
+    user: srf
  
 # check requirements
 #
