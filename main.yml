@@ -39,10 +39,21 @@
   vars:
     bbb_letsencrypt_enable: yes
     bbb_letsencrypt_email: "{{ letsencrypt_email }}"
-    bbb_coturn_enable: no
-    bbb_turn_enable: no
+    bbb_coturn_enable: yes
+    bbb_turn_enable: yes
+    bbb_turn_server: "turn.{{ ansible_fqdn }}"
     bbb_greenlight_enable: no
     bbb_api_demos_enable: no
+  pre_tasks:
+    - name: Generate turn server secret
+      command: openssl rand -hex 16
+      register: openssl_rand_16_turn
+      check_mode: no
+      when: not bbb_turn_secret is defined
+    - name: Register turn server secret
+      set_fact:
+        bbb_turn_secret: "{{ openssl_rand_16_turn.stdout }}"
+      when: not bbb_turn_secret is defined and openssl_rand_16_turn is defined
   roles:
     - nginx
     - n0emis.bigbluebutton
