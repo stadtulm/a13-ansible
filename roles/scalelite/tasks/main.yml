@@ -111,6 +111,14 @@
     - scalelite-api
     - scalelite-poller
 
+- name: Ensure database schema is loaded
+  shell:
+    chdir: /var/www/scalelite
+    executable: /bin/bash
+    cmd: "set -o allexport; source .env; set +o allexport; bundle exec rails db:schema:load"
+  become: yes
+  become_user: scalelite
+
 - name: Ensure scalelite-api is started
   systemd:
     name: scalelite-api

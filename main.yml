@@ -153,7 +153,7 @@
     nginx_domain_name: "ulmlernt.de"
     nginx_redirect_alias: "gl.ulmlernt.org"
     lb_url: "{{ scalelite_loadbalancer_url }}"
-    lb_secret: "{{ scalelite_loadbalancer_secret_fix }}"
+    lb_secret: "{{ scalelite_loadbalancer_secret }}"
   roles:
     - nginx
     - nginx-tls
