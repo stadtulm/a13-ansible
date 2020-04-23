@@ -6,6 +6,7 @@ fsn03.ulmlernt.org ansible_host=78.47.162.149
 fsn04.ulmlernt.org ansible_host=136.243.8.92
 fsn05.ulmlernt.org ansible_host=136.243.18.16
 fsn06.ulmlernt.org ansible_host=148.251.6.47
+bck.ulmlernt.org ansible_host=49.12.102.120
 
 [dns]
 fsn01.ulmlernt.org
@@ -25,3 +26,6 @@ fsn01.ulmlernt.org
 
 [frontend]
 fsn03.ulmlernt.org
+
+[backupstorage]
+bck.ulmlernt.org
