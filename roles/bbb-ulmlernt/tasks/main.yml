@@ -34,3 +34,27 @@
   copy:
     src: default.pdf
     dest: /var/www/bigbluebutton-default/default.pdf
+
+- name: copy our own mute/unmute sounds
+  copy:
+    src: '{{ item }}'
+    dest: '/opt/freeswitch/share/freeswitch/sounds/en/us/callie/conference/48000/{{item}}'
+  with_items:
+    - conf-muted-ulmlernt.wav
+    - conf-unmuted-ulmlernt.wav
+
+- name: ensure our own mute sound is used
+  xml:
+    path: /opt/freeswitch/etc/freeswitch/autoload_configs/conference.conf.xml
+    xpath: '/configuration/profiles/profile[@name="cdquality"]/param[@name="muted-sound"]'
+    attribute: value
+    value: conference/conf-muted-ulmlernt.wav
+  notify: restart bigbluebutton
+
+- name: ensure our own unmute sound is used
+  xml:
+    path: /opt/freeswitch/etc/freeswitch/autoload_configs/conference.conf.xml
+    xpath: '/configuration/profiles/profile[@name="cdquality"]/param[@name="unmuted-sound"]'
+    attribute: value
+    value: conference/conf-unmuted-ulmlernt.wav
+  notify: restart bigbluebutton
