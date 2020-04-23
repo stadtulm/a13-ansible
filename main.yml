@@ -45,6 +45,16 @@
     bbb_greenlight_enable: no
     bbb_api_demos_enable: no
   pre_tasks:
+    - name: find out what the current turn config is
+      slurp:
+        src: /etc/turnserver.conf
+      register: current_turn_conf
+      ignore_errors: yes
+      when: not bbb_turn_secret is defined
+    - name: register current turn secret
+      set_fact:
+        bbb_turn_secret: "{{ current_turn_conf.content | b64decode | regex_findall('static-auth-secret=(.+)') | first }}"
+      when: not bbb_turn_secret is defined and not current_turn_conf.failed
     - name: Generate turn server secret
       command: openssl rand -hex 16
       register: openssl_rand_16_turn
