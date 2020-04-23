@@ -29,3 +29,8 @@
     mode: 0755
     dest: /etc/bigbluebutton/nginx/redirectroot.nginx
   notify: reload nginx
+
+- name: ensure our own default slides are used
+  copy:
+    src: default.pdf
+    dest: /var/www/bigbluebutton-default/default.pdf
