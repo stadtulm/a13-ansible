@@ -111,6 +111,12 @@
     - scalelite-api
     - scalelite-poller
 
+- name: Count scalelite database tables
+  shell:
+    cmd: "psql -h 127.0.0.1 -U scalelite scalelite -qAt -c 'select count(*) from pg_stat_user_tables;'"
+  check_mode: no
+  register: scalelite_database_tablecount
+
 - name: Ensure database schema is loaded
   shell:
     chdir: /var/www/scalelite
@@ -118,6 +124,7 @@
     cmd: "set -o allexport; source .env; set +o allexport; bundle exec rails db:schema:load"
   become: yes
   become_user: scalelite
+  when: scalelite_database_tablecount.stdout|int <= 1
 
 - name: Ensure scalelite-api is started
   systemd:
