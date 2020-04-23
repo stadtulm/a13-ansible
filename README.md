@@ -7,7 +7,9 @@ git submodule update --init
 ansible-galaxy install -r requirements.yml
 ```
 
-Note: `cloudalchemy.node-exporter` requires the gnu variant of `tar` on macOS. (`brew install gnu-tar`)
+Note: `cloudalchemy.node-exporter` requires the gnu variant of `tar` on macOS. (`brew install gnu-tar`)  
+Note: `cloudalchemy.prometheus` requires the `jmespath` python module on your (deployer) machine
+
 
 You need to create the file `vault_password` and put the ansible vault password in there.
 
@@ -26,3 +28,7 @@ ansible-playbook main.yml
 * Confirm that you can ssh into the machine by its newly aquired dns name (this also adds the host key to your `~/.ssh/known_hosts`)
 * run `ansible-playbook main.yml -l your.fresh.hostname.example` (you may need `--user root` if you don't have an user yet, the base role creates one for you)
 * ...?
+* register your new bbb instance:
+  * at the monitoring by running `ansible-playbook main.yml --tags monitoring`
+  * at the loadbalancer by running `ansible-playbook main.yml --tags config`
+* enable it manually in the loadbalancer
