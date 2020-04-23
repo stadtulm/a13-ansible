@@ -6,31 +6,43 @@
     - python3-pip
     state: present
 
+- name: Create system user for bbb-exporter
+  user:
+    name: bbb-exporter
+    shell: /bin/bash
+    home: /var/lib/bbb-exporter
+    create_home: yes
+    password: '!'
+    update_password: on_create
+    system: yes
+    state: present
+
 - name: Checkout bbb-exporter
   git:
     repo: https://github.com/greenstatic/bigbluebutton-exporter.git
     dest: /var/www/bbb-exporter
-    version: v0.2.0
+    version: ca57db839188726e2c1b29387cd4747a23a0043e
 
-- name: Ensure bigbluebutton is owner of /var/www/bbb-exporter
+- name: Ensure bbb-exporter is owner of /var/www/bbb-exporter
   file:
     path: /var/www/bbb-exporter
     recurse: yes
-    owner: bigbluebutton
-    group: bigbluebutton
+    owner: bbb-exporter
+    group: bbb-exporter
 
 - name: Ensure required pip packages are installed
   pip:
     requirements: /var/www/bbb-exporter/requirements.txt
     state: present
+    extra_args: --user
   become: yes
-  become_user: bigbluebutton
+  become_user: bbb-exporter
 
 - name: Ensure environment for bbb-exporter
   template:
     src: env.j2
     dest: /var/www/bbb-exporter/.env
-    owner: bigbluebutton
+    owner: bbb-exporter
 
 - name: Ensure systemd unit for bbb-exporter
   template:

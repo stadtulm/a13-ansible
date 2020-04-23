@@ -9,7 +9,7 @@ WorkingDirectory=/var/www/bbb-exporter/bbb-exporter
 Restart=always
 RestartSec=60
 ExecStart=/usr/bin/python3 /var/www/bbb-exporter/bbb-exporter/server.py
-User=bigbluebutton
+User=bbb-exporter
 
 [Install]
 WantedBy=multi-user.target

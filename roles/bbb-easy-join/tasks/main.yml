@@ -7,11 +7,14 @@
 
 - name: Create user
   user:
-    name: bigbluebutton
+    name: bbb-easy-join
     shell: /bin/bash
+    home: /var/lib/bbb-easy-join
+    create_home: yes
     password: '!'
     update_password: on_create
     groups: nogroup
+    system: yes
     state: present
 
 - name: Checkout bbb-easy-join
@@ -21,30 +24,28 @@
     force: yes
     version: 4c0ac089753e331610ec7b1c0b43ef3cd55be430
 
-- name: Ensure bigbluebutton is owner of /var/www/bbb-easy-join
+- name: Ensure bbb-easy-join is owner of /var/www/bbb-easy-join
   file:
     path: /var/www/bbb-easy-join
     recurse: yes
-    owner: bigbluebutton
-    group: bigbluebutton
+    owner: bbb-easy-join
 
 - name: Ensure required npm packages are installed
   npm:
     path: /var/www/bbb-easy-join
     state: present
   become: yes
-  become_user: bigbluebutton
+  become_user: bbb-easy-join
 
 - name: Ensure environment for bbb-easy-join
   template:
     src: env.j2
     dest: /var/www/bbb-easy-join/.env
-    owner: bigbluebutton
+    owner: bbb-easy-join
 
 - name: Ensure systemd unit for bbb-easy-join
-  copy:
-    src: /var/www/bbb-easy-join/bbb-easy-join.service
-    remote_src: yes
+  template:
+    src: bbb-easy-join.service.j2
     dest: /etc/systemd/system/bbb-easy-join.service
 
 - name: Enable bbb-easy-join
