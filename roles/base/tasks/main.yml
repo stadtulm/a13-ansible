@@ -107,3 +107,9 @@
     mode: 0755
     dest: /etc/update-motd.d/11-help-text
 
+- name: Ensure that LANG from ssh clients is not used
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    line: 'AcceptEnv LANG LC_*'
+    state: absent
+  notify: restart sshd
