@@ -10,6 +10,7 @@
     executable: /bin/bash
     cmd: "set -o allexport; source .env; set +o allexport; bundle exec ./bin/rake servers:add[{{ (hostvars[item]['bbb_url'] + 'api') | quote }},{{ hostvars[item]['bbb_secret'] | quote }}]"
   with_items: "{{ groups['bbb'] }}"
+  when: hostvars[item]['bbb_url'] is defined
   become: yes
   become_user: scalelite
 
