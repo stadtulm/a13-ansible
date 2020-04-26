@@ -169,7 +169,7 @@
     - nginx-tls
     - nginx-tls-redirect
     - docker
-    - greenlight
+    - greenlight-docker
 
 - name: Frontend - Rocketchat
   hosts: frontend
