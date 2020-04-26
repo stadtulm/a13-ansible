@@ -231,7 +231,7 @@
         metrics_path: "/metrics"
         static_configs:
           - targets:
-            - "127.0.0.1:9153"
+            - "{{ ansible_default_ipv4.address }}:9153"
       - job_name: "node"
         file_sd_configs:
           - files:
