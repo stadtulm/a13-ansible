@@ -52,7 +52,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "id": null,
-  "iteration": 1587728712292,
+  "iteration": 1587902354603,
   "links": [],
   "panels": [
     {
@@ -161,6 +161,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PROMETHEUS}",
+      "decimals": 0,
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -224,6 +225,7 @@
       },
       "yaxes": [
         {
+          "decimals": 0,
           "format": "short",
           "label": "Participants",
           "logBase": 1,
@@ -251,6 +253,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PROMETHEUS}",
+      "decimals": 0,
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -314,6 +317,7 @@
       },
       "yaxes": [
         {
+          "decimals": 0,
           "format": "short",
           "label": "Participants",
           "logBase": 1,
@@ -341,6 +345,7 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": "${DS_PROMETHEUS}",
+      "decimals": 0,
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
@@ -404,7 +409,7 @@
       },
       "yaxes": [
         {
-          "decimals": null,
+          "decimals": 0,
           "format": "short",
           "label": "Participants",
           "logBase": 1,
@@ -413,12 +418,13 @@
           "show": true
         },
         {
+          "decimals": 0,
           "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
           "min": null,
-          "show": true
+          "show": false
         }
       ],
       "yaxis": {
@@ -477,12 +483,13 @@
         "orientation": "auto"
       },
       "pluginVersion": "6.7.3",
-      "repeat": "instance",
+      "repeat": null,
       "repeatDirection": "h",
       "targets": [
         {
           "expr": "bbb_meetings_participants",
           "format": "time_series",
+          "hide": false,
           "interval": "",
           "legendFormat": "{{instance}}",
           "refId": "A"
@@ -545,7 +552,7 @@
         "orientation": "vertical"
       },
       "pluginVersion": "6.7.3",
-      "repeat": "instance",
+      "repeat": null,
       "repeatDirection": "h",
       "targets": [
         {
@@ -612,7 +619,7 @@
         "orientation": "vertical"
       },
       "pluginVersion": "6.7.3",
-      "repeat": "instance",
+      "repeat": null,
       "repeatDirection": "h",
       "targets": [
         {
@@ -809,5 +816,5 @@
   "variables": {
     "list": []
   },
-  "version": 3
+  "version": 8
 }
