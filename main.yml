@@ -254,6 +254,7 @@
             regex:         '(.*):.*'
             target_label:  'instance'
             replacement:   '$1'
+    grafana_address: 127.0.0.1
     grafana_port: 3001
     grafana_url: "https://mon.ulmlernt.org"
     grafana_domain: "mon.ulmlernt.org"
