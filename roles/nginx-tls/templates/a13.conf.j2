@@ -21,5 +21,20 @@ server {
 
     root /var/www/html;
 
+    location /maintenance {
+       index index.html;
+    }
+
+    # uncomment this for maintenance
+    #if ($remote_addr != 127.0.0.1) {
+    #    return 503;
+    #}
+
+    error_page 503 @maintenance;
+    location @maintenance {
+       rewrite ^(.*)hackhack.gif$ /maintenance/hackhack.gif break;
+       rewrite ^(.*)$ /maintenance/index.html break;
+    }
+
     include /etc/nginx/a13.d/*.conf;
 }

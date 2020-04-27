@@ -14,6 +14,19 @@
     src: a13.conf.j2
     dest: /etc/nginx/sites-available/a13.conf
 
+- name: Ensure existence of maintenance folder
+  file:
+    path: /var/www/html/maintenance
+    state: directory
+
+- name: Copy maintenance files
+  copy:
+    src: "{{item}}"
+    dest: "/var/www/html/maintenance/{{item}}"
+  with_items:
+    - index.html
+    - hackhack.gif
+
 - name: Generate dhparams
   shell: openssl dhparam -out /etc/nginx/dhparams.pem 2048
   args:
