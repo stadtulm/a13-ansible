@@ -1,0 +1,112 @@
+---
+- name: Ensure group "greenlight" exists
+  group:
+    name: greenlight
+    state: present
+
+- name: Ensure user greenlight exists
+  user:
+    name: greenlight
+    shell: /bin/bash
+    password: '!'
+    update_password: on_create
+    groups: greenlight
+    state: present
+
+- name: Checkout greenlight repository
+  git:
+    repo: https://github.com/stadtulm/greenlight.git
+    dest: /var/www/greenlight
+    # branch: ulmlernt
+    version: 1eac0e7d695e06f71bc08fc1818acaceac38e706
+
+- name: Ensure greenlight is owner of /var/www/greenlight
+  file:
+    path: /var/www/greenlight
+    recurse: yes
+    owner: greenlight
+    group: greenlight
+
+- name: Ensure Bundler 2 is installed
+  gem:
+    name: bundler
+    state: latest
+    user_install: no
+
+- name: Ensure sqlite is installed
+  apt:
+    name:
+      - sqlite3
+      - libsqlite3-dev
+    state: present
+
+# bundler: deployment mode by cli argument is deprecated, so we're going to run this:
+- name: Ensure bundle in is deployment mode
+  command:
+    cmd: bundle config set deployment 'true'
+    chdir: /var/www/greenlight
+    creates: /var/www/greenlight/.bundle/config
+  become: yes
+  become_user: greenlight
+
+- name: Ensure gems for greenlight are installed
+  bundler:
+    state: present
+    exclude_groups:
+      - development
+      - test
+    chdir: /var/www/greenlight
+  become: yes
+  become_user: greenlight
+
+- name: find out what the current greenlight env is
+  slurp:
+    src: /var/www/greenlight/.env
+  register: current_greenlight_env
+  ignore_errors: yes
+  when: not greenlight_key_base is defined
+
+- name: register current turn secret
+  set_fact:
+    greenlight_key_base: "{{ current_greenlight_env.content | b64decode | regex_findall('SECRET_KEY_BASE=(.+)') | first }}"
+  when: not greenlight_key_base is defined and not current_greenlight_env.failed
+
+- name: Generate greenlight secret key base
+  command: openssl rand -hex 64
+  register: openssl_rand64
+  check_mode: no
+  when: not greenlight_key_base is defined
+
+- name: Register secret key base
+  set_fact:
+    greenlight_key_base: "{{ openssl_rand64.stdout }}"
+  when: not greenlight_key_base is defined
+
+- name: Ensure environment file for greenlight
+  template:
+    src: env.j2
+    dest: /var/www/greenlight/.env
+  become: yes
+  become_user: greenlight
+
+- name: Ensure systemd unit for greenlight
+  template:
+    src: greenlight.service
+    dest: /etc/systemd/system/greenlight.service
+
+- name: Enable greenlight units
+  systemd:
+    daemon_reload: yes
+    name: greenlight
+    enabled: yes
+
+- name: Ensure greenlight is started
+  systemd:
+    name: greenlight
+    state: started
+
+- name: Ensure greenlight nginx config exists
+  template:
+    src: nginx-greenlight.conf.j2
+    dest: /etc/nginx/a13.d/greenlight.conf
+  notify: reload nginx

@@ -1,0 +1,16 @@
+[Unit]
+Description=Greenlight
+After=network-online.target
+Wants=network-online.target postgresql.service
+
+[Service]
+Type=simple
+EnvironmentFile=/var/www/greenlight/.env
+WorkingDirectory=/var/www/greenlight
+Restart=always
+RestartSec=60
+ExecStart=/var/www/greenlight/bin/start
+User=greenlight
+
+[Install]
+WantedBy=multi-user.target
