@@ -623,7 +623,7 @@
       "repeatDirection": "h",
       "targets": [
         {
-          "expr": "bbb_meetings_participants",
+          "expr": "bbb_meetings",
           "instant": true,
           "interval": "",
           "legendFormat": "{{instance}}",
@@ -816,5 +816,5 @@
   "variables": {
     "list": []
   },
-  "version": 8
+  "version": 9
 }
