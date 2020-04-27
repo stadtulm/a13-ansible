@@ -30,8 +30,30 @@
     state: latest
   when: nginx_repo.changed or nginx_ppa_pin.changed
 
+- name: Ensure nginx ufw configuration is available
+  copy:
+    # this is the standard config from the nginx package(?)
+    # space character in the rule name is not that nice, but whatever
+    content: |
+      [Nginx HTTP]
+      title=Web Server (Nginx, HTTP)
+      description=Small, but very powerful and efficient web server
+      ports=80/tcp
+
+      [Nginx HTTPS]
+      title=Web Server (Nginx, HTTPS)
+      description=Small, but very powerful and efficient web server
+      ports=443/tcp
+
+      [Nginx Full]
+      title=Web Server (Nginx, HTTP + HTTPS)
+      description=Small, but very powerful and efficient web server
+      ports=80,443/tcp
+    mode: 0644
+    dest: /etc/ufw/applications.d/nginx
+
 - name: Allow nginx in ufw
   ufw:
     rule: allow
-    name: nginx
+    name: Nginx Full
     state: enabled
