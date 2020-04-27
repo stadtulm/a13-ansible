@@ -1,0 +1,34 @@
+---
+- name: Ensure ufw and fail2ban packages
+  apt:
+    name:
+      - ufw
+      - fail2ban
+    state: present
+
+- name: Allow ssh in ufw
+  ufw:
+    rule: limit
+    name: OpenSSH
+    state: enabled
+
+- name: Allow everything out and enable UFW
+  ufw:
+    direction: outgoing
+    policy: allow
+    state: enabled
+
+- name: Allow default nothing in and enable UFW
+  ufw:
+    direction: incoming
+    policy: deny
+    state: enabled
+
+- name: ensure fail2ban uses ufw
+  copy:
+    content: |
+      [DEFAULT]
+      banaction = ufw
+    mode: 0644
+    dest: /etc/fail2ban/jail.local
+  notify: restart fail2ban

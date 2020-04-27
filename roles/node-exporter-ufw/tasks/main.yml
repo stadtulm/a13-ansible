@@ -1,0 +1,16 @@
+---
+- name: Ensure node-exporter config for ufw
+  copy:
+    content: |
+      [node-exporter]
+      title=node-exporter
+      description=prometheus node exporter
+      ports=9100/tcp
+    mode: 0644
+    dest: /etc/ufw/applications.d/node-exporter
+
+- name: allow node-exporter in ufw
+  ufw:
+    rule: allow
+    name: node-exporter
+    state: enabled

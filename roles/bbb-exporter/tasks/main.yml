@@ -55,3 +55,19 @@
     name: bbb-exporter
     enabled: yes
     state: started
+
+- name: Ensure exporter config for ufw
+  copy:
+    content: |
+      [bbb-exporter]
+      title=bbb-exporter
+      description=prometheus bbb exporter
+      ports=9688/tcp
+    mode: 0644
+    dest: /etc/ufw/applications.d/bbb-exporter
+
+- name: allow bbb-exporter in ufw
+  ufw:
+    rule: allow
+    name: bbb-exporter
+    state: enabled

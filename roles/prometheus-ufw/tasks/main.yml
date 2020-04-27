@@ -1,0 +1,16 @@
+---
+- name: Ensure prometheus config for ufw
+  copy:
+    content: |
+      [prometheus]
+      title=prometheus
+      description=prometheus monitoring
+      ports=9090/tcp
+    mode: 0644
+    dest: /etc/ufw/applications.d/prometheus
+
+- name: allow prometheus in ufw
+  ufw:
+    rule: allow
+    name: prometheus
+    state: enabled

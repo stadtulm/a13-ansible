@@ -14,7 +14,6 @@
     mode: 0755
   register: nginx_ppa_pin
 
-
 - name: Ensure apt cache gets updated
   apt:
     update_cache: yes
@@ -30,3 +29,9 @@
     name: nginx
     state: latest
   when: nginx_repo.changed or nginx_ppa_pin.changed
+
+- name: Allow nginx in ufw
+  ufw:
+    rule: allow
+    name: nginx
+    state: enabled

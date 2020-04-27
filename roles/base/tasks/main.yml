@@ -113,3 +113,5 @@
     line: 'AcceptEnv LANG LC_*'
     state: absent
   notify: restart sshd
+
+- import_tasks: firewall.yml

@@ -1,0 +1,16 @@
+---
+- name: Ensure coredns config for ufw
+  copy:
+    content: |
+      [coredns]
+      title=coredns
+      description=coredns dns server
+      ports=53,9153/tcp|53/udp
+    mode: 0644
+    dest: /etc/ufw/applications.d/coredns
+
+- name: allow coredns in ufw
+  ufw:
+    rule: allow
+    name: coredns
+    state: enabled

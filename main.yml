@@ -18,6 +18,7 @@
     _node_exporter_system_user: 'prometheus'
   roles:
     - cloudalchemy.node-exporter
+    - node-exporter-ufw
 
 - name: DNS Server
   hosts: dns
@@ -28,6 +29,7 @@
     coredns_config_file: files/coredns/Corefile.j2
   roles:
     - cloudalchemy.coredns
+    - coredns-ufw
 
 - name: BigBlueButton
   hosts: bbb
@@ -297,5 +299,6 @@
         allowed_organizations: stadtulm
   roles:
     - cloudalchemy.prometheus
+    - prometheus-ufw
     - cloudalchemy.grafana
     - nginx-tls-monitoring

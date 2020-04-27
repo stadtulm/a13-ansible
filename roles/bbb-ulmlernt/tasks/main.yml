@@ -58,3 +58,36 @@
     attribute: value
     value: conference/conf-unmuted-ulmlernt.wav
   notify: restart bigbluebutton
+
+- name: adapt coturn ports in ufw
+  copy:
+    content: |
+      [turnserver]
+      title=Coturn turnserver
+      description=Free open source implementation of TURN and STUN Server
+      ports=3478,3479,5349,5350/tcp|3478,3479,5349,5350,49152:65535/udp
+    mode: 0644
+    dest: /etc/ufw/applications.d/turnserver
+
+- name: allow turnserver in ufw
+  ufw:
+    rule: allow
+    name: turnserver
+    state: enabled
+
+- name: adapt freeswitch ports in ufw
+  copy:
+    content: |
+      [freeswitch]
+      title=freeswitch
+      description=freeswitch telecom stack
+      ports=16384:32768/udp
+    mode: 0644
+    dest: /etc/ufw/applications.d/freeswitch
+
+- name: allow freeswitch in ufw
+  ufw:
+    rule: allow
+    name: freeswitch
+    state: enabled
+
