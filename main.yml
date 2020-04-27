@@ -43,7 +43,7 @@
     bbb_letsencrypt_email: "{{ letsencrypt_email }}"
     bbb_coturn_enable: yes
     bbb_turn_enable: yes
-    bbb_turn_server: "turn.{{ ansible_fqdn }}"
+    bbb_turn_server: "{{ ansible_fqdn }}"
     bbb_greenlight_enable: no
     bbb_api_demos_enable: no
   pre_tasks:
