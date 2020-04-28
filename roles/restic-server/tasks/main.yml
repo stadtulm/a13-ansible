@@ -1,0 +1,52 @@
+---
+- name: "Ensure restic-server user"
+  user:
+    name: rest-server
+    shell: /bin/bash
+    password: '!'
+    update_password: on_create
+    groups: nogroup
+    state: present
+
+- name: "Ensure restic-server binary"
+  copy: 
+    src: ../files/rest-server-0.9.7-linux-amd64
+    dest: /usr/local/bin/rest-server
+    owner: rest-server
+    mode: '0700'
+
+- name: "Ensure restic-server backup root directory"
+  file:
+    path: "{{ rest_backup_storage_dir }}"
+    state: directory
+    owner: rest-server
+    mode: '0700'
+
+- name: "Ensure restic-server systemd unit"
+  template:
+    src: rest-server.service
+    dest: /etc/systemd/system/rest-server.service
+
+- name: "enable rest-server systemd"
+  systemd:
+    name: rest-server.service
+    state: started
+    enabled: yes
+
+- name: "ensure python lib for htpasswd actions"
+  apt:
+    name: 
+      - python3-passlib
+      - python3-bcrypt
+    state: present
+
+- name: "enable test user"
+  htpasswd:
+    path: "{{ rest_backup_storage_dir }}/.htpasswd"
+    name: test
+    password: GoldeneKaffeekannedesTodeApollo13
+    owner: rest-server
+    mode: "0600"
+    crypt_scheme: bcrypt
+
+

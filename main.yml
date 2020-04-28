@@ -328,3 +328,20 @@
     - prometheus-ufw
     - cloudalchemy.grafana
     - nginx-tls-monitoring
+
+- name: Backup Server
+  hosts: backupstorage
+  tags: backup
+  become: yes
+  vars:
+    - rest_backup_storage_dir: "/srv/backup/rest-server"
+  roles:
+    - restic-server
+
+#- name: Backup Client
+#  hosts: frontend
+#  tags: backup
+#  become: yes
+#  vars:
+#    - restic_rest_server_url: "http://bck.ulmlernt.org"
+#    - restic_local_backup: "/var/backup/restic"
