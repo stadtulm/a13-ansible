@@ -56,6 +56,7 @@
     bbb_turn_server: "{{ ansible_fqdn }}"
     bbb_greenlight_enable: no
     bbb_api_demos_enable: no
+    bbb_additional_turn_secret: "{{ turn_secret }}"
   pre_tasks:
     - name: find out what the current turn config is
       slurp:
