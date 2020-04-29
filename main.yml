@@ -31,6 +31,16 @@
     - cloudalchemy.coredns
     - coredns-ufw
 
+- name: TURN Server
+  hosts: turn
+  become: yes
+  tags:
+    - turn
+  vars_files:
+    - vars.yml
+  roles:
+    - turn-standalone
+
 - name: BigBlueButton
   hosts: bbb
   become: yes
