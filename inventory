@@ -1,6 +1,7 @@
 [all]
 nbg01.ulmlernt.org ansible_host=88.198.33.197
 nbg02.ulmlernt.org ansible_host=88.198.43.210
+nbg03.ulmlernt.org ansible_host=85.10.201.69
 fsn01.ulmlernt.org ansible_host=195.201.237.77
 fsn02.ulmlernt.org ansible_host=144.76.96.80
 fsn03.ulmlernt.org ansible_host=78.47.162.149
@@ -37,3 +38,6 @@ fsn03.ulmlernt.org
 
 [backupstorage]
 bck.ulmlernt.org
+
+[turn]
+nbg03.ulmlernt.org turn_hostname="turn01.ulmlernt.org"
