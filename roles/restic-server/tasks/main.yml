@@ -40,13 +40,53 @@
       - python3-bcrypt
     state: present
 
-- name: "enable test user"
-  htpasswd:
-    path: "{{ rest_backup_storage_dir }}/.htpasswd"
-    name: test
-    password: GoldeneKaffeekannedesTodeApollo13
+# for certbot standalone mode
+- name: "ensure no Webserver installed"
+  apt:
+    name: 
+      - nginx
+      - apache2
+    state: absent
+
+    
+- import_tasks: letsencrypt.yml
+
+- name: "Ensure etc/rest-server"
+  file:
+    path: "/etc/rest-server"
+    state: directory
     owner: rest-server
-    mode: "0600"
-    crypt_scheme: bcrypt
+    mode: '0700'
 
+- name: "Get current certificate path"
+  stat:
+    path: "/etc/letsencrypt/live/{{ rest_backup_server }}/cert.pem"
+  register: rest_cert
+  
+- name: "Get current private key path"
+  stat:
+    path: "/etc/letsencrypt/live/{{ rest_backup_server }}/privkey.pem"
+  register: rest_key
 
+- name: "ensure cert are readable for rest-server"
+  copy:
+    src: "{{ item.src }}"
+    dest: "/etc/rest-server/{{ item.dest }}"
+    owner: rest-server
+    remote_src: yes
+  loop:
+    - { src: "{{ rest_key.stat.lnk_source }}", dest: "privkey.pem" }
+    - { src: "{{ rest_cert.stat.lnk_source }}", dest: "cert.pem" }
+  notify: restart rest-server
+    
+
+#- name: "enable test user"
+#  htpasswd:
+#    path: "{{ rest_backup_storage_dir }}/.htpasswd"
+#    name: test
+#    password: GoldeneKaffeekannedesTodeApollo13
+#    owner: rest-server
+#    mode: "0600"
+#    crypt_scheme: bcrypt
+#
+#

@@ -335,6 +335,9 @@
   become: yes
   vars:
     - rest_backup_storage_dir: "/srv/backup/rest-server"
+    - rest_backup_server: bck.ulmlernt.org
+  vars_files:
+    - vars.yml
   roles:
     - restic-server
 
@@ -343,5 +346,11 @@
 #  tags: backup
 #  become: yes
 #  vars:
-#    - restic_rest_server_url: "http://bck.ulmlernt.org"
-#    - restic_local_backup: "/var/backup/restic"
+#    restic: 
+#      server_url: "http://bck.ulmlernt.org"
+#      server_repo: "backuptest"
+#      task:
+#        name: greenlight_db
+#        cmd: "pg_dumpall -c -U postgres 
+#      -   
+#      - restic_local_backup: "/var/backup/restic"
