@@ -1,0 +1,76 @@
+---
+- name: "Ensure restic task base directory"
+  file:
+    path: "/srv/restic/"
+    owner: root
+    mode: '0700'
+    state: directory
+
+- name: "Ensure restic task base for {{ backup_name }}"
+  file:
+    path: "/srv/restic/{{ backup_name }}/"
+    owner: root
+    mode: '0700'
+    state: directory
+
+- name: "Ensure init repo script for {{ backup_name }}"
+  template:
+    src: "init_repo.sh"
+    dest: "/srv/restic/{{ backup_name }}/init_repo.sh"
+    owner: root
+    mode: '0700'
+
+- name: "Ensure backup repository for {{ backup_name }} exists"
+  command: "/srv/restic/{{ backup_name }}/init_repo.sh"
+  become: yes
+  become_user: root
+  run_once: true
+
+- name: "Ensure Backup Script for {{ backup_name }}"
+  template:
+    src: "{{ backup_script }}"
+    dest: "/srv/restic/{{ backup_name }}/{{ backup_script }}"
+    owner: root
+    mode: '0700'
+
+- name: "Ensure Cron Job for backup {{ backup_name }} exists"
+  cron:
+    name: "Backup {{ backup_name }}"
+    minute: "0"
+    hour: "8-22"
+    user: root
+    job: "/srv/restic/{{ backup_name }}/{{ backup_script }}"
+
+
+
+
+#- name: "check if rest server connection password file exists"
+#  stat:
+#    path: "/srv/restic/rest_conn_password.txt"
+#  register: rest_conn_pw_file
+#
+#- name: "if password file exists read pw file"
+#  command: "cat /srv/restic/rest_conn_password.txt"
+#  register: rest_conn_pw
+#  when: rest_conn_pw_file.stat.exists
+#
+#- name: "generate pw if not exist"
+#  command: "openssl rand -base64 64"
+#  register: rest_conn_pw
+#  when: rest_conn_pw_file.stat.exists == false
+#
+#- name: "Create PW file if not exist"
+#  copy:
+#    content: "{{ rest_conn_pw.stdout }}"
+#    dest: "/srv/restic/rest_conn_password.txt"
+#  when: rest_conn_pw_file.stat.exists == false
+#
+#- name: "debug"
+#  debug:
+#    var: rest_conn_pw
+#  
+#- name: "Ensure Password for rest-server"
+#  set_fact:
+#    rest_conn_password: "{{ rest_conn_pw.stdout }}"
+#    cacheable: yes
+# 

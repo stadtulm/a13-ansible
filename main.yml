@@ -198,6 +198,8 @@
     - greenlight
     #- greenlight-docker
 
+
+
 - name: Frontend - Rocketchat
   hosts: frontend
   become: yes
@@ -216,6 +218,7 @@
     - docker
     - rocketchat
 
+
 - name: Frontend - Dokuwiki
   hosts: frontend
   become: yes
@@ -231,6 +234,7 @@
     - nginx
     - nginx-tls-add
     - dokuwiki
+
 
 - name: Monitoring
   hosts: loadbalancer
@@ -331,26 +335,52 @@
 
 - name: Backup Server
   hosts: backupstorage
-  tags: backup
+  tags: 
+    - backup
   become: yes
   vars:
-    - rest_backup_storage_dir: "/srv/backup/rest-server"
-    - rest_backup_server: bck.ulmlernt.org
+    rest_backup_storage_dir: "/srv/rest-server"
+    rest_backup_server: "bck.ulmlernt.org"
+    rest_backup_tasks:
+      - { name: "dokuwiki", conn_pw: "{{ restic_backup_dokuwiki_conn_pw }}", backup_pw: "{{ restic_backup_dokuwiki_backup_pw }}" }
+      - { name: "greenlight" , conn_pw: "{{ restic_backup_greenlight_conn_pw }}", backup_pw: "{{ restic_backup_greenlight_backup_pw }}" }
   vars_files:
     - vars.yml
   roles:
     - restic-server
 
-#- name: Backup Client
-#  hosts: frontend
-#  tags: backup
-#  become: yes
-#  vars:
-#    restic: 
-#      server_url: "http://bck.ulmlernt.org"
-#      server_repo: "backuptest"
-#      task:
-#        name: greenlight_db
-#        cmd: "pg_dumpall -c -U postgres 
-#      -   
-#      - restic_local_backup: "/var/backup/restic"
+- name: Backup Client - Dokuwiki
+  hosts: frontend
+  become: yes
+  tags:
+    - backup 
+  vars_files:
+    - vars.yml
+  vars:
+    backup_name: "dokuwiki"
+    backup_server: "{{ restic_backup_server }}"
+    backup_conn_pw: "{{ restic_backup_dokuwiki_conn_pw }}"
+    backup_pw: "{{ restic_backup_dokuwiki_backup_pw }}"
+    backup_script: "backup_directory.sh"
+    backup_dir: "/var/www/dokuwiki"
+  roles:
+    - restic-client
+
+- name: Backup Client - Greenlight
+  hosts: frontend
+  become: yes
+  tags:
+    - backup 
+  vars_files:
+    - vars.yml
+  vars:
+    backup_name: "greenlight"
+    backup_server: "{{ restic_backup_server }}"
+    backup_conn_pw: "{{ restic_backup_greenlight_conn_pw }}"
+    backup_pw: "{{ restic_backup_greenlight_backup_pw }}"
+    backup_script: "backup_postgres.sh"
+    backup_pg_db: "greenlight_production"
+  roles:
+    - restic-client
+
+

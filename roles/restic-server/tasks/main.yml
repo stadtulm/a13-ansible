@@ -60,7 +60,7 @@
 
 - name: "Get current certificate path"
   stat:
-    path: "/etc/letsencrypt/live/{{ rest_backup_server }}/cert.pem"
+    path: "/etc/letsencrypt/live/{{ rest_backup_server }}/fullchain.pem"
   register: rest_cert
   
 - name: "Get current private key path"
@@ -76,17 +76,16 @@
     remote_src: yes
   loop:
     - { src: "{{ rest_key.stat.lnk_source }}", dest: "privkey.pem" }
-    - { src: "{{ rest_cert.stat.lnk_source }}", dest: "cert.pem" }
+    - { src: "{{ rest_cert.stat.lnk_source }}", dest: "fullchain.pem" }
   notify: restart rest-server
-    
 
-#- name: "enable test user"
-#  htpasswd:
-#    path: "{{ rest_backup_storage_dir }}/.htpasswd"
-#    name: test
-#    password: GoldeneKaffeekannedesTodeApollo13
-#    owner: rest-server
-#    mode: "0600"
-#    crypt_scheme: bcrypt
-#
-#
+- name: "Ensure Backup User can connect"
+  htpasswd:
+    path: "{{ rest_backup_storage_dir }}/.htpasswd"
+    name: "{{ item.name }}"
+    password: "{{ item.conn_pw }}"
+    owner: rest-server
+    mode: "0600"
+    crypt_scheme: bcrypt
+  with_items: "{{ rest_backup_tasks }}"
+

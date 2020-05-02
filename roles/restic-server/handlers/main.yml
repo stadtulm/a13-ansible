@@ -2,4 +2,4 @@
 - name: restart rest-server
   service:
     name: rest-server
-    state: restart
+    state: restarted
