@@ -57,3 +57,11 @@
     rule: allow
     name: Nginx Full
     state: enabled
+
+- name: Ensure nginx configuration contains log format with request id
+  lineinfile:
+    line: "log_format cri '$remote_addr - $remote_user [$time_local] \"$request\" $status $body_bytes_sent \"$http_referer\" \"$http_user_agent\" request_id=$request_id';"
+    insertbefore: '^\s*access_log'
+    path: /etc/nginx/nginx.conf
+    # validate: '/usr/sbin/nginx -t -c %s'
+  notify: reload nginx

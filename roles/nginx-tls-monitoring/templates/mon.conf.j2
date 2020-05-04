@@ -3,7 +3,6 @@ server {
     listen [::]:443 ssl http2;
     server_name {{ nginx_domain_name }};
 
-    ssl on;
     ssl_certificate         /etc/letsencrypt/live/{{ nginx_domain_name }}/fullchain.pem;
     ssl_certificate_key     /etc/letsencrypt/live/{{ nginx_domain_name }}/privkey.pem;
     ssl_trusted_certificate /etc/letsencrypt/live/{{ nginx_domain_name }}/fullchain.pem;
