@@ -1,0 +1,5 @@
+---
+- name: restart greenlight
+  service:
+    name: greenlight
+    state: restarted
