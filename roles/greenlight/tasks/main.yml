@@ -18,7 +18,7 @@
     repo: https://github.com/stadtulm/greenlight.git
     dest: /var/www/greenlight
     # branch: ulmlernt
-    version: d041e163422052e6784bbf40b9ea4b2eabf568cf
+    version: 991b9d904839119fd46545b5b1928b76e8f37697
   notify: restart greenlight
 
 - name: Ensure greenlight is owner of /var/www/greenlight
