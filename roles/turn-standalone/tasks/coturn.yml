@@ -40,3 +40,11 @@
   systemd:
     name: coturn
     state: started
+
+- name: Ensure coturn is restarted everyday @ 4 am
+  cron:
+    name: "restart coturn"
+    minute: "0"
+    hour: "4"
+    user: root
+    job: "systemctl restart coturn.service"
