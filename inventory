@@ -45,5 +45,5 @@ bck.ulmlernt.org
 nbg03.ulmlernt.org turn_hostname="turn01.ulmlernt.org"
 fsn10.ulmlernt.org turn_hostname="turn02.ulmlernt.org"
 
-[zammad]
-zammad.ulmlernt.org
+[support]
+fsn11.ulmlernt.org

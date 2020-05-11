@@ -63,11 +63,12 @@ nbg03	3600	IN	AAAA	2a01:4f8:a0:440b::2
 fsn10	3600	IN	A	144.76.159.37
 fsn10	3600	IN	AAAA	2a01:4f8:200:3224::2
 
-bck		3600	IN		A		49.12.102.120
-bck		3600	IN		AAAA		2a01:4f8:c17:badd::1
+fsn11	3600	IN	A	49.12.33.68
+fsn11	3600	IN	AAAA	2a01:4f8:c17:2a2a::1
 
-zammad		3600	IN		A		49.12.33.68
-zammad		3600	IN		AAAA		2a01:4f8:c17:2a2a::1
+bck	3600	IN	A	49.12.102.120
+bck	3600	IN	AAAA	2a01:4f8:c17:badd::1
+
 
 lb		3600	IN	CNAME	fsn01.ulmlernt.org.
 mon		3600	IN	CNAME	fsn01.ulmlernt.org.
@@ -76,3 +77,4 @@ chat		3600	IN	CNAME	fsn03.ulmlernt.org.
 doku		3600	IN	CNAME	fsn03.ulmlernt.org.
 turn01		3600	IN	CNAME	nbg03.ulmlernt.org.
 turn02		3600	IN	CNAME	fsn10.ulmlernt.org.
+support		3600	IN	CNAME	fsn11.ulmlernt.org.
