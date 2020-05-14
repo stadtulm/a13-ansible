@@ -405,4 +405,22 @@
   roles:
     - restic-client
 
+- name: Support Ticket System Zammad
+  hosts: support
+  become: yes
+  tags:
+    - support
+  vars_files:
+    - vars.yml
+  vars:
+    nginx_domain_name: support.ulmlernt.de
+    nginx_redirect_alias: support.ulmlernt.org
+    elasticsearch_version: '5.x'
+  roles:
+    - nginx
+    - nginx-tls
+    - nginx-tls-redirect
+    - geerlingguy.java
+    - geerlingguy.elasticsearch
+    - zammad
 
