@@ -1,0 +1,61 @@
+---
+- name: ensure basic apt packages
+  apt:
+    name: apt-transport-https
+    state: present
+
+- name: ensure zammad repo key
+  apt_key:
+    url: https://dl.packager.io/srv/zammad/zammad/key
+    state: present
+
+- name: ensure zammad repo in apt
+  apt_repository:
+    repo: deb https://dl.packager.io/srv/deb/zammad/zammad/stable/ubuntu 18.04 main
+    state: present 
+
+- name: ensure zammad is installed 
+  apt:
+    name: zammad
+    state: latest
+    install_recommends: yes
+    update_cache: yes
+
+- name: ensure own SSL zammad nginx conf
+  template: 
+    src: nginx.zammad.conf
+    dest: /etc/nginx/a13.d/zammad.conf
+    owner: root
+  notify: reload nginx
+
+# FIXME: current status quo: 
+# - overwrite/extend files vom nginx-tls
+# - disable standard zammad conf from deb package
+# => results in multiple "changed" in ansible runs / no idempotency
+
+- name: ensure zammad specific settings in a13.conf
+  blockinfile:
+    path: /etc/nginx/sites-available/a13.conf
+    insertbefore: "^server {"
+    block: |
+      upstream zammad-railsserver {
+      server 127.0.0.1:3000;
+      }
+
+      upstream zammad-websocket {
+      server 127.0.0.1:6042;
+      }
+  notify: reload nginx
+
+- name: remove root in a13.conf
+  lineinfile: 
+    path: /etc/nginx/sites-available/a13.conf
+    regexp: "root \/var\/www\/html"
+    state: absent
+  notify: reload nginx
+
+- name: Ensure zammad standard nginx conf not active
+  file:
+    path: /etc/nginx/sites-enabled/zammad.conf
+    state: absent
+  notify: reload nginx
