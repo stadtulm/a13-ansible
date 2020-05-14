@@ -59,3 +59,23 @@
     path: /etc/nginx/sites-enabled/zammad.conf
     state: absent
   notify: reload nginx
+
+- name: Ensure backup dir is writeable for zammad
+  file:
+    path: "{{ backup_dir }}"
+    state: directory
+    owner: zammad
+    mode: '0700'
+
+- name: Enable zammad builtin backup config
+  template:
+    src: backup.config
+    dest: /opt/zammad/contrib/backup/config
+
+- name: Enable daily backup cronjob of zammad
+  cron:
+    name: "Backup zammad"
+    user: zammad
+    hour: '2'
+    minute: '42'
+    job: "cd /opt/zammad/contrib/backup && ./zammad_backup.sh"

@@ -366,6 +366,7 @@
     rest_backup_tasks:
       - { name: "dokuwiki", conn_pw: "{{ restic_backup_dokuwiki_conn_pw }}", backup_pw: "{{ restic_backup_dokuwiki_backup_pw }}" }
       - { name: "greenlight" , conn_pw: "{{ restic_backup_greenlight_conn_pw }}", backup_pw: "{{ restic_backup_greenlight_backup_pw }}" }
+      - { name: "zammad" , conn_pw: "{{ restic_backup_zammad_conn_pw }}", backup_pw: "{{ restic_backup_zammad_backup_pw }}" }
   vars_files:
     - vars.yml
   roles:
@@ -410,12 +411,19 @@
   become: yes
   tags:
     - support
+    - backup 
   vars_files:
     - vars.yml
   vars:
     nginx_domain_name: support.ulmlernt.de
     nginx_redirect_alias: support.ulmlernt.org
     elasticsearch_version: '5.x'
+    backup_name: "zammad"
+    backup_server: "{{ restic_backup_server }}"
+    backup_conn_pw: "{{ restic_backup_zammad_conn_pw }}"
+    backup_pw: "{{ restic_backup_zammad_backup_pw }}"
+    backup_script: "backup_directory.sh"
+    backup_dir: "/var/tmp/zammad_backup"
   roles:
     - nginx
     - nginx-tls
@@ -423,4 +431,4 @@
     - geerlingguy.java
     - geerlingguy.elasticsearch
     - zammad
-
+    - restic-client
