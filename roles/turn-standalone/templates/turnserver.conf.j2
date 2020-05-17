@@ -11,8 +11,9 @@ tls-listening-port=443
 # specified multiple times). The default is to listen on all addresses.
 # You do not normally need to set this option.
 listening-ip={{ ansible_default_ipv4.address }}
+{% if ansible_default_ipv6 and ansible_default_ipv6.address %}
 listening-ip={{ ansible_default_ipv6.address }}
-
+{% endif %}
 # If the server is behind NAT, you need to specify the external IP address.
 # If there is only one external address, specify it like this:
 #external-ip=172.17.19.120
