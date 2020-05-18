@@ -3,3 +3,8 @@
   service:
     name: rest-server
     state: restarted
+
+- name: reload ufw
+  service:
+    name: ufw
+    state: reloaded

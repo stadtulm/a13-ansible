@@ -1,4 +1,9 @@
 ---
+- name: "Ensure restic binary"
+  apt:
+    name: restic
+    state: present
+
 - name: "Ensure restic task base directory"
   file:
     path: "/srv/restic/"

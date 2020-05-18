@@ -361,7 +361,7 @@
     - backup
   become: yes
   vars:
-    rest_backup_storage_dir: "/srv/rest-server"
+    rest_backup_storage_dir: "/mnt/backup/restic"
     rest_backup_server: "bck.ulmlernt.org"
     rest_backup_tasks:
       - { name: "dokuwiki", conn_pw: "{{ restic_backup_dokuwiki_conn_pw }}", backup_pw: "{{ restic_backup_dokuwiki_backup_pw }}" }
@@ -417,7 +417,10 @@
   vars:
     nginx_domain_name: support.ulmlernt.de
     nginx_redirect_alias: support.ulmlernt.org
-    elasticsearch_version: '5.x'
+    elasticsearch_version: '7.x'
+    elasticsearch_extra_options: | 
+      http.max_content_length: 400mb
+      indices.query.bool.max_clause_count: 2000
     backup_name: "zammad"
     backup_server: "{{ restic_backup_server }}"
     backup_conn_pw: "{{ restic_backup_zammad_conn_pw }}"
@@ -430,5 +433,7 @@
     - nginx-tls-redirect
     - geerlingguy.java
     - geerlingguy.elasticsearch
+    - geerlingguy.mailhog
     - zammad
     - restic-client
+  

@@ -89,3 +89,19 @@
     crypt_scheme: bcrypt
   with_items: "{{ rest_backup_tasks }}"
 
+
+- name: adapt rest-server ports in ufw
+  copy:
+    content: |
+      [rest-server]
+      title=Restic REST Server
+      description=REST Server for restic backup
+      ports=8000/tcp
+    mode: 0644
+    dest: /etc/ufw/applications.d/rest-server
+
+- name: allow rest-server in ufw
+  ufw:
+    rule: allow
+    name: rest-server
+    state: enabled

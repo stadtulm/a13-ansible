@@ -1,4 +1,21 @@
 ---
+
+# elasticsearch specific settings
+# see https://docs.zammad.org/en/latest/install/elasticsearch.html
+- name: ensure elasticsearch plugin for zammad
+  elasticsearch_plugin:
+    name: ingest-attachment
+    state: present
+    force: yes #plugin requires additional permissions. otherwise will fail because no tty 
+
+- name: ensure sysctl for elasticsearch / zammad
+  sysctl:
+    name: vm.max_map_count
+    value: '262144'
+    state: present
+    sysctl_set: yes
+    reload: yes
+
 - name: ensure basic apt packages
   apt:
     name: apt-transport-https
@@ -21,12 +38,21 @@
     install_recommends: yes
     update_cache: yes
 
+- name: ensure zammad connects to elasticsearch
+  command: /usr/bin/zammad run rails r "Setting.set('es_url', 'http://localhost:9200')" && /usr/bin/zammad run rake searchindex:rebuild
+  become: yes
+  become_user: zammad
+  run_once: yes
+        
+
 - name: ensure own SSL zammad nginx conf
   template: 
     src: nginx.zammad.conf
     dest: /etc/nginx/a13.d/zammad.conf
     owner: root
   notify: reload nginx
+
+
 
 # FIXME: current status quo: 
 # - overwrite/extend files vom nginx-tls
@@ -60,11 +86,11 @@
     state: absent
   notify: reload nginx
 
-- name: Ensure backup dir is writeable for zammad
+- name: Ensure backup dir 
   file:
     path: "{{ backup_dir }}"
     state: directory
-    owner: zammad
+    owner: root
     mode: '0700'
 
 - name: Enable zammad builtin backup config
@@ -75,7 +101,8 @@
 - name: Enable daily backup cronjob of zammad
   cron:
     name: "Backup zammad"
-    user: zammad
+    user: root
     hour: '2'
     minute: '42'
     job: "cd /opt/zammad/contrib/backup && ./zammad_backup.sh"
+
