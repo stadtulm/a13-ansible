@@ -1,4 +1,9 @@
 ---
+- name: "Ensure restic (apt package) is installed"
+  apt:
+    name: restic
+    update_cache: yes
+
 - name: "Ensure restic task base directory"
   file:
     path: "/srv/restic/"
