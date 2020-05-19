@@ -112,6 +112,11 @@
      name: postgresql
      state: restarted
 
+- name: Ensure greenlight nginx is restarted
+  service:
+    name: nginx
+    state: restarted
+
 - name: Ensure greenlight is started
   systemd:
     name: greenlight
