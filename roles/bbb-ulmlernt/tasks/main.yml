@@ -30,6 +30,12 @@
     dest: /etc/bigbluebutton/nginx/redirectroot.nginx
   notify: reload nginx
 
+- name: ensure nginx is enabled
+  systemd:
+    name: nginx
+    enabled: yes
+    masked: no
+
 - name: ensure our own default slides are used
   copy:
     src: default.pdf
