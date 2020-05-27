@@ -16,7 +16,7 @@ services:
     depends_on:
       - mongo
     ports:
-      - 3000:3000
+      - "127.0.0.1:3000:3000"
 
   mongo:
     image: mongo:4.0
