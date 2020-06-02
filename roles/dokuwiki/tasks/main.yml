@@ -29,36 +29,4 @@
     src: dokuwiki.nginx
     dest: "/etc/nginx/{{ nginx_domain_name }}.d/dokuwiki.conf"
 
-- name: Ensure Dokuwiki srv/log/backup directory for backup exists
-  file:
-    path: "{{ item }}"
-    state: directory
-    owner: srf
-  loop:
-    - "/var/backups/dokuwiki"
-    - "/srv/dokuwiki"
-
-- name: Ensure Backup script file
-  template:
-    src: dokuwiki-backup.sh
-    dest: "/srv/dokuwiki/dokuwiki-backup.sh"
-    owner: srf
-    mode: u=rwx,g=r,o=r
-
-
-- name: Ensure Backupskript dokuwiki runs in cron
-  cron:
-    name: "Backup Dokuwiki to remote dest"
-    minute: "0"
-    hour: "22"
-    job: "/srv/dokuwiki/dokuwiki-backup.sh"
-    user: srf
  
-# check requirements
-#
-#
-
-# Download Dokuwiki
-# check config -> files path
-# check filepermissions
-# copy ngix config
