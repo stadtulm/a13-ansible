@@ -18,7 +18,8 @@
     repo: https://github.com/stadtulm/greenlight.git
     dest: /var/www/greenlight
     version: ulmlernt
-    version: 76cd1f901da47fbdbaf4697c991b505c0e563554
+    force: yes
+    #version: 76cd1f901da47fbdbaf4697c991b505c0e563554
   notify: restart greenlight
 
 - name: Ensure greenlight is owner of /var/www/greenlight

@@ -203,6 +203,7 @@
     postgresql_users:
       - name: greenlight
         state: present
+        role_attr_flags: CREATEDB # rake db:migrate needs priv
     postgresql_databases:
       - name: greenlight_production
         owner: greenlight
@@ -216,7 +217,7 @@
       become: yes
     - geerlingguy.ruby
     - geerlingguy.nodejs
-    - docker
+    #- docker
     - greenlight
     #- greenlight-docker
 
