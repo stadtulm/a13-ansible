@@ -111,6 +111,11 @@
     - scalelite-api
     - scalelite-poller
 
+- name: Restart PostgresSQL
+  service:
+    name: postgresql
+    state: restarted
+
 - name: Count scalelite database tables
   shell:
     cmd: "psql -h 127.0.0.1 -U scalelite scalelite -qAt -c 'select count(*) from pg_stat_user_tables;'"
