@@ -101,6 +101,17 @@
     name: greenlight
     enabled: yes
 
+- name: Ensure greenlight nginx config exists
+  template:
+    src: nginx-greenlight.conf.j2
+    dest: /etc/nginx/a13.d/greenlight.conf
+  notify: reload nginx
+
+- name: Restart PostgreSQL Server of greenlight
+  service:
+     name: postgresql
+     state: restarted
+
 - name: Ensure greenlight is started
   systemd:
     name: greenlight
@@ -114,8 +125,3 @@
     become: yes
     become_user: greenlight
 
-- name: Ensure greenlight nginx config exists
-  template:
-    src: nginx-greenlight.conf.j2
-    dest: /etc/nginx/a13.d/greenlight.conf
-  notify: reload nginx
