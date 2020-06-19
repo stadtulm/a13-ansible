@@ -126,7 +126,7 @@
   shell:
     chdir: /var/www/greenlight
     executable: /bin/bash
-    cmd: "set -o allexport; source .env; set +o allexport; bundle exec rake user:create[{{ greenlight_admin_user | quote }},{{ greenlight_admin_email | quote }},{{ greenlight_admin_password | quote }},admin]"
+    cmd: "sleep 42; set -o allexport; source .env; set +o allexport; bundle exec rake user:create[{{ greenlight_admin_user | quote }},{{ greenlight_admin_email | quote }},{{ greenlight_admin_password | quote }},admin]"
     become: yes
     become_user: greenlight
 
