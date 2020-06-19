@@ -33,6 +33,11 @@
     state: started
     enabled: yes
 
+- name: "Ensure rest-server is reachable from outside"
+  ufw:
+    rule: allow
+    port: 8000
+
 - name: "ensure python lib for htpasswd actions"
   apt:
     name: 
