@@ -106,6 +106,14 @@
     name: greenlight
     state: started
 
+- name: Create greenlight admin user
+  shell:
+    chdir: /var/www/greenlight
+    executable: /bin/bash
+    cmd: "set -o allexport; source .env; set +o allexport; bundle exec rake user:create[{{ greenlight_admin_user | quote }},{{ greenlight_admin_email | quote }},{{ greenlight_admin_password | quote }},admin]"
+    become: yes
+    become_user: greenlight
+
 - name: Ensure greenlight nginx config exists
   template:
     src: nginx-greenlight.conf.j2
