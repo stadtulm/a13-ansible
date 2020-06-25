@@ -62,32 +62,21 @@
   vars:
     bbb_letsencrypt_enable: yes
     bbb_letsencrypt_email: "{{ letsencrypt_email }}"
-    bbb_coturn_enable: yes
+    bbb_coturn_enable: no
     bbb_turn_enable: yes
-    bbb_turn_server: "{{ ansible_fqdn }}"
+    bbb_stun_servers:
+      - server: "{{ bbb_additional_turn_server }}"
+    bbb_turn_servers:
+      - server: "{{ bbb_additional_turn_server }}"
+        port: 443
+        secret: "{{ turn_secret }}"
+        tls: true
+      - server: "{{ bbb_additional_turn_server }}"
+        port: 3478
+        secret: "{{ turn_secret }}"
+        tls: false
     bbb_greenlight_enable: no
     bbb_api_demos_enable: no
-    bbb_additional_turn_secret: "{{ turn_secret }}"
-  pre_tasks:
-    - name: find out what the current turn config is
-      slurp:
-        src: /etc/turnserver.conf
-      register: current_turn_conf
-      ignore_errors: yes
-      when: not bbb_turn_secret is defined
-    - name: register current turn secret
-      set_fact:
-        bbb_turn_secret: "{{ current_turn_conf.content | b64decode | regex_findall('static-auth-secret=(.+)') | first }}"
-      when: not bbb_turn_secret is defined and not current_turn_conf.failed
-    - name: Generate turn server secret
-      command: openssl rand -hex 16
-      register: openssl_rand_16_turn
-      check_mode: no
-      when: not bbb_turn_secret is defined
-    - name: Register turn server secret
-      set_fact:
-        bbb_turn_secret: "{{ openssl_rand_16_turn.stdout }}"
-      when: not bbb_turn_secret is defined and openssl_rand_16_turn is defined
   roles:
     - nginx
     - n0emis.bigbluebutton

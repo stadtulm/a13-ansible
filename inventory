@@ -19,11 +19,11 @@ bck.ulmlernt.org ansible_host=49.12.102.120
 fsn01.ulmlernt.org
 
 [bbb]
-nbg01.ulmlernt.org bbb_additional_turn_server="turn02.ulmlernt.org"
-nbg02.ulmlernt.org bbb_additional_turn_server="turn02.ulmlernt.org"
-fsn02.ulmlernt.org bbb_additional_turn_server="turn02.ulmlernt.org"
-fsn04.ulmlernt.org bbb_additional_turn_server="turn02.ulmlernt.org"
-fsn05.ulmlernt.org bbb_additional_turn_server="turn02.ulmlernt.org"
+nbg01.ulmlernt.org bbb_additional_turn_server="turn01.ulmlernt.org"
+nbg02.ulmlernt.org bbb_additional_turn_server="turn01.ulmlernt.org"
+fsn02.ulmlernt.org bbb_additional_turn_server="turn01.ulmlernt.org"
+fsn04.ulmlernt.org bbb_additional_turn_server="turn01.ulmlernt.org"
+fsn05.ulmlernt.org bbb_additional_turn_server="turn01.ulmlernt.org"
 fsn06.ulmlernt.org bbb_additional_turn_server="turn02.ulmlernt.org"
 fsn07.ulmlernt.org bbb_additional_turn_server="turn02.ulmlernt.org"
 fsn08.ulmlernt.org bbb_additional_turn_server="turn02.ulmlernt.org"

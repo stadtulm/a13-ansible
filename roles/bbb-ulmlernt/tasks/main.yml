@@ -59,22 +59,6 @@
     value: conference/conf-unmuted-ulmlernt.wav
   notify: restart bigbluebutton
 
-- name: adapt coturn ports in ufw
-  copy:
-    content: |
-      [turnserver]
-      title=Coturn turnserver
-      description=Free open source implementation of TURN and STUN Server
-      ports=3478,3479,5349,5350/tcp|3478,3479,5349,5350,49152:65535/udp
-    mode: 0644
-    dest: /etc/ufw/applications.d/turnserver
-
-- name: allow turnserver in ufw
-  ufw:
-    rule: allow
-    name: turnserver
-    state: enabled
-
 - name: adapt freeswitch ports in ufw
   copy:
     content: |
@@ -91,9 +75,30 @@
     name: freeswitch
     state: enabled
 
+# coturn on BBB should not be enabled because package on ubuntu 16.04 has some bugs
+# only dedicated turn should be uses from now on
+- name: ensure coturn is not installed
+  apt:
+    name: coturn
+    state: absent
 
-- name: Ensure coturn is restarted everyday @ 4 am
+- name: ensure turnserver not allowed in ufw
+  ufw:
+    rule: allow
+    name: turnserver
+    delete: yes
+
+- name: ensure coturn config/log files are removed
+  file: 
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - /etc/turnserver.conf
+    - /var/log/coturn.log
+
+- name: Ensure coturn task is disabled
   cron:
+    state: absent
     name: "restart coturn"
     minute: "0"
     hour: "4"
