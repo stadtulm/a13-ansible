@@ -29,7 +29,7 @@
 - name: enable (limited) http in ufw for certbot renewal
   ufw:
     rule: limit
-    name: http
+    port: http
 
 - name: ensure certbot renew in cron
   cron:
