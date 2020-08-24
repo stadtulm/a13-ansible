@@ -76,7 +76,7 @@
 - name: remove root in a13.conf
   lineinfile: 
     path: /etc/nginx/sites-available/a13.conf
-    regexp: "root \/var\/www\/html"
+    line: "    root /var/www/html;"
     state: absent
   notify: reload nginx
 
