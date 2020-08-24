@@ -54,7 +54,7 @@
 
 - name: "Ensure read on certpaths for certificates"
   file:
-    path: /etc/letsencrypt/live
+    path: /etc/letsencrypt
     group: certs
     mode: g+rx 
     recurse: yes
