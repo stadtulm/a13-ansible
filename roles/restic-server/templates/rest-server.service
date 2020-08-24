@@ -7,7 +7,7 @@ After=network.target
 Type=simple
 User=rest-server 
 Group=rest-server
-ExecStart=/usr/local/bin/rest-server --path {{ rest_backup_storage_dir }} --private-repos --tls --tls-cert /etc/rest-server/fullchain.pem --tls-key /etc/rest-server/privkey.pem
+ExecStart=/usr/local/bin/rest-server --path {{ rest_backup_storage_dir }} --private-repos --tls --tls-cert /etc/letsencrypt/live/{{ rest_backup_server }}/fullchain.pem --tls-key /etc/letsencrypt/live/{{ rest_backup_server }}/privkey.pem
 Restart=always
 RestartSec=5
 

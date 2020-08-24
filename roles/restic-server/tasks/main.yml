@@ -1,11 +1,16 @@
 ---
+- name: "Ensure certs group exists"
+  group: 
+    name: certs
+    state: present
+
 - name: "Ensure restic-server user"
   user:
     name: rest-server
     shell: /bin/bash
     password: '!'
     update_password: on_create
-    groups: nogroup
+    groups: certs
     state: present
 
 - name: "Ensure restic-server binary"
@@ -22,16 +27,6 @@
     owner: rest-server
     mode: '0700'
 
-- name: "Ensure restic-server systemd unit"
-  template:
-    src: rest-server.service
-    dest: /etc/systemd/system/rest-server.service
-
-- name: "enable rest-server systemd"
-  systemd:
-    name: rest-server.service
-    state: started
-    enabled: yes
 
 - name: "ensure python lib for htpasswd actions"
   apt:
@@ -47,37 +42,33 @@
       - nginx
       - apache2
     state: absent
-
     
 - import_tasks: letsencrypt.yml
 
-- name: "Ensure etc/rest-server"
+- name: "Ensure /etc/rest-server"
   file:
     path: "/etc/rest-server"
     state: directory
     owner: rest-server
     mode: '0700'
 
-- name: "Get current certificate path"
-  stat:
-    path: "/etc/letsencrypt/live/{{ rest_backup_server }}/fullchain.pem"
-  register: rest_cert
-  
-- name: "Get current private key path"
-  stat:
-    path: "/etc/letsencrypt/live/{{ rest_backup_server }}/privkey.pem"
-  register: rest_key
+- name: "Ensure read on certpaths for certificates"
+  file:
+    path: /etc/letsencrypt/live
+    group: certs
+    mode: g+rx 
+    recurse: yes
 
-- name: "ensure cert are readable for rest-server"
-  copy:
-    src: "{{ item.src }}"
-    dest: "/etc/rest-server/{{ item.dest }}"
-    owner: rest-server
-    remote_src: yes
-  loop:
-    - { src: "{{ rest_key.stat.lnk_source }}", dest: "privkey.pem" }
-    - { src: "{{ rest_cert.stat.lnk_source }}", dest: "fullchain.pem" }
-  notify: restart rest-server
+- name: "Ensure restic-server systemd unit"
+  template:
+    src: rest-server.service
+    dest: /etc/systemd/system/rest-server.service
+
+- name: "enable rest-server systemd"
+  systemd:
+    name: rest-server.service
+    state: started
+    enabled: yes
 
 - name: "Ensure Backup User can connect"
   htpasswd:

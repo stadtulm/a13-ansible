@@ -26,4 +26,14 @@
   command: certbot certonly -d {{ rest_backup_server }} --agree-tos --email {{ letsencrypt_email }} --standalone
   when: not certbot_certificate_file_path.stat.exists
 
-# FIXME: webroot
+- name: enable (limited) http in ufw for certbot renewal
+  ufw:
+    rule: limit
+    name: http
+
+- name: ensure certbot renew in cron
+  cron:
+    name: "certbot renew weekly"
+    special_time: weekly
+    job: "certbot renew"
+    user: root
