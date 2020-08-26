@@ -100,9 +100,8 @@
 
 - name: Enable daily backup cronjob of zammad
   cron:
-    name: "Backup zammad"
+    name: "Backup zammad to /var/tmp"
     user: root
     hour: '2'
     minute: '42'
     job: "cd /opt/zammad/contrib/backup && ./zammad_backup.sh"
-
