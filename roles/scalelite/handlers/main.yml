@@ -1,0 +1,5 @@
+---
+- name: restart scalelite
+  service:
+    name: scalelite.target
+    state: restarted
