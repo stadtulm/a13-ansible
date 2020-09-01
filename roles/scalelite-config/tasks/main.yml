@@ -4,6 +4,17 @@
 #    msg: "{{ hostvars[item]['bbb_url'] }} : {{ hostvars[item]['bbb_secret'] }}"
 #  with_items: "{{ groups['bbb'] }}"
 
+- name: Panic and remove all BBB Servers from loadbalancer before adding
+  shell:
+    chdir: /var/www/scalelite
+    executable: /bin/bash
+    cmd: "set -o allexport; source .env; set +o allexport; bundle exec ./bin/rake servers | grep id | cut -d ' '  -f2 | xargs -I % bundle exec ./bin/rake servers:{{ item }}[%]"
+  with_items:
+    - panic
+    - remove
+  become: yes
+  become_user: scalelite
+
 - name: Ensure all servers are registered at the loadbalancer
   shell:
     chdir: /var/www/scalelite
@@ -11,6 +22,14 @@
     cmd: "set -o allexport; source .env; set +o allexport; bundle exec ./bin/rake servers:add[{{ (hostvars[item]['bbb_url'] + 'api') | quote }},{{ hostvars[item]['bbb_secret'] | quote }}]"
   with_items: "{{ groups['bbb'] }}"
   when: hostvars[item]['bbb_url'] is defined
+  become: yes
+  become_user: scalelite
+
+- name: Enable all servers at loadbalancer
+  shell:
+    chdir: /var/www/scalelite
+    executable: /bin/bash
+    cmd: "set -o allexport; source .env; set +o allexport; bundle exec ./bin/rake servers | grep id | cut -d ' '  -f2 | xargs -I % bundle exec ./bin/rake servers:enable[%]"
   become: yes
   become_user: scalelite
 
