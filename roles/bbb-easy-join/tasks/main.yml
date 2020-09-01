@@ -22,6 +22,7 @@
     repo: https://github.com/stadtulm/bbb-easy-join.git
     dest: /var/www/bbb-easy-join
     version: 17664edbf5a3001eaaceda03313ca12bb124f03c
+    force: yes
 
 - name: Ensure bbb-easy-join is owner of /var/www/bbb-easy-join
   file:
