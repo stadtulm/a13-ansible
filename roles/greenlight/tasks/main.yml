@@ -17,10 +17,11 @@
   git:
     repo: https://github.com/stadtulm/greenlight.git
     dest: /var/www/greenlight
-    version: ulmlernt
+    version: ee77a5d04ff57b80d1e343337e413d117251ff52
     force: yes
-    #version: 76cd1f901da47fbdbaf4697c991b505c0e563554
-  notify: restart greenlight
+  notify: 
+    - restart greenlight
+    - reload nginx
 
 - name: Ensure greenlight is owner of /var/www/greenlight
   file:
