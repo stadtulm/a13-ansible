@@ -1,0 +1,25 @@
+---
+- name: reboot server(s)
+  hosts: all
+  become: yes
+  tags:
+    - reboot
+  tasks:
+    - name: reboot Server
+      reboot:
+
+             
+- name: upgrade and reboot server(s)
+  hosts: all
+  become: yes
+  tags:
+    - upgradeandreboot
+  tasks:
+    - name: upgrade server 
+      apt:
+        update_cache: yes
+        cache_valid_time: 3600
+        upgrade: safe
+    - name: reboot server
+      reboot:
+
