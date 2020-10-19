@@ -1,0 +1,26 @@
+---
+- name: Store known hosts of 'all' the hosts in the inventory file
+  # Source: https://www.ipspace.net/kb/Ansible/Collect_SSH_Keys_Ansible.html
+  # execute: ANSIBLE_HOST_KEY_CHECKING=false ansible-playbook helper/store_known_hosts.yml
+  hosts: all
+  gather_facts: no
+  connection: local
+  vars:
+    - known_hosts: "~/.ssh/known_hosts"
+  tasks:
+    - name: scan and register
+      command: "ssh-keyscan {{ansible_host|default(inventory_hostname)}}"
+      register: "host_keys"
+      changed_when: false
+
+    - file: path={{known_hosts}} state=touch
+      run_once: true
+
+    - blockinfile:
+        dest: "{{known_hosts}}"
+        marker: "# {mark} This part managed by Ansible"
+        block: |
+          {% for h in groups['all'] if hostvars[h].host_keys is defined %}
+          {{ hostvars[h].host_keys.stdout }}
+          {% endfor %}
+      run_once: true

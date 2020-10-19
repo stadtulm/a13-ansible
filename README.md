@@ -1,7 +1,9 @@
 # a13-ansible
 
+
 ### Prepare
 
+#### Install modules
 ```
 git submodule update --init
 ansible-galaxy install -r requirements.yml
@@ -10,8 +12,17 @@ ansible-galaxy install -r requirements.yml
 Note: `cloudalchemy.node-exporter` requires the gnu variant of `tar` on macOS. (`brew install gnu-tar`)  
 Note: `cloudalchemy.prometheus` requires the `jmespath` python module on your (deployer) machine
 
+#### Passwords
 
 You need to create the file `vault_password` and put the ansible vault password in there.
+
+#### SSH Host Keys
+
+Get all SSH host keys and store in local .ssh/known\_hosts file by executing following skript
+
+```
+ansible-playbook helper/store_known_hosts.yml
+```
 
 ### Run
 ```

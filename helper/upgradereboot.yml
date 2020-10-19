@@ -1,14 +1,4 @@
 ---
-- name: reboot server(s)
-  hosts: all
-  become: yes
-  tags:
-    - reboot
-  tasks:
-    - name: reboot Server
-      reboot:
-
-             
 - name: upgrade and reboot server(s)
   hosts: all
   become: yes
@@ -22,4 +12,3 @@
         upgrade: safe
     - name: reboot server
       reboot:
-
