@@ -43,3 +43,7 @@ ansible-playbook main.yml
   * at the monitoring by running `ansible-playbook main.yml --tags monitoring`
   * at the loadbalancer by running `ansible-playbook main.yml --tags config`
 * enable it manually in the loadbalancer
+
+## Things to tell your Network Admin
+* Proxy exeptions for IPv4 adress of turnserver 
+
