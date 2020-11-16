@@ -65,7 +65,7 @@
     bbb_coturn_enable: no
     bbb_turn_enable: yes
     bbb_stun_servers:
-      - server: "{{ bbb_additional_turn_server }}"
+      - server: "{{ bbb_additional_turn_server }}:3478"
     bbb_turn_servers:
       - server: "{{ bbb_additional_turn_server }}"
         port: 443
