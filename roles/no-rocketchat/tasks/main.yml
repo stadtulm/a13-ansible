@@ -1,0 +1,23 @@
+---
+- name: ensure rocketchat user does not exist
+  user:
+    name: rocketchat
+    state: absent
+
+- name: Ensure rocketchat files / dir do not exist
+  file:
+    path: "{{ item }}"
+    state: absent
+  loop:
+    - "/srv/rocketchat"
+    - "/etc/nginx/chat.ulmlernt.org.d"
+    - "/etc/nginx/sites-available/chat.ulmlernt.org.http.conf"
+    - "/etc/nginx/sites-available/chat.ulmlernt.org.https.conf"
+    - "/etc/nginx/sites-enabled/chat.ulmlernt.org.http.conf"
+    - "/etc/nginx/sites-enabled/chat.ulmlernt.org.https.conf"
+  notify: reload nginx
+
+- name: Ensure Docker is removed
+  apt:
+    name: docker-ce
+    state: absent

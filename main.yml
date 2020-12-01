@@ -212,24 +212,22 @@
 
 
 
-- name: Frontend - Rocketchat
+- name: Frontend - no rocketchat
   hosts: frontend
   become: yes
   vars_files:
     - vars.yml
-  tags:
-    - frontend
-    - rocketchat
   vars:
-    nginx_domain_name: "chat.ulmlernt.de"
-    nginx_redirect_alias: "chat.ulmlernt.org"
+    nginx_domain_name: "ulmlernt.de"
+    nginx_redirect_alias: "chat.ulmlernt.de"
+  tags:
+    - no-rocketchat
+  roles:
   roles:
     - nginx
-    - nginx-tls-add
     - nginx-tls-redirect
-    - docker
-    - rocketchat
-
+    - no-docker
+    - no-rocketchat
 
 - name: Frontend - Dokuwiki
   hosts: frontend
