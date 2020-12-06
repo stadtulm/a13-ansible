@@ -29,6 +29,19 @@ fsn07.ulmlernt.org bbb_additional_turn_server="turn02.ulmlernt.org"
 fsn08.ulmlernt.org bbb_additional_turn_server="turn02.ulmlernt.org"
 fsn09.ulmlernt.org bbb_additional_turn_server="turn02.ulmlernt.org"
 
+[bbb_tik]
+nbg01.ulmlernt.org 
+nbg02.ulmlernt.org
+fsn02.ulmlernt.org
+fsn04.ulmlernt.org
+fsn05.ulmlernt.org
+
+[bbb_tok]
+fsn06.ulmlernt.org
+fsn07.ulmlernt.org
+fsn08.ulmlernt.org
+fsn09.ulmlernt.org
+
 [loadbalancer]
 fsn01.ulmlernt.org nginx_domain_name="lb.ulmlernt.org"
 
