@@ -17,7 +17,7 @@
   git:
     repo: https://github.com/stadtulm/greenlight.git
     dest: /var/www/greenlight
-    version: dd386215f2140589eda57840fa2185add3e8aeb4
+    version: ulmlernt
     force: yes
   notify: 
     - restart greenlight
