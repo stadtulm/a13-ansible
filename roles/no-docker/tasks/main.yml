@@ -22,3 +22,11 @@
   group:
     name: docker
     state: absent
+
+- name: check if docker network interface exists
+  shell: ip a | grep docker
+  register: docker_network_interface
+
+- name: Ensure Docker network interface is deleted
+  command: ip link delete docker0 
+  when: docker_network_interface.rc == 0

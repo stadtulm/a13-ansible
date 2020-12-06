@@ -81,6 +81,7 @@
     - nginx
     - n0emis.bigbluebutton
     - bbb-ulmlernt
+    - no-docker
 
 - name: Collect BBB secrets
   hosts: bbb
@@ -210,8 +211,6 @@
     - greenlight
     #- greenlight-docker
 
-
-
 - name: Frontend - no rocketchat
   hosts: frontend
   become: yes
@@ -244,7 +243,6 @@
     - nginx
     - nginx-tls-add
     - dokuwiki
-
 
 - name: Monitoring
   hosts: loadbalancer
