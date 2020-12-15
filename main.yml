@@ -175,7 +175,7 @@
     - greenlight
   vars:
     nginx_domain_name: "ulmlernt.de"
-    nginx_redirect_alias: "gl.ulmlernt.org"
+    nginx_redirect_alias: "www.ulmlernt.de"
     lb_url: "{{ scalelite_loadbalancer_url }}"
     lb_secret: "{{ scalelite_loadbalancer_secret }}"
     redis_port: 6379
