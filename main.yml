@@ -81,7 +81,9 @@
     - nginx
     - n0emis.bigbluebutton
     - bbb-ulmlernt
-    - no-docker
+    # TODO remove Docker from install process
+    # removal of docker group makes problems if docker is reinstalled by gerlingguyscript in n0emis
+    # - no-docker 
 
 - name: Collect BBB secrets
   hosts: bbb
