@@ -222,7 +222,6 @@
   tags:
     - no-rocketchat
   roles:
-  roles:
     - nginx
     - nginx-tls-redirect
 
