@@ -1,0 +1,9 @@
+---
+- name: remove all package lists from /etc/apt/sources.list.d 
+  hosts: all
+  become: yes
+  tasks:
+    - shell: /bin/rm /etc/apt/sources.list.d/*
+    
+
+  
