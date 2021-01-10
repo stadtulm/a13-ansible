@@ -1,0 +1,28 @@
+---
+- name: Deactivate hosts in scalelite
+  hosts: loadbalancer
+  become: yes
+  become_user: scalelite
+  vars:
+    bbb_disabled: bbb_tok
+  tasks:
+    - name: remove hosts from scalelite
+      shell: |
+        cd /var/www/scalelite/
+        set -o allexport; source .env; set +o allexport
+        SERVER={{ item }}
+        ID=$(bundle exec ./bin/rake servers | sed -E "s/$/;/" | sed -E "s/\s//g" | tr --delete '\n'  | sed -E "s/online;/online;\n/g" | grep $SERVER | cut -d";" -f1 | cut -d":" -f2 )
+        ./bin/rake servers:disable[$ID]
+      args:
+        executable: /bin/bash
+      with_inventory_hostnames: "{{ bbb_disabled }}"
+    - name: display scalelite server status
+      shell: |
+        cd /var/www/scalelite/
+        set -o allexport; source .env; set +o allexport
+        ./bin/rake servers status
+      args:
+        executable: /bin/bash
+      register: shell_result
+    - debug:
+        var: shell_result.stdout_lines
