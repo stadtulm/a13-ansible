@@ -4,10 +4,11 @@
     name: ssl-cert
     state: present
 
-- name: Add certbot apt repo
-  apt_repository:
-    repo: ppa:certbot/certbot
-    state: present
+# fixed for ubuntu 2004
+# - name: Add certbot apt repo
+#   apt_repository:
+#     repo: ppa:certbot/certbot
+#     state: present
 
 - name: Install certbot
   apt:
