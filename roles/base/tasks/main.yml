@@ -24,7 +24,8 @@
   apt:
     update_cache: yes
     cache_valid_time: 3600
-    upgrade: safe
+    # upgrade disabled for stability reasons
+    # upgrade: safe 
 
 - name: Ensure basic packages
   apt:
