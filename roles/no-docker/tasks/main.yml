@@ -6,8 +6,11 @@
 
 - name: Ensure Docker Repository is absent
   apt_repository:
-    repo: deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable
+    repo: "{{ item }}"
     state: absent
+  with_items:
+    - "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable"
+    - "deb [arch=amd64] https://download.docker.com/linux/ubuntu xenial stable"
 
 - name: Ensure Docker is not installed
   apt:

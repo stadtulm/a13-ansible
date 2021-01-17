@@ -79,11 +79,12 @@
     bbb_api_demos_enable: no
   roles:
     - nginx
+    - dirty-docker # dirty hack because docker role in n0emis BBB will fail if docker group not present
     - n0emis.bigbluebutton
     - bbb-ulmlernt
     # TODO remove Docker from install process
     # removal of docker group makes problems if docker is reinstalled by gerlingguyscript in n0emis
-    # - no-docker 
+    - no-docker 
 
 - name: Collect BBB secrets
   hosts: bbb

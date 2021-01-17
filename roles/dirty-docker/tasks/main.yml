@@ -1,0 +1,5 @@
+---
+- name: Ensure Docker Group exists because otherwise n0emis BBB docker dependency will fail
+  group:
+    name: docker
+    state: present  
