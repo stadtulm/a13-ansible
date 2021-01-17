@@ -8,7 +8,7 @@
 
 - name: Allow ssh in ufw
   ufw:
-    rule: limit
+    rule: allow
     name: OpenSSH
     state: enabled
 
