@@ -5,7 +5,6 @@
 
 #### Install modules
 ```
-git submodule update --init
 ansible-galaxy install -r requirements.yml
 ```
 
