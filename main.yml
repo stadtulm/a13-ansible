@@ -51,7 +51,7 @@
     - vars.yml
   roles:
     - turn-standalone
-
+    
 - name: BigBlueButton
   hosts: bbb
   become: yes
@@ -71,6 +71,80 @@
         port: 443
         secret: "{{ turn_secret }}"
         tls: true
+      - server: "{{ bbb_additional_turn_server }}"
+        port: 3478
+        secret: "{{ turn_secret }}"
+        tls: false
+    bbb_greenlight_enable: no
+    bbb_api_demos_enable: no
+  roles:
+    - nginx
+    - dirty-docker # dirty hack because docker role in n0emis BBB will fail if docker group not present
+    - n0emis.bigbluebutton
+    - bbb-ulmlernt
+    # TODO remove Docker from install process
+    # removal of docker group makes problems if docker is reinstalled by gerlingguyscript in n0emis
+    - no-docker 
+
+- name: TURN Test Server
+  hosts: turn_test
+  become: yes
+  tags:
+    - test
+  vars_files:
+    - vars.yml
+  roles:
+    - turn-standalone-zerossl
+
+- name: BigBlueButton Test Zerossl
+  hosts: bbb_test_turn_ssl
+  become: yes
+  tags:
+    - test
+  vars_files:
+    - vars.yml
+  vars:
+    bbb_letsencrypt_enable: yes
+    bbb_letsencrypt_email: "{{ letsencrypt_email }}"
+    bbb_coturn_enable: no
+    bbb_turn_enable: yes
+    bbb_stun_servers:
+      - server: "{{ bbb_additional_turn_server }}:3478"
+    bbb_turn_servers:
+      - server: "{{ bbb_additional_turn_server }}"
+        port: 443
+        secret: "{{ turn_secret }}"
+        tls: true
+      - server: "{{ bbb_additional_turn_server }}"
+        port: 3478
+        secret: "{{ turn_secret }}"
+        tls: false
+    bbb_greenlight_enable: no
+    bbb_api_demos_enable: no
+  roles:
+    - nginx
+    - dirty-docker # dirty hack because docker role in n0emis BBB will fail if docker group not present
+    - n0emis.bigbluebutton
+    - bbb-ulmlernt
+    # TODO remove Docker from install process
+    # removal of docker group makes problems if docker is reinstalled by gerlingguyscript in n0emis
+    - no-docker 
+
+- name: BigBlueButton Test no ssl
+  hosts: bbb_test_turn_nossl
+  become: yes
+  tags:
+    - test
+  vars_files:
+    - vars.yml
+  vars:
+    bbb_letsencrypt_enable: yes
+    bbb_letsencrypt_email: "{{ letsencrypt_email }}"
+    bbb_coturn_enable: no
+    bbb_turn_enable: yes
+    bbb_stun_servers:
+      - server: "{{ bbb_additional_turn_server }}:3478"
+    bbb_turn_servers:
       - server: "{{ bbb_additional_turn_server }}"
         port: 3478
         secret: "{{ turn_secret }}"

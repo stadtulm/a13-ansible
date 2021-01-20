@@ -10,13 +10,11 @@
   ufw:
     rule: allow
     name: OpenSSH
-    state: enabled
-
-- name: Allow everything out and enable UFW
+ 
+- name: Allow everything out 
   ufw:
     direction: outgoing
     policy: allow
-    state: enabled
 
 - name: Allow default nothing in and enable UFW
   ufw:

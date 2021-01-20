@@ -1,0 +1,47 @@
+---
+- name: Ensure 'ssl-cert' group exists
+  group:
+    name: ssl-cert
+    state: present
+
+- name: Copy certbot-zerossl Wrapper for certbot
+  template:
+    src: certbot-zerossl.sh
+    dest: /usr/local/bin/certbot-zerossl
+    owner: root
+    group: root
+    mode: u=rwx,g=rx,o=rx
+  
+- name: Install certbot (required for zerossl wrapper)
+  apt:
+    pkg:
+      - certbot
+    update_cache: true
+    state: present
+
+- name: Ensure ZeroSSL/LE Directories are owned by ssl-cert group
+  file:
+    path: "{{ item }}"
+    recurse: yes
+    group: ssl-cert
+  with_items:
+    - /etc/letsencrypt/live
+    - /etc/letsencrypt/archive
+    - /etc/letsencrypt/keys
+
+- name: Register certbot certificate file
+  stat:
+    path: "/etc/letsencrypt/live/{{ turn_hostname }}/fullchain.pem"
+  register: certbot_certificate_file_path
+
+- name: Generate ZeroSSL/LE Certificates
+  command: certbot-zerossl certonly -d {{ turn_hostname }} -d {{ ansible_fqdn }} --agree-tos --email {{ letsencrypt_email }} --standalone
+  when: not certbot_certificate_file_path.stat.exists
+
+- name: Ensure ZeroSSL/LE Certificate and Keys are owned by ssl-cert group and readable
+  file:
+    path: "{{ item }}"
+    mode: 'u=rw,g=r'
+    group: ssl-cert
+  with_items:
+    - /etc/letsencrypt/archive/{{ turn_hostname }}/privkey1.pem

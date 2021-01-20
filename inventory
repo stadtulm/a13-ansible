@@ -21,7 +21,7 @@ fsn16.ulmlernt.org ansible_host=157.90.5.124
 fsn17.ulmlernt.org ansible_host=159.69.240.193
 fsn18.ulmlernt.org ansible_host=159.69.119.172
 fsn19.ulmlernt.org ansible_host=159.69.181.101
-fsn20.ulmlernt.org ansible_host=135.181.204.72
+fsn21.ulmlernt.org ansible_host=188.34.178.6
 bck.ulmlernt.org ansible_host=49.12.102.120
 
 [dns]
@@ -44,10 +44,10 @@ fsn15.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org"
 fsn16.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org"
 
 [bbb_test_turn_ssl]
-fsn10.ulmlernt.org
+fsn10.ulmlernt.org bbb_additional_turn_server="turn06.ulmlernt.org"
 
 [bbb_test_turn_nossl]
-nbg03.ulmlernt.org
+nbg03.ulmlernt.org bbb_additional_turn_server="turn06.ulmlernt.org"
 
 [loadbalancer]
 fsn01.ulmlernt.org nginx_domain_name="lb.ulmlernt.org"
@@ -67,7 +67,7 @@ fsn18.ulmlernt.org turn_hostname="turn04.ulmlernt.org"
 fsn19.ulmlernt.org turn_hostname="turn05.ulmlernt.org"
 
 [turn_test]
-fsn20.ulmlernt.org turn_hostname="turn06.ulmlernt.org"
+fsn21.ulmlernt.org turn_hostname="turn06.ulmlernt.org"
 
 [support]
 fsn11.ulmlernt.org

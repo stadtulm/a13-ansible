@@ -1,0 +1,32 @@
+---
+- name: adapt letsencrypt/zerossl standalone ports in ufw
+  copy:
+    content: |
+      [letsencrypt]
+      title=letsencrypt standalone on 80,443
+      description=Standalone certbot certificate aquiring
+      ports=80,443/tcp
+    mode: 0644
+    dest: /etc/ufw/applications.d/letsencrypt
+
+- name: allow letsencrypt/zerossl in ufw
+  ufw:
+    rule: allow
+    name: letsencrypt
+    state: enabled
+
+- name: adapt coturn ports in ufw
+  copy:
+    content: |
+      [turnserver]
+      title=Coturn turnserver
+      description=Free open source implementation of TURN and STUN Server
+      ports=443,444,3478,3479,49152:65535/tcp|443,444,3478,3479,49152:65535/udp
+    mode: 0644
+    dest: /etc/ufw/applications.d/turnserver
+
+- name: allow turnserver in ufw
+  ufw:
+    rule: allow
+    name: turnserver
+    state: enabled
