@@ -1,6 +1,6 @@
 $ORIGIN ulmlernt.org.
 @	3600 IN	SOA ns.ulmlernt.org. noc.ulmlernt.de. (
-				2021011701 ; serial ;;; PLEASE UPDATE THIS AFTER EACH EDIT!
+				2021012001 ; serial ;;; PLEASE UPDATE THIS AFTER EACH EDIT!
 				1800       ; refresh (30 min)
 				1800       ; retry (30 min)
 				86400      ; expire (1 day)
@@ -20,62 +20,48 @@ fsn01	3600	IN	AAAA	2a01:4f8:c17:af72::1
 
 nbg01	3600	IN	A	88.198.33.197
 nbg01	3600	IN	AAAA	2a01:4f8:a0:22e1::2
-turn.nbg01	3600	IN	CNAME	nbg01.ulmlernt.org.
 
 nbg02	3600	IN	A	88.198.43.210
 nbg02	3600	IN	AAAA	2a01:4f8:a0:101e::2
-turn.nbg02	3600	IN	CNAME	nbg02.ulmlernt.org.
 
 fsn02   3600    IN      A       144.76.96.80
 fsn02   3600    IN      AAAA    2a01:4f8:192:314f::2
-turn.fsn02	3600	IN	CNAME	fsn02.ulmlernt.org.
 
 fsn03   3600    IN      A       78.47.162.149
 fsn03   3600    IN      AAAA    2a01:4f8:c17:9865::1
 
 fsn04	3600	IN	A	136.243.8.92
 fsn04	3600	IN	AAAA	2a01:4f8:211:21db::2
-turn.fsn04	3600	IN	CNAME	fsn04.ulmlernt.org.
 
 fsn05	3600	IN	A	136.243.18.16
 fsn05	3600	IN	AAAA	2a01:4f8:211:2b8f::2
-turn.fsn05	3600	IN	CNAME	fsn05.ulmlernt.org.
 
 fsn06	3600	IN	A	148.251.6.47
 fsn06	3600	IN	AAAA	2a01:4f8:201:602e::2
-turn.fsn06	3600	IN	CNAME	fsn06.ulmlernt.org.
 
 fsn07	3600	IN	A	148.251.47.101
 fsn07	3600	IN	AAAA	2a01:4f8:202:264::2
-turn.fsn07	3600	IN	CNAME	fsn07.ulmlernt.org.
 
 fsn08	3600	IN	A	176.9.34.100
 fsn08	3600	IN	AAAA	2a01:4f8:161:35c2::2
-turn.fsn08	3600	IN	CNAME	fsn08.ulmlernt.org.
 
 fsn09	3600	IN	A	144.76.197.213
 fsn09	3600	IN	AAAA	2a01:4f8:200:73d4::2
-turn.fsn09	3600	IN	CNAME	fsn09.ulmlernt.org.
 
 fsn12   3600    IN      A       157.90.1.164
 fsn12	3600	IN	AAAA	2a01:4f8:251:295b::2
-turn.fsn12      3600    IN      CNAME   fsn12.ulmlernt.org.
 
 fsn13   3600    IN      A       157.90.1.162
 fsn13	3600	IN	AAAA	2a01:4f8:251:295d::2
-turn.fsn13      3600    IN      CNAME   fsn13.ulmlernt.org.
 
 fsn14   3600    IN      A       157.90.1.160
 fsn14	3600	IN	AAAA	2a01:4f8:251:295f::2
-turn.fsn14      3600    IN      CNAME   fsn14.ulmlernt.org.
 
 fsn15   3600    IN      A       157.90.1.159
 fsn15	3600	IN	AAAA	2a01:4f8:251:2960::2
-turn.fsn15      3600    IN      CNAME   fsn15.ulmlernt.org.
 
 fsn16   3600    IN      A       157.90.5.124
 fsn16	3600	IN	AAAA	2a01:4f8:251:2cc3::2
-turn.fsn16      3600    IN      CNAME   fsn16.ulmlernt.org.
 
 nbg03	3600	IN	A	85.10.201.69
 nbg03	3600	IN	AAAA	2a01:4f8:a0:440b::2
@@ -95,6 +81,9 @@ fsn18	3600	IN	AAAA	2a01:4f8:c17:b60a::1
 fsn19	3600	IN	A	159.69.181.101
 fsn19	3600	IN	AAAA	2a01:4f8:c17:e352::1
 
+fsn19	3600	IN	A	135.181.204.72
+fsn19	3600	IN	AAAA	2a01:4f9:c011:aa5::1
+
 bck	3600	IN	A	49.12.102.120
 bck	3600	IN	AAAA	2a01:4f8:c17:badd::1
 
@@ -104,9 +93,8 @@ mon		3600	IN	CNAME	fsn01.ulmlernt.org.
 gl		3600	IN	CNAME	fsn03.ulmlernt.org.
 chat		3600	IN	CNAME	fsn03.ulmlernt.org.
 doku		3600	IN	CNAME	fsn03.ulmlernt.org.
-turn01		3600	IN	CNAME	nbg03.ulmlernt.org.
-turn02		3600	IN	CNAME	fsn10.ulmlernt.org.
 turn03		3600	IN	CNAME	fsn17.ulmlernt.org.
 turn04		3600	IN	CNAME	fsn18.ulmlernt.org.
 turn05		3600	IN	CNAME	fsn19.ulmlernt.org.
+turn06		3600	IN	CNAME	fsn20.ulmlernt.org.
 support		3600	IN	CNAME	fsn11.ulmlernt.org.
