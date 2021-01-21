@@ -27,6 +27,7 @@
     path: "{{ item }}"
     recurse: yes
     group: ssl-cert
+    mode: g+rx
   with_items:
     - /etc/letsencrypt/live
     - /etc/letsencrypt/archive
