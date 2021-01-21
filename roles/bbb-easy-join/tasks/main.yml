@@ -21,7 +21,7 @@
   git:
     repo: https://github.com/stadtulm/bbb-easy-join.git
     dest: /var/www/bbb-easy-join
-    version: 17664edbf5a3001eaaceda03313ca12bb124f03c
+    version: 4c0ac089753e331610ec7b1c0b43ef3cd55be430
     force: yes
 
 - name: Ensure bbb-easy-join is owner of /var/www/bbb-easy-join
@@ -58,5 +58,6 @@
 - name: Ensure bbb-easy-join nginx config exists
   template:
     src: nginx-bbb-easy-join.conf
-    dest: /etc/nginx/a13.d/bbb-easy-join.conf
+    dest: /etc/bigbluebutton/nginx/bbb-easy-join.nginx
   notify: reload nginx
+    

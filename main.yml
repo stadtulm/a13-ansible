@@ -129,6 +129,7 @@
     # TODO remove Docker from install process
     # removal of docker group makes problems if docker is reinstalled by gerlingguyscript in n0emis
     - no-docker 
+    - bbb-easy-join
 
 - name: BigBlueButton Test no ssl
   hosts: bbb_test_turn_nossl
@@ -159,6 +160,7 @@
     # TODO remove Docker from install process
     # removal of docker group makes problems if docker is reinstalled by gerlingguyscript in n0emis
     - no-docker 
+    - bbb-easy-join
 
 - name: Collect BBB secrets
   hosts: bbb
