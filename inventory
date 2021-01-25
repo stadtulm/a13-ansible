@@ -13,6 +13,7 @@ fsn06.ulmlernt.org ansible_host=148.251.6.47
 fsn07.ulmlernt.org ansible_host=148.251.47.101
 fsn08.ulmlernt.org ansible_host=176.9.34.100
 fsn09.ulmlernt.org ansible_host=144.76.197.213
+fsn10.ulmlernt.org ansible_host=144.76.159.37
 fsn11.ulmlernt.org ansible_host=49.12.33.68
 fsn12.ulmlernt.org ansible_host=157.90.1.164
 fsn13.ulmlernt.org ansible_host=157.90.1.162
@@ -46,6 +47,7 @@ fsn06.ulmlernt.org bbb_additional_turn_server="turn04.ulmlernt.org"
 fsn07.ulmlernt.org bbb_additional_turn_server="turn04.ulmlernt.org"
 fsn08.ulmlernt.org bbb_additional_turn_server="turn04.ulmlernt.org"
 fsn09.ulmlernt.org bbb_additional_turn_server="turn04.ulmlernt.org"
+fsn10.ulmlernt.org bbb_additional_turn_server="turn04.ulmlernt.org"
 fsn12.ulmlernt.org bbb_additional_turn_server="turn04.ulmlernt.org"
 fsn13.ulmlernt.org bbb_additional_turn_server="turn04.ulmlernt.org"
 fsn14.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org"
@@ -58,6 +60,7 @@ fsn24.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org"
 fsn25.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org"
 fsn26.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org"
 fsn27.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org"
+
 
 [bbb_test_turn_ssl]
 nbg03.ulmlernt.org bbb_additional_turn_server="turn06.ulmlernt.org"
