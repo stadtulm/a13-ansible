@@ -11,6 +11,7 @@
     owner: root
     group: root
     mode: u=rwx,g=rx,o=rx
+  when: certbot_source == "zerossl"
   
 - name: Install certbot (required for zerossl wrapper)
   apt:
@@ -22,7 +23,6 @@
 - name: Ensure ZeroSSL/LE Directories are owned by ssl-cert group
   file:
     path: "{{ item }}"
-    recurse: yes
     group: ssl-cert
     mode: g+rx
   with_items:
@@ -35,9 +35,13 @@
     path: "/etc/letsencrypt/live/{{ turn_hostname }}/fullchain.pem"
   register: certbot_certificate_file_path
 
-- name: Generate ZeroSSL/LE Certificates
+- name: Generate ZeroSSL Certificates
   command: certbot-zerossl certonly -d {{ turn_hostname }} -d {{ ansible_fqdn }} --agree-tos --email {{ letsencrypt_email }} --standalone
-  when: not certbot_certificate_file_path.stat.exists
+  when: not certbot_certificate_file_path.stat.exists and certbot_source == "zerossl"
+
+- name: Generate Lets Encrypt Certificates
+  command: certbot certonly -d {{ turn_hostname }} -d {{ ansible_fqdn }} --agree-tos --email {{ letsencrypt_email }} --standalone
+  when: not certbot_certificate_file_path.stat.exists and certbot_source == "letsencrypt"
 
 - name: Ensure ZeroSSL/LE Certificate and Keys are owned by ssl-cert group and readable
   file:
@@ -45,4 +49,5 @@
     mode: 'u=rw,g=r'
     group: ssl-cert
   with_items:
-    - /etc/letsencrypt/archive/{{ turn_hostname }}/privkey1.pem
+    - /etc/letsencrypt/live/{{ turn_hostname }}/fullchain.pem
+    - /etc/letsencrypt/live/{{ turn_hostname }}/privkey.pem

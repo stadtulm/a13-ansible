@@ -58,5 +58,15 @@ dh2066
 no-tlsv1
 no-tlsv1_1
 
-# stdout doesn't work?
-log-file=syslog
+# Log to a single filename (rather than new log files each startup). You'll
+# want to install a logrotate configuration (see below)
+log-file=/var/log/coturn.log
+
+# To enable single filename logs you need to enable the simple-log flag
+simple-log
+
+# Lower and upper bounds of the UDP relay endpoints:
+# (default values are 49152 and 65535)
+#
+min-port=32768
+max-port=65535

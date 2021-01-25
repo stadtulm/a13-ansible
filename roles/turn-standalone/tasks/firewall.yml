@@ -1,5 +1,5 @@
 ---
-- name: adapt letsencrypt standalone ports in ufw
+- name: adapt letsencrypt/zerossl standalone ports in ufw
   copy:
     content: |
       [letsencrypt]
@@ -9,7 +9,7 @@
     mode: 0644
     dest: /etc/ufw/applications.d/letsencrypt
 
-- name: allow letsencrypt in ufw
+- name: allow letsencrypt/zerossl in ufw
   ufw:
     rule: allow
     name: letsencrypt

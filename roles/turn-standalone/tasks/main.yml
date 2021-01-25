@@ -1,6 +1,6 @@
 ---
 - import_tasks: firewall.yml
 
-- import_tasks: letsencrypt.yml
+- import_tasks: certbot.yml
 
 - import_tasks: coturn.yml

@@ -49,6 +49,8 @@
     - turn
   vars_files:
     - vars.yml
+  vars:
+    certbot_source: letsencrypt
   roles:
     - turn-standalone
     
@@ -86,15 +88,17 @@
     # removal of docker group makes problems if docker is reinstalled by gerlingguyscript in n0emis
     - no-docker 
 
-- name: TURN Test Server
+- name: TURN Test Server ZeroSSL
   hosts: turn_test
   become: yes
   tags:
     - test
   vars_files:
     - vars.yml
+  vars:
+    certbot_source: zerossl
   roles:
-    - turn-standalone-zerossl
+    - turn-standalone
 
 - name: BigBlueButton Test Zerossl
   hosts: bbb_test_turn_ssl
@@ -109,14 +113,14 @@
     bbb_coturn_enable: no
     bbb_turn_enable: yes
     bbb_stun_servers:
-      - server: "{{ bbb_additional_turn_server }}:3478"
+      - server: "{{ bbb_additional_turn_server }}:443"
     bbb_turn_servers:
       - server: "{{ bbb_additional_turn_server }}"
         port: 443
         secret: "{{ turn_secret }}"
         tls: true
       - server: "{{ bbb_additional_turn_server }}"
-        port: 3478
+        port: 443
         secret: "{{ turn_secret }}"
         tls: false
     bbb_greenlight_enable: no

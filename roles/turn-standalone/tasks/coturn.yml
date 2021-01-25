@@ -36,6 +36,18 @@
     line: 'TURNSERVER_ENABLED=1'
   notify: restart coturn
 
+- name: Ensure Coturn Logfile
+  file:
+    path: /var/log/coturn.log
+    owner: turnserver
+    mode: '0600'
+    state: touch
+
+- name: Ensure Log rotation
+  template: 
+    src: coturn.logrotate
+    dest: /etc/logrotate.d/coturn
+
 - name: Ensure coturn is started
   systemd:
     name: coturn
@@ -47,4 +59,4 @@
     minute: "0"
     hour: "4"
     user: root
-    job: "systemctl restart coturn.service"
+    job: "systemctl restart coturn.service"    
