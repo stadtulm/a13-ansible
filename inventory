@@ -30,6 +30,7 @@ fsn24.ulmlernt.org ansible_host=136.243.5.35
 fsn25.ulmlernt.org ansible_host=168.119.77.237
 fsn26.ulmlernt.org ansible_host=168.119.77.223
 fsn27.ulmlernt.org ansible_host=168.119.77.222
+fsn28.ulmlernt.org ansible_host=116.202.107.191
 bck.ulmlernt.org ansible_host=49.12.102.120
 
 [dns]
@@ -84,6 +85,7 @@ fsn19.ulmlernt.org turn_hostname="turn05.ulmlernt.org"
 
 [turn_test]
 fsn21.ulmlernt.org turn_hostname="turn06.ulmlernt.org"
+fsn28.ulmlernt.org turn_hostname="turn07.ulmlernt.org"
 
 [support]
 fsn11.ulmlernt.org
