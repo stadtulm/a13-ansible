@@ -23,8 +23,10 @@
 - name: Ensure ZeroSSL/LE Directories are owned by ssl-cert group
   file:
     path: "{{ item }}"
+    owner: root
     group: ssl-cert
     mode: g+rx
+    state: directory
   with_items:
     - /etc/letsencrypt/live
     - /etc/letsencrypt/archive

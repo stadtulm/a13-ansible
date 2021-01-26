@@ -21,7 +21,7 @@
       [turnserver]
       title=Coturn turnserver
       description=Free open source implementation of TURN and STUN Server
-      ports=443,444,3478,3479,49152:65535/tcp|443,444,3478,3479,49152:65535/udp
+      ports=443,444,3478,3479,32768:65535/tcp|443,444,3478,3479,32768:65535/udp
     mode: 0644
     dest: /etc/ufw/applications.d/turnserver
 
