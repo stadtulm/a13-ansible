@@ -55,10 +55,11 @@
     - turn-standalone
     
 - name: BigBlueButton
-  hosts: bbb
+  hosts: bbb, bbb_test
   become: yes
   tags:
     - bbb
+    - test
   vars_files:
     - vars.yml
   vars:
@@ -67,7 +68,7 @@
     bbb_coturn_enable: no
     bbb_turn_enable: yes
     bbb_stun_servers:
-      - server: "{{ bbb_additional_turn_server }}:3478"
+      - server: "{{ bbb_additional_turn_server }}:443"
     bbb_turn_servers:
       - server: "{{ bbb_additional_turn_server }}"
         port: 443
@@ -77,8 +78,11 @@
         port: 3478
         secret: "{{ turn_secret }}"
         tls: false
+    bbb_default_welcome_message: Wilkommen bei <b>%%CONFNAME%%</b>!<br><br>Hilfe und Anleitungen finden Sie in unserer <a href="https://doku.ulmlernt.de" target="_blank"><u>ulmlernt Dokumentation</u></a>.<br> <br> Sollten Probleme auftauchen bitten wir Sie darum unsere <a href="https://doku.ulmlernt.de/doku.php?id=wiki:best_practices_videoconferencing" target="_blank"><u>allgemeinen Hinweise zur Nutzung von ulmlernt</u></a> zu beachten. Dort finden Sie auch eine Anleitung zur St&ouml;rungsmeldung.
+    bbb_default_welcome_message_footer: ulmlernt wird von der Stadt Ulm durch die Abteilung Bildung und Sport in Kooperation mit der Digitalen Agenda bereitgestellt und verwendet <a href="https://docs.bigbluebutton.org/" target="_blank"><u>BigBlueButton</u></a>.
     bbb_greenlight_enable: no
     bbb_api_demos_enable: no
+    bbb_ntp_cron: yes
   roles:
     - nginx
     - dirty-docker # dirty hack because docker role in n0emis BBB will fail if docker group not present
@@ -100,70 +104,14 @@
   roles:
     - turn-standalone
 
-- name: BigBlueButton Test Zerossl
-  hosts: bbb_test_turn_ssl
+- name: BigBlueButton Test 
+  hosts: bbb_test
   become: yes
   tags:
     - test
   vars_files:
     - vars.yml
-  vars:
-    bbb_letsencrypt_enable: yes
-    bbb_letsencrypt_email: "{{ letsencrypt_email }}"
-    bbb_coturn_enable: no
-    bbb_turn_enable: yes
-    bbb_stun_servers:
-      - server: "{{ bbb_additional_turn_server }}:443"
-    bbb_turn_servers:
-      - server: "{{ bbb_additional_turn_server }}"
-        port: 443
-        secret: "{{ turn_secret }}"
-        tls: true
-      - server: "{{ bbb_additional_turn_server }}"
-        port: 443
-        secret: "{{ turn_secret }}"
-        tls: false
-    bbb_greenlight_enable: no
-    bbb_api_demos_enable: no
   roles:
-    - nginx
-    - dirty-docker # dirty hack because docker role in n0emis BBB will fail if docker group not present
-    - n0emis.bigbluebutton
-    - bbb-ulmlernt
-    # TODO remove Docker from install process
-    # removal of docker group makes problems if docker is reinstalled by gerlingguyscript in n0emis
-    - no-docker 
-    - bbb-easy-join
-
-- name: BigBlueButton Test no ssl
-  hosts: bbb_test_turn_nossl
-  become: yes
-  tags:
-    - test
-  vars_files:
-    - vars.yml
-  vars:
-    bbb_letsencrypt_enable: yes
-    bbb_letsencrypt_email: "{{ letsencrypt_email }}"
-    bbb_coturn_enable: no
-    bbb_turn_enable: yes
-    bbb_stun_servers:
-      - server: "{{ bbb_additional_turn_server }}:3478"
-    bbb_turn_servers:
-      - server: "{{ bbb_additional_turn_server }}"
-        port: 3478
-        secret: "{{ turn_secret }}"
-        tls: false
-    bbb_greenlight_enable: no
-    bbb_api_demos_enable: no
-  roles:
-    - nginx
-    - dirty-docker # dirty hack because docker role in n0emis BBB will fail if docker group not present
-    - n0emis.bigbluebutton
-    - bbb-ulmlernt
-    # TODO remove Docker from install process
-    # removal of docker group makes problems if docker is reinstalled by gerlingguyscript in n0emis
-    - no-docker 
     - bbb-easy-join
 
 - name: Collect BBB secrets
@@ -232,21 +180,22 @@
   roles:
     - scalelite-config
 
-- name: Easy Join
-  hosts: loadbalancer
-  become: yes
-  vars_files:
-    - vars.yml
-  vars:
-    nodejs_version: "12.x"
-    bbb_secret: "{{ scalelite_loadbalancer_secret }}"
-  tags:
-    - loadbalancer
-  roles:
-    - nginx
-    - nginx-tls
-    - geerlingguy.nodejs
-    - bbb-easy-join
+# TODO Remove Easyjoin from LB    
+# - name: Easy Join
+#   hosts: loadbalancer
+#   become: yes
+#   vars_files:
+#     - vars.yml
+#   vars:
+#     nodejs_version: "12.x"
+#     bbb_secret: "{{ scalelite_loadbalancer_secret }}"
+#   tags:
+#     - loadbalancer
+#   roles:
+#     - nginx
+#     - nginx-tls
+#     - geerlingguy.nodejs
+#     - bbb-easy-join
 
 - name: Frontend - Greenlight
   hosts: frontend
