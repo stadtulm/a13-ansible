@@ -13,12 +13,18 @@
     mode: u=rwx,g=rx,o=rx
   when: certbot_source == "zerossl"
   
-- name: Install certbot (required for zerossl wrapper)
+- name: Install certbot 
   apt:
-    pkg:
-      - certbot
+    name: certbot
     update_cache: true
     state: present
+
+- name: Install required packages for zerossl 
+  apt:
+    name: certbot
+    update_cache: true
+    state: present
+  when: certbot_source == "zerossl"
 
 - name: Ensure ZeroSSL/LE Directories are owned by ssl-cert group
   file:
