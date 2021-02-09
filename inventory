@@ -61,8 +61,8 @@ fsn25.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org"
 fsn26.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org"
 fsn27.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org"
 
-[bbb_test_turn_ssl]
-nbg03.ulmlernt.org bbb_additional_turn_server="turn07.ulmlernt.org"
+[bbb_test]
+nbg03.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org" bbb_turn_ipv4_only="turn06.ulmlernt.org"
 
 [loadbalancer]
 fsn01.ulmlernt.org nginx_domain_name="lb.ulmlernt.org"
