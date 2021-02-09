@@ -36,6 +36,15 @@
     line: 'TURNSERVER_ENABLED=1'
   notify: restart coturn
 
+- name: Disable IPv6 if coturn is set to IPv4 only
+  sysctl:
+    name: net.ipv6.conf.all.disable_ipv6
+    value: '1'
+    sysctl_set: yes
+    state: present
+    reload: yes
+  when: turn_ipv4_only
+
 - name: Ensure Coturn Logfile
   file:
     path: /var/log/coturn.log
