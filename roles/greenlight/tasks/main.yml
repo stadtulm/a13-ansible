@@ -113,3 +113,12 @@
     src: nginx-greenlight.conf.j2
     dest: /etc/nginx/a13.d/greenlight.conf
   notify: reload nginx
+
+- name: Restart Greenlight every night @4am
+  cron:
+    state: present
+    name: "restart Greenlight"
+    minute: "0"
+    hour: "4"
+    user: root
+    job: "systemctl restart greenlight.service"

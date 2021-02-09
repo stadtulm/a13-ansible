@@ -143,3 +143,12 @@
     src: nginx-scalelite.conf
     dest: /etc/nginx/a13.d/scalelite.conf
   notify: reload nginx
+
+- name: Restart Scalelite every night @4am
+  cron:
+    state: present
+    name: "restart Scalelite"
+    minute: "0"
+    hour: "4"
+    user: root
+    job: "systemctl restart scalelite.target"

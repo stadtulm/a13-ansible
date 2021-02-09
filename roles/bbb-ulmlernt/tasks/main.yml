@@ -75,33 +75,12 @@
     name: freeswitch
     state: enabled
 
-# coturn on BBB should not be enabled because package on ubuntu 16.04 has some bugs
-# only dedicated turn should be uses from now on
-- name: ensure coturn is not installed
-  apt:
-    name: coturn
-    state: absent
-
-- name: ensure turnserver not allowed in ufw
-  ufw:
-    rule: allow
-    name: turnserver
-    delete: yes
-
-- name: ensure coturn config/log files are removed
-  file: 
-    path: "{{ item }}"
-    state: absent
-  loop:
-    - /etc/turnserver.conf
-    - /var/log/coturn.log
-
-- name: Ensure coturn task is disabled
+- name: Restart BBB every night @4am
   cron:
-    state: absent
-    name: "restart coturn"
+    state: present
+    name: "restart BigBlueButton"
     minute: "0"
     hour: "4"
     user: root
-    job: "systemctl restart coturn.service"
+    job: "bbb-conf --restart"
 
