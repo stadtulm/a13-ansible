@@ -1,6 +1,6 @@
 $ORIGIN ulmlernt.org.
 @	3600 IN	SOA ns.ulmlernt.org. noc.ulmlernt.de. (
-				2021012602 ; serial ;;; PLEASE UPDATE THIS AFTER EACH EDIT!
+				2021020901 ; serial ;;; PLEASE UPDATE THIS AFTER EACH EDIT!
 				1800       ; refresh (30 min)
 				1800       ; retry (30 min)
 				86400      ; expire (1 day)
@@ -79,7 +79,6 @@ fsn19	3600	IN	A	159.69.181.101
 fsn19	3600	IN	AAAA	2a01:4f8:c17:e352::1
 
 fsn21	3600	IN	A	188.34.178.6
-fsn21	3600	IN	AAAA	2a01:4f8:c010:59ff::1
 
 fsn22	3600	IN	A	188.40.103.115 
 fsn22	3600	IN	AAAA	2a01:4f8:221:274b::2
@@ -106,7 +105,6 @@ fsn27	3600	IN	A	168.119.77.222
 fsn27	3600	IN	AAAA	2a01:4f8:251:2fde::2
 
 fsn28	3600	IN	A	116.202.107.191
-fsn28	3600	IN	AAAA	2a01:4f8:c17:db76::2
 
 fsn10	3600	IN	A	144.76.159.37
 fsn10	3600	IN	AAAA	2a01:4f8:200:3224::2
