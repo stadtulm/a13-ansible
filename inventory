@@ -31,38 +31,46 @@ fsn25.ulmlernt.org ansible_host=168.119.77.237
 fsn26.ulmlernt.org ansible_host=168.119.77.223
 fsn27.ulmlernt.org ansible_host=168.119.77.222
 fsn28.ulmlernt.org ansible_host=116.202.107.191
+fsn29.ulmlernt.org ansible_host=188.34.190.64
+fsn28.ulmlernt.org ansible_host=116.202.107.191
+fsn30.ulmlernt.org ansible_host=188.34.190.62
+fsn31.ulmlernt.org ansible_host=188.34.190.65
+fsn32.ulmlernt.org ansible_host=188.34.190.61
+fsn33.ulmlernt.org ansible_host=188.34.190.63
+fsn34.ulmlernt.org ansible_host=138.201.118.3
+fsn35.ulmlernt.org ansible_host=116.203.255.134
 bck.ulmlernt.org ansible_host=49.12.102.120
 
 [dns]
 fsn01.ulmlernt.org
 
 [bbb]
-nbg01.ulmlernt.org bbb_additional_turn_server="turn03.ulmlernt.org"
-nbg02.ulmlernt.org bbb_additional_turn_server="turn03.ulmlernt.org"
-nbg04.ulmlernt.org bbb_additional_turn_server="turn03.ulmlernt.org"
-nbg05.ulmlernt.org bbb_additional_turn_server="turn03.ulmlernt.org"
-fsn02.ulmlernt.org bbb_additional_turn_server="turn03.ulmlernt.org"
-fsn04.ulmlernt.org bbb_additional_turn_server="turn03.ulmlernt.org"
-fsn05.ulmlernt.org bbb_additional_turn_server="turn03.ulmlernt.org"
-fsn06.ulmlernt.org bbb_additional_turn_server="turn04.ulmlernt.org"
-fsn07.ulmlernt.org bbb_additional_turn_server="turn04.ulmlernt.org"
-fsn08.ulmlernt.org bbb_additional_turn_server="turn04.ulmlernt.org"
-fsn09.ulmlernt.org bbb_additional_turn_server="turn04.ulmlernt.org"
-fsn10.ulmlernt.org bbb_additional_turn_server="turn04.ulmlernt.org"
-fsn12.ulmlernt.org bbb_additional_turn_server="turn04.ulmlernt.org"
-fsn13.ulmlernt.org bbb_additional_turn_server="turn04.ulmlernt.org"
-fsn14.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org"
-fsn15.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org"
-fsn16.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org"
-fsn22.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org"
-fsn23.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org"
-fsn24.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org"
-fsn25.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org"
-fsn26.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org"
-fsn27.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org"
+nbg01.ulmlernt.org bbb_additional_turn_server="turn01.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only01.ulmlernt.org"
+nbg02.ulmlernt.org bbb_additional_turn_server="turn01.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only01.ulmlernt.org"
+nbg04.ulmlernt.org bbb_additional_turn_server="turn01.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only01.ulmlernt.org"
+nbg05.ulmlernt.org bbb_additional_turn_server="turn01.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only01.ulmlernt.org"
+fsn02.ulmlernt.org bbb_additional_turn_server="turn01.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only01.ulmlernt.org"
+fsn04.ulmlernt.org bbb_additional_turn_server="turn02.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only02.ulmlernt.org"
+fsn05.ulmlernt.org bbb_additional_turn_server="turn02.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only02.ulmlernt.org"
+fsn06.ulmlernt.org bbb_additional_turn_server="turn02.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only02.ulmlernt.org"
+fsn07.ulmlernt.org bbb_additional_turn_server="turn02.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only02.ulmlernt.org"
+fsn08.ulmlernt.org bbb_additional_turn_server="turn02.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only02.ulmlernt.org"
+fsn09.ulmlernt.org bbb_additional_turn_server="turn03.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only03.ulmlernt.org"
+fsn10.ulmlernt.org bbb_additional_turn_server="turn03.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only03.ulmlernt.org"
+fsn12.ulmlernt.org bbb_additional_turn_server="turn03.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only03.ulmlernt.org"
+fsn13.ulmlernt.org bbb_additional_turn_server="turn03.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only03.ulmlernt.org"
+fsn14.ulmlernt.org bbb_additional_turn_server="turn03.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only03.ulmlernt.org"
+fsn15.ulmlernt.org bbb_additional_turn_server="turn04.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only04.ulmlernt.org"
+fsn16.ulmlernt.org bbb_additional_turn_server="turn04.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only04.ulmlernt.org"
+fsn22.ulmlernt.org bbb_additional_turn_server="turn04.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only04.ulmlernt.org"
+fsn23.ulmlernt.org bbb_additional_turn_server="turn04.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only04.ulmlernt.org"
+fsn24.ulmlernt.org bbb_additional_turn_server="turn04.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only04.ulmlernt.org"
+fsn25.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only05.ulmlernt.org"
+fsn26.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only05.ulmlernt.org"
+fsn27.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only05.ulmlernt.org"
 
 [bbb_test]
-nbg03.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org" bbb_turn_ipv4_only="turn06.ulmlernt.org"
+nbg03.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org" bbb_turn_ipv4_only="turntest01.ulmlernt.org"
 
 [loadbalancer]
 fsn01.ulmlernt.org nginx_domain_name="lb.ulmlernt.org"
@@ -77,13 +85,22 @@ fsn03.ulmlernt.org
 bck.ulmlernt.org
 
 [turn]
+fsn34.ulmlernt.org turn_hostname="turn01.ulmlernt.org"
+fsn35.ulmlernt.org turn_hostname="turn02.ulmlernt.org"
 fsn17.ulmlernt.org turn_hostname="turn03.ulmlernt.org"
 fsn18.ulmlernt.org turn_hostname="turn04.ulmlernt.org"
 fsn19.ulmlernt.org turn_hostname="turn05.ulmlernt.org"
 
+[turnipv4only]
+fsn29.ulmlernt.org turn_hostname="turnipv4only01.ulmlernt.org"
+fsn30.ulmlernt.org turn_hostname="turnipv4only02.ulmlernt.org"
+fsn31.ulmlernt.org turn_hostname="turnipv4only03.ulmlernt.org"
+fsn32.ulmlernt.org turn_hostname="turnipv4only04.ulmlernt.org"
+fsn33.ulmlernt.org turn_hostname="turnipv4only05.ulmlernt.org"
+
 [turn_test]
-fsn21.ulmlernt.org turn_hostname="turn06.ulmlernt.org"
-fsn28.ulmlernt.org turn_hostname="turn07.ulmlernt.org"
+fsn21.ulmlernt.org turn_hostname="turntest01.ulmlernt.org"
+fsn28.ulmlernt.org turn_hostname="turntest02.ulmlernt.org"
 
 [support]
 fsn11.ulmlernt.org

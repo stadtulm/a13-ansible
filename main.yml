@@ -50,6 +50,20 @@
   vars_files:
     - vars.yml
   vars:
+    turn_ipv4_only: no
+    certbot_source: letsencrypt
+  roles:
+    - turn-standalone
+
+- name: TURN IPv4 only Server
+  hosts: turnipv4only
+  become: yes
+  tags:
+    - turn
+  vars_files:
+    - vars.yml
+  vars:
+    turn_ipv4_only: yes
     certbot_source: letsencrypt
   roles:
     - turn-standalone
@@ -68,8 +82,12 @@
     bbb_coturn_enable: no
     bbb_turn_enable: yes
     bbb_stun_servers:
-      - server: "{{ bbb_additional_turn_server }}:443"
+      - server: "{{ bbb_additional_turn_server }}"
     bbb_turn_servers:
+      - server: "{{ bbb_turn_ipv4_only }}"
+        port: 443
+        secret: "{{ turn_secret }}"
+        tls: true
       - server: "{{ bbb_additional_turn_server }}"
         port: 443
         secret: "{{ turn_secret }}"

@@ -1,6 +1,6 @@
 $ORIGIN ulmlernt.org.
 @	3600 IN	SOA ns.ulmlernt.org. noc.ulmlernt.de. (
-				2021020901 ; serial ;;; PLEASE UPDATE THIS AFTER EACH EDIT!
+				2021021401 ; serial ;;; PLEASE UPDATE THIS AFTER EACH EDIT!
 				1800       ; refresh (30 min)
 				1800       ; retry (30 min)
 				86400      ; expire (1 day)
@@ -109,6 +109,22 @@ fsn28	3600	IN	A	116.202.107.191
 fsn10	3600	IN	A	144.76.159.37
 fsn10	3600	IN	AAAA	2a01:4f8:200:3224::2
 
+fsn29	3600	IN	A	188.34.190.64
+
+fsn30	3600	IN	A	188.34.190.62
+
+fsn31	3600	IN	A	188.34.190.65
+
+fsn32	3600	IN	A	188.34.190.61
+
+fsn33	3600	IN	A	188.34.190.63
+
+fsn34	3600	IN	A	138.201.118.3
+fsn34	3600	IN	AAAA	2a01:4f8:c17:f692::2
+
+fsn35	3600	IN	A	116.203.255.134
+fsn35	3600	IN	AAAA	2a01:4f8:c17:edcf::2
+
 bck	3600	IN	A	49.12.102.120
 bck	3600	IN	AAAA	2a01:4f8:c17:badd::1
 
@@ -118,9 +134,16 @@ mon		3600	IN	CNAME	fsn01.ulmlernt.org.
 gl		3600	IN	CNAME	fsn03.ulmlernt.org.
 chat		3600	IN	CNAME	fsn03.ulmlernt.org.
 doku		3600	IN	CNAME	fsn03.ulmlernt.org.
+turn01		3600	IN	CNAME	fsn34.ulmlernt.org.
+turn02		3600	IN	CNAME	fsn35.ulmlernt.org.
 turn03		3600	IN	CNAME	fsn17.ulmlernt.org.
 turn04		3600	IN	CNAME	fsn18.ulmlernt.org.
 turn05		3600	IN	CNAME	fsn19.ulmlernt.org.
-turn06		3600	IN	CNAME	fsn21.ulmlernt.org.
-turn07		3600	IN	CNAME	fsn28.ulmlernt.org.
+turnipv4only01	3600	IN	CNAME	fsn29.ulmlernt.org.
+turnipv4only02	3600	IN	CNAME	fsn30.ulmlernt.org.
+turnipv4only03	3600	IN	CNAME	fsn31.ulmlernt.org.
+turnipv4only04	3600	IN	CNAME	fsn32.ulmlernt.org.
+turnipv4only05	3600	IN	CNAME	fsn33.ulmlernt.org.
+turntest01		3600	IN	CNAME	fsn21.ulmlernt.org.
+turntest02		3600	IN	CNAME	fsn28.ulmlernt.org.
 support		3600	IN	CNAME	fsn11.ulmlernt.org.
