@@ -70,7 +70,7 @@ fsn26.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org" bbb_turn_ipv
 fsn27.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org" bbb_turn_ipv4_only="turnipv4only05.ulmlernt.org"
 
 [bbb_test]
-nbg03.ulmlernt.org bbb_additional_turn_server="turn05.ulmlernt.org" bbb_turn_ipv4_only="turntest01.ulmlernt.org"
+nbg03.ulmlernt.org bbb_additional_turn_server="turntest01.ulmlernt.org" bbb_turn_ipv4_only="turntest02.ulmlernt.org"
 
 [loadbalancer]
 fsn01.ulmlernt.org nginx_domain_name="lb.ulmlernt.org"
@@ -91,6 +91,9 @@ fsn17.ulmlernt.org turn_hostname="turn03.ulmlernt.org"
 fsn18.ulmlernt.org turn_hostname="turn04.ulmlernt.org"
 fsn19.ulmlernt.org turn_hostname="turn05.ulmlernt.org"
 
+[turn_test]
+fsn21.ulmlernt.org turn_hostname="turntest01.ulmlernt.org"
+
 [turnipv4only]
 fsn29.ulmlernt.org turn_hostname="turnipv4only01.ulmlernt.org"
 fsn30.ulmlernt.org turn_hostname="turnipv4only02.ulmlernt.org"
@@ -98,8 +101,7 @@ fsn31.ulmlernt.org turn_hostname="turnipv4only03.ulmlernt.org"
 fsn32.ulmlernt.org turn_hostname="turnipv4only04.ulmlernt.org"
 fsn33.ulmlernt.org turn_hostname="turnipv4only05.ulmlernt.org"
 
-[turn_test]
-fsn21.ulmlernt.org turn_hostname="turntest01.ulmlernt.org"
+[turnipv4only_test]
 fsn28.ulmlernt.org turn_hostname="turntest02.ulmlernt.org"
 
 [support]

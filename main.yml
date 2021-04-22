@@ -43,10 +43,11 @@
     - coredns-ufw
 
 - name: TURN Server
-  hosts: turn
+  hosts: turn, turn_test
   become: yes
   tags:
     - turn
+    - test 
   vars_files:
     - vars.yml
   vars:
@@ -56,10 +57,11 @@
     - turn-standalone
 
 - name: TURN IPv4 only Server
-  hosts: turnipv4only
+  hosts: turnipv4only, turnipv4only_test
   become: yes
   tags:
     - turn
+    - test
   vars_files:
     - vars.yml
   vars:
@@ -69,11 +71,10 @@
     - turn-standalone
     
 - name: BigBlueButton
-  hosts: bbb
+  hosts: bbb, bbb_test
   become: yes
   tags:
     - bbb
-    - test
   vars_files:
     - vars.yml
   vars:
@@ -111,18 +112,15 @@
     - no-docker 
     - no-turn
 
-- name: TURN Test Server
-  hosts: turn_test
+- name: Collect BBB secrets
+  hosts: bbb, bbb_test
   become: yes
   tags:
+    - bbb
+    - config
     - test
-  vars_files:
-    - vars.yml
-  vars:
-    turn_ipv4_only: yes
-    certbot_source: letsencrypt
   roles:
-    - turn-standalone
+    - bbb-collect
 
 - name: BigBlueButton Test 
   hosts: bbb_test
@@ -132,50 +130,9 @@
     - test
   vars_files:
     - vars.yml
-  vars:
-    bbb_letsencrypt_enable: yes
-    bbb_letsencrypt_email: "{{ letsencrypt_email }}"
-    bbb_coturn_enable: no
-    bbb_turn_enable: yes
-    bbb_stun_servers:
-      - server: "{{ bbb_additional_turn_server }}"
-    bbb_turn_servers:
-      - server: "{{ bbb_turn_ipv4_only }}" # IPv4 only Turn for iOS
-        port: 443
-        secret: "{{ turn_secret }}"
-        tls: true
-      - server: "{{ bbb_additional_turn_server }}"
-        port: 443
-        secret: "{{ turn_secret }}"
-        tls: true
-      - server: "{{ bbb_additional_turn_server }}"
-        port: 443
-        secret: "{{ turn_secret }}"
-        tls: false
-    bbb_default_welcome_message: Wilkommen bei <b>%%CONFNAME%%</b>!<br><br>Hilfe und Anleitungen finden Sie in unserer <a href="https://doku.ulmlernt.de" target="_blank"><u>ulmlernt Dokumentation</u></a>.<br> <br> Sollten Probleme auftauchen bitten wir Sie darum unsere <a href="https://doku.ulmlernt.de/doku.php?id=wiki:best_practices_videoconferencing" target="_blank"><u>allgemeinen Hinweise zur Nutzung von ulmlernt</u></a> zu beachten. Dort finden Sie auch eine Anleitung zur St&ouml;rungsmeldung.
-    bbb_default_welcome_message_footer: ulmlernt wird von der Stadt Ulm durch die Abteilung Bildung und Sport in Kooperation mit der Digitalen Agenda bereitgestellt und verwendet <a href="https://docs.bigbluebutton.org/" target="_blank"><u>BigBlueButton</u></a>.
-    bbb_greenlight_enable: no
-    bbb_api_demos_enable: no
-    bbb_ntp_cron: yes
   roles:
-    - nginx
-    - dirty-docker # dirty hack because docker role in n0emis BBB will fail if docker group not present
-    - n0emis.bigbluebutton
-    - bbb-ulmlernt
-    # TODO remove Docker from install process
-    # removal of docker group makes problems if docker is reinstalled by gerlingguyscript in n0emis
-    - no-docker 
     - bbb-easy-join
-    - no-turn
 
-- name: Collect BBB secrets
-  hosts: bbb
-  become: yes
-  tags:
-    - bbb
-    - config
-  roles:
-    - bbb-collect
 
 - name: BBB Exporter
   hosts: bbb
