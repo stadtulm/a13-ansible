@@ -432,35 +432,4 @@
     backup_pg_db: "greenlight_production"
   roles:
     - restic-client
-
-- name: Support Ticket System Zammad
-  hosts: support
-  become: yes
-  tags:
-    - support
-    - backup 
-  vars_files:
-    - vars.yml
-  vars:
-    nginx_domain_name: support.ulmlernt.de
-    nginx_redirect_alias: support.ulmlernt.org
-    elasticsearch_version: '7.x'
-    elasticsearch_extra_options: | 
-      http.max_content_length: 400mb
-      indices.query.bool.max_clause_count: 2000
-    backup_name: "zammad"
-    backup_server: "{{ restic_backup_server }}"
-    backup_conn_pw: "{{ restic_backup_zammad_conn_pw }}"
-    backup_pw: "{{ restic_backup_zammad_backup_pw }}"
-    backup_script: "backup_directory.sh"
-    backup_dir: "/var/tmp/zammad_backup"
-  roles:
-    - nginx
-    - nginx-tls
-    - nginx-tls-redirect
-    - geerlingguy.java
-    - geerlingguy.elasticsearch
-    - geerlingguy.mailhog
-    - zammad
-    - restic-client
   
