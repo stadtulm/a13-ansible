@@ -10,17 +10,32 @@
   ufw:
     rule: allow
     name: OpenSSH
+
+# https://tomschlick.com/2017/05/24/dealing-with-ufw-chain-already-exists/
+- name: Pause for ufw ... to mitigate hickups
+  pause:
+    seconds: 1
  
 - name: Allow everything out 
   ufw:
     direction: outgoing
     policy: allow
 
+# https://tomschlick.com/2017/05/24/dealing-with-ufw-chain-already-exists/
+- name: Pause for ufw ... to mitigate hickups
+  pause:
+    seconds: 1
+
 - name: Allow default nothing in and enable UFW
   ufw:
     direction: incoming
     policy: deny
     state: enabled
+
+# https://tomschlick.com/2017/05/24/dealing-with-ufw-chain-already-exists/
+- name: Pause for ufw ... to mitigate hickups 
+  pause:
+    seconds: 1
 
 - name: ensure fail2ban uses ufw
   copy:
