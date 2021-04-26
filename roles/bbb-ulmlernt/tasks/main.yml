@@ -84,3 +84,8 @@
     user: root
     job: "bbb-conf --restart"
 
+- name: run bbb-conf --setip <hostname> to ensure no echo test hanging after upgrade
+  become: yes
+  shell:
+    cmd: "bbb-conf --setip {{ inventory_hostname }}"
+    
