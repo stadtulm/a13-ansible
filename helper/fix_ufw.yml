@@ -1,0 +1,11 @@
+---
+- name: restore ufw with iptables / chains errors
+  hosts: all
+  become: yes
+  tasks:
+    - ufw:
+       state: disabled
+    - shell: "iptables -F; iptables -X; ip6tables -F; ip6tables -X"
+    - ufw:
+       state: enabled
+    
