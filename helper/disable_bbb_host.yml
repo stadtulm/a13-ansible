@@ -1,10 +1,9 @@
 ---
+# single use case: ansible-playbook helper/disable_bbb_host.yml --extra-vars "bbb_disabled=xxx.ulmlernt.org"
 - name: Deactivate hosts in scalelite
   hosts: loadbalancer
   become: yes
   become_user: scalelite
-  vars:
-    bbb_disabled: bbb_tok
   tasks:
     - name: remove hosts from scalelite
       shell: |

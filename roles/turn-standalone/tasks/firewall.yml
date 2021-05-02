@@ -15,6 +15,27 @@
     name: letsencrypt
     state: enabled
 
+# https://tomschlick.com/2017/05/24/dealing-with-ufw-chain-already-exists/
+- name: Pause for ufw ... to mitigate hickups
+  pause:
+    seconds: 1
+
+- name: prometheus exporter for coturn
+  copy:
+    content: |
+      [prometheus-turnserver]
+      title=prometheus exporter for coturn 
+      description=exposes coturn mectrics on 9641 
+      ports=9641/tcp
+    mode: 0644
+    dest: /etc/ufw/applications.d/prometheus-turnserver
+
+# https://tomschlick.com/2017/05/24/dealing-with-ufw-chain-already-exists/
+- name: Pause for ufw ... to mitigate hickups
+  pause:
+    seconds: 1
+
+
 - name: adapt coturn ports in ufw
   copy:
     content: |
@@ -30,3 +51,8 @@
     rule: allow
     name: turnserver
     state: enabled
+
+# https://tomschlick.com/2017/05/24/dealing-with-ufw-chain-already-exists/
+- name: Pause for ufw ... to mitigate hickups
+  pause:
+    seconds: 1

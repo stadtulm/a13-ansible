@@ -1,10 +1,9 @@
 ---
-- name: Deactivate hosts in scalelite
+# single use case: ansible-playbook helper/enable_bbb_host.yml --extra-vars "bbb_enabled=xxx.ulmlernt.org"
+- name: Enable hosts in scalelite
   hosts: loadbalancer
   become: yes
   become_user: scalelite
-  vars:
-    bbb_enabled: bbb_tik
   tasks:
     - name: add hosts to scalelite
       shell: |
