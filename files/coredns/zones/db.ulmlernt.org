@@ -1,6 +1,6 @@
 $ORIGIN ulmlernt.org.
 @	3600 IN	SOA ns.ulmlernt.org. noc.ulmlernt.de. (
-				2021050201 ; serial ;;; PLEASE UPDATE THIS AFTER EACH EDIT!
+				2021070801 ; serial ;;; PLEASE UPDATE THIS AFTER EACH EDIT!
 				1800       ; refresh (30 min)
 				1800       ; retry (30 min)
 				86400      ; expire (1 day)
@@ -17,12 +17,6 @@ ns 		IN AAAA	2a01:4f8:c17:af72::1
 
 fsn01	3600	IN	A	195.201.237.77
 fsn01	3600	IN	AAAA	2a01:4f8:c17:af72::1
-
-nbg01	3600	IN	A	88.198.33.197
-nbg01	3600	IN	AAAA	2a01:4f8:a0:22e1::2
-
-nbg02	3600	IN	A	88.198.43.210
-nbg02	3600	IN	AAAA	2a01:4f8:a0:101e::2
 
 fsn02   3600    IN      A       144.76.96.80
 fsn02   3600    IN      AAAA    2a01:4f8:192:314f::2
@@ -42,82 +36,10 @@ fsn06	3600	IN	AAAA	2a01:4f8:201:602e::2
 fsn07	3600	IN	A	148.251.47.101
 fsn07	3600	IN	AAAA	2a01:4f8:202:264::2
 
-fsn08	3600	IN	A	176.9.34.100
-fsn08	3600	IN	AAAA	2a01:4f8:161:35c2::2
-
-fsn09	3600	IN	A	144.76.197.213
-fsn09	3600	IN	AAAA	2a01:4f8:200:73d4::2
-
-fsn12   3600    IN      A       157.90.1.164
-fsn12	3600	IN	AAAA	2a01:4f8:251:295b::2
-
-fsn13   3600    IN      A       157.90.1.162
-fsn13	3600	IN	AAAA	2a01:4f8:251:295d::2
-
-fsn14   3600    IN      A       157.90.1.160
-fsn14	3600	IN	AAAA	2a01:4f8:251:295f::2
-
-fsn15   3600    IN      A       157.90.1.159
-fsn15	3600	IN	AAAA	2a01:4f8:251:2960::2
-
-fsn16   3600    IN      A       157.90.5.124
-fsn16	3600	IN	AAAA	2a01:4f8:251:2cc3::2
-
-nbg03	3600	IN	A	85.10.201.69
-nbg03	3600	IN	AAAA	2a01:4f8:a0:440b::2
-
-fsn17	3600	IN	A	159.69.240.193
-fsn17	3600	IN	AAAA	2a01:4f8:c17:e68e::1
-
-fsn18	3600	IN	A	159.69.119.172
-fsn18	3600	IN	AAAA	2a01:4f8:c17:b60a::1
-
-fsn19	3600	IN	A	159.69.181.101
-fsn19	3600	IN	AAAA	2a01:4f8:c17:e352::1
-
-fsn21	3600	IN	A	188.34.178.6
-
-fsn22	3600	IN	A	188.40.103.115 
-fsn22	3600	IN	AAAA	2a01:4f8:221:274b::2
-
-fsn23	3600	IN	A	148.251.180.190
-fsn23	3600	IN	AAAA	2a01:4f8:211:701::2 	
-
-nbg04	3600	IN	A	213.239.221.44
-nbg04	3600	IN	AAAA	2a01:4f8:a0:71ae::2 	
-
-fsn24	3600	IN	A	136.243.5.35
-fsn24	3600	IN	AAAA	2a01:4f8:211:1ea2::2	
-
-nbg05	3600	IN	A	213.133.100.217
-nbg05	3600	IN	AAAA	2a01:4f8:a0:9148::2
-
-fsn25	3600	IN	A	168.119.77.237
-fsn25	3600	IN	AAAA	2a01:4f8:251:2fcf::2
-
-fsn26	3600	IN	A	168.119.77.223 	
-fsn26	3600	IN	AAAA	2a01:4f8:251:2fdd::2
-
-fsn28	3600	IN	A	116.202.107.191
-
-fsn10	3600	IN	A	144.76.159.37
-fsn10	3600	IN	AAAA	2a01:4f8:200:3224::2
-
 fsn29	3600	IN	A	188.34.190.64
-
-fsn30	3600	IN	A	188.34.190.62
-
-fsn31	3600	IN	A	188.34.190.65
-
-fsn32	3600	IN	A	188.34.190.61
-
-fsn33	3600	IN	A	188.34.190.63
 
 fsn34	3600	IN	A	138.201.118.3
 fsn34	3600	IN	AAAA	2a01:4f8:c17:f692::2
-
-fsn35	3600	IN	A	116.203.255.134
-fsn35	3600	IN	AAAA	2a01:4f8:c17:edcf::2
 
 bck	3600	IN	A	49.12.102.120
 bck	3600	IN	AAAA	2a01:4f8:c17:badd::1
@@ -129,14 +51,4 @@ gl		3600	IN	CNAME	fsn03.ulmlernt.org.
 chat		3600	IN	CNAME	fsn03.ulmlernt.org.
 doku		3600	IN	CNAME	fsn03.ulmlernt.org.
 turn01		3600	IN	CNAME	fsn34.ulmlernt.org.
-turn02		3600	IN	CNAME	fsn35.ulmlernt.org.
-turn03		3600	IN	CNAME	fsn17.ulmlernt.org.
-turn04		3600	IN	CNAME	fsn18.ulmlernt.org.
-turn05		3600	IN	CNAME	fsn19.ulmlernt.org.
 turnipv4only01	3600	IN	CNAME	fsn29.ulmlernt.org.
-turnipv4only02	3600	IN	CNAME	fsn30.ulmlernt.org.
-turnipv4only03	3600	IN	CNAME	fsn31.ulmlernt.org.
-turnipv4only04	3600	IN	CNAME	fsn32.ulmlernt.org.
-turnipv4only05	3600	IN	CNAME	fsn33.ulmlernt.org.
-turntest01		3600	IN	CNAME	fsn21.ulmlernt.org.
-turntest02		3600	IN	CNAME	fsn28.ulmlernt.org.
