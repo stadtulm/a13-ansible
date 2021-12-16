@@ -1,5 +1,10 @@
 # a13-ansible
 
+This repository is no longer maintained.
+Currently (12/2021) maintained ansible roles for BBB can be found here:
+- https://gitlab.com/infra.run
+- https://github.com/ebbba-org/ansible-role-bigbluebutton
+- https://codeberg.org/DigitalSouveraeneSchule/bbb.git
 
 ### Prepare
 
